@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     toggleButtons.forEach(button => {
         button.addEventListener('click', function () {
-            const targetId = this.dataset.target;
+            const targetId = this.dataset.previewTarget;
             const targetContent = document.getElementById(targetId);
 
             if (targetContent) {
