@@ -1,0 +1,9 @@
+- [x] Create project directory
+- [x] Create HTML file (index.html)
+- [x] Create CSS file (style.css)
+- [x] Add HTML structure for profile picture, name, and description
+- [x] Add HTML structure for social media links/buttons
+- [x] Add all provided social media links with appropriate icons/text
+- [x] Test the page locally
+- [ ] Zip the project files
+- [ ] Send the zip file to the user
