@@ -1,0 +1,211 @@
+@charset "UTF-8";
+@import url(print_style.css);
+body {
+  background-color: #1a1a1a;
+  /* Темный фон */
+  color: #e0e0e0;
+  /* Светлый текст */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 20px; }
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  background: #2c2c2c;
+  /* Чуть светлее фон для основного блока */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); }
+
+header {
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid #00bcd4;
+  /* Изменено на cyan/50 */
+  padding-bottom: 20px;
+  margin-bottom: 30px; }
+
+.profile-photo-container {
+  margin-right: 30px; }
+
+.profile-photo {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 3px solid #00bcd4;
+  /* Изменено на cyan/50 */
+  object-fit: cover; }
+
+.header-text h1 {
+  margin: 0;
+  color: #00bcd4;
+  /* Изменено на cyan/50 */
+  font-size: 2.5em; }
+
+.header-text h2 {
+  margin: 0;
+  color: #cccccc;
+  font-size: 1.5em;
+  font-weight: normal; }
+
+section {
+  margin-bottom: 30px; }
+
+section h3 {
+  color: #00bcd4;
+  /* Изменено на cyan/50 */
+  border-bottom: 1px solid #555;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+  font-size: 1.8em; }
+
+/* Стиль для выделенного заголовка секции Опыт работы */
+.highlighted-section-title {
+  color: #00bcd4;
+  /* Изменено на cyan/50 */
+  font-size: 2em;
+  /* Крупнее */
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 2px solid #00bcd4;
+  /* Изменено на cyan/50 */ }
+
+ul {
+  list-style: none;
+  padding-left: 0; }
+
+li {
+  margin-bottom: 8px; }
+
+strong {
+  color: #00bcd4;
+  /* Изменено на cyan/50 */ }
+
+a {
+  color: #00bcd4;
+  /* Изменено на cyan/50 */
+  text-decoration: none; }
+
+a:hover {
+  text-decoration: underline; }
+
+.job-entry, .education-entry, .course-entry, .skills-subsection, .project-subsection {
+  margin-bottom: 20px;
+  padding-left: 15px;
+  border-left: 3px solid #00bcd4;
+  /* Изменено на cyan/50 */ }
+
+.job-entry h4, .education-entry h4, .course-entry h4, .skills-subsection h4, .project-subsection h4 {
+  color: #e0e0e0;
+  margin-top: 0;
+  margin-bottom: 5px;
+  font-size: 1.3em; }
+
+/* Стиль для заголовков типов проектов */
+.project-type-heading {
+  color: #00bcd4;
+  /* Изменено на cyan/50 */
+  font-size: 1.4em;
+  /* Немного крупнее */
+  font-weight: bold;
+  margin-top: 15px;
+  /* Отступ сверху */
+  margin-bottom: 10px;
+  border-left: 4px solid #00bcd4;
+  /* Изменено на cyan/50 */
+  padding-left: 10px; }
+
+.job-duration {
+  font-style: italic;
+  color: #aaaaaa;
+  font-size: 0.9em;
+  margin-bottom: 10px; }
+
+.preview-toggle {
+  background-color: #00bcd4;
+  /* Изменено на cyan/50 */
+  color: #ffffff;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 10px;
+  transition: background-color 0.3s ease; }
+
+.preview-toggle:hover {
+  background-color: #00acc1;
+  /* Немного темнее cyan/50 при наведении */ }
+
+.project-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-top: 10px;
+  border: 2px solid #555; }
+
+.preview-content {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #333333;
+  border-radius: 5px; }
+
+footer {
+  text-align: center;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #555;
+  color: #aaaaaa;
+  font-size: 0.9em; }
+
+/* Стили для печати - будут в отдельном файле print_style.css */
+@media print {
+  body {
+    background-color: #ffffff;
+    color: #000000;
+    padding: 0;
+    font-size: 10pt;
+    /* Уменьшаем шрифт для печати */ }
+  .container {
+    box-shadow: none;
+    margin: 0;
+    max-width: 100%;
+    padding: 10mm;
+    border-radius: 0; }
+  header, section, footer {
+    page-break-inside: avoid; }
+  header {
+    border-bottom: 2px solid #000000; }
+  .profile-photo {
+    border: 3px solid #000000; }
+  .header-text h1, section h3, .highlighted-section-title {
+    color: #000000; }
+  .highlighted-section-title {
+    border-bottom: 2px solid #000000; }
+  .project-type-heading {
+    color: #000000;
+    border-left: 4px solid #000000; }
+  strong {
+    color: #000000;
+    font-weight: bold; }
+  a {
+    color: #000000;
+    text-decoration: none;
+    /* Убираем подчеркивание для печати, если не ссылка на веб */ }
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    /* Показываем URL для веб-ссылок */
+    font-size: 0.8em; }
+  .job-entry, .education-entry, .course-entry, .skills-subsection, .project-subsection {
+    border-left: 3px solid #000000; }
+  .preview-toggle, .preview-content img {
+    display: none;
+    /* Скрываем интерактивные элементы и превью картинок при печати */ }
+  .preview-content {
+    background-color: transparent;
+    /* Убираем фон для превью при печати, если они вдруг останутся */ }
+  footer {
+    border-top: 1px solid #000000;
+    color: #000000; } }

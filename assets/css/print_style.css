@@ -1,0 +1,163 @@
+/* print_style.css */
+@page {
+  size: A4;
+  margin: 20mm;
+  /* Standard A4 margins */ }
+
+body {
+  background-color: #ffffff;
+  /* White background for the PDF page itself */
+  color: #333333;
+  /* Default dark text for print, if not overridden by specific elements */
+  font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+  -webkit-print-color-adjust: exact;
+  /* Ensure background colors and images are printed in WebKit browsers */
+  print-color-adjust: exact;
+  /* Standard property */ }
+
+.container {
+  /* This was .resume-container in the original, assuming it's the main content block */
+  width: 100%;
+  /* Full width within the @page margins */
+  margin: 0 auto;
+  background-color: #2c2c2c;
+  /* Dark background for the content area */
+  color: #e0e0e0;
+  /* Light text on dark background */
+  border: 2px solid #00ffff;
+  /* Cyan border - keep as a design element */
+  /* box-shadow: none; Remove glow for print */
+  border-radius: 0;
+  /* No rounded corners for a full page feel */
+  padding: 15mm;
+  /* Internal padding for the content block */
+  box-sizing: border-box;
+  /* Ensure padding is included in width/height */ }
+
+header {
+  background: #1f1f1f;
+  /* Simpler background for print */
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid #00ffff;
+  color: #e0e0e0; }
+
+.header-content {
+  display: flex;
+  align-items: center;
+  width: 100%; }
+
+.profile-photo {
+  width: 100px;
+  /* Adjusted size for A4 */
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid #00ffff;
+  object-fit: cover;
+  margin-right: 20px; }
+
+.header-text h1 {
+  color: #00ffff;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 24pt;
+  /* Adjusted for A4 */
+  margin: 0 0 5px 0;
+  text-transform: uppercase;
+  letter-spacing: 1.5px; }
+
+.header-text h2 {
+  color: #cccccc;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14pt;
+  /* Adjusted for A4 */
+  margin: 0;
+  font-weight: 400; }
+
+section {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px dashed #555;
+  page-break-inside: avoid;
+  /* Try to keep sections on one page */ }
+
+section:last-child {
+  border-bottom: none; }
+
+section h3 {
+  color: #00ffff;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 16pt;
+  /* Adjusted for A4 */
+  margin-top: 0;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  border-left: 4px solid #00ffff;
+  padding-left: 10px; }
+
+ul, ol {
+  list-style: none;
+  padding-left: 0;
+  color: #e0e0e0; }
+
+li {
+  margin-bottom: 8px; }
+
+strong {
+  color: #00ffff;
+  font-weight: bold; }
+
+p {
+  color: #d0d0d0;
+  font-size: 11pt;
+  /* Standard print size */
+  margin-bottom: 10px; }
+
+a {
+  color: #00ffff;
+  text-decoration: none; }
+
+a:hover {
+  color: #ffffff; }
+
+.job-entry, .education-entry {
+  margin-bottom: 15px;
+  page-break-inside: avoid; }
+
+.job-entry h4, .education-entry h4 {
+  color: #e0e0e0;
+  font-size: 12pt;
+  margin-bottom: 5px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500; }
+
+.job-duration, .education-entry p {
+  color: #b0b0b0;
+  font-style: italic;
+  font-size: 10pt;
+  margin-bottom: 8px; }
+
+/* Ensure lists within sections also have light text */
+#experience ul li, #education ul li, #courses ul li, #skills ul li, #portfolio ul li {
+  color: #d0d0d0; }
+
+#skills h4 {
+  color: #00ffff;
+  /* Section sub-titles in skills */
+  font-size: 12pt;
+  margin-top: 15px;
+  margin-bottom: 8px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500; }
+
+/* Hide web-specific decorative elements if they don't translate well to PDF */
+header::before, section h3::after {
+  display: none; }
+
+/* Force background printing for WeasyPrint */
+* {
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important; }
