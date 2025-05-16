@@ -346,3 +346,15 @@ footer {
   border-top: 1px solid #ddd;
   color: #666;
 }
+
+/* Update skills style to match button style from https://oekrdekz.manus.space/ */
+.skills-subsection h4 {
+  color: #007bff;
+  font-size: 1.2em;
+  margin-top: 15px;
+  margin-bottom: 8px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  border-left: 4px solid #007bff;
+  padding-left: 10px;
+}
