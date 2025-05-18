@@ -23,6 +23,8 @@
   --button-text-color-dark: #ffffff;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700&display=swap');
+
 body {
   background-color: var(--background-color-dark); /* Темный фон */
   color: var(--text-color-dark); /* Светлый текст */
@@ -65,6 +67,8 @@ header {
   margin: 0;
   color: var(--primary-color-dark); /* Изменено на cyan/50 */
   font-size: 2.5em;
+  font-family: 'Press Start 2P', cursive;
+  text-shadow: 0 0 10px var(--primary-color-dark);
 }
 
 .header-text h2 {
@@ -72,6 +76,8 @@ header {
   color: var(--secondary-color-dark);
   font-size: 1.5em;
   font-weight: normal;
+  font-family: 'Orbitron', sans-serif;
+  text-shadow: 0 0 5px var(--secondary-color-dark);
 }
 
 section {
@@ -84,6 +90,8 @@ section h3 {
   padding-bottom: 10px;
   margin-bottom: 15px;
   font-size: 1.8em;
+  font-family: 'Orbitron', sans-serif;
+  text-shadow: 0 0 5px var(--primary-color-dark);
 }
 
 /* Стиль для выделенного заголовка секции Опыт работы */
@@ -93,6 +101,8 @@ section h3 {
   text-transform: uppercase;
   letter-spacing: 1px;
   border-bottom: 2px solid var(--primary-color-dark); /* Изменено на cyan/50 */
+  font-family: 'Orbitron', sans-serif;
+  text-shadow: 0 0 5px var(--primary-color-dark);
 }
 
 ul {
@@ -114,7 +124,8 @@ a {
 }
 
 a:hover {
-  text-decoration: underline;
+  color: #ffffff; /* Change text color */
+  text-decoration: underline; /* Add underline */
 }
 
 .job-entry, .education-entry, .course-entry, .skills-subsection, .project-subsection {
@@ -170,6 +181,12 @@ a:hover {
   border-radius: 8px;
   margin-top: 10px;
   border: 2px solid var(--border-color-dark);
+}
+
+.profile-photo:hover {
+  border: 3px solid #00bcd4; /* Add border */
+  transform: scale(1.05); /* Scale image */
+  transition: transform 0.3s ease; /* Smooth transition */
 }
 
 .preview-content {
