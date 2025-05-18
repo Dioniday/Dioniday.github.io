@@ -17,4 +17,18 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     });
+
+    // Theme switching code
+    const themeSwitcher = document.getElementById('theme-switcher');
+    const currentTheme = localStorage.getItem('theme') || 'dark';
+
+    if (currentTheme === 'light') {
+        document.body.classList.add('light-theme');
+    }
+
+    themeSwitcher.addEventListener('click', function () {
+        document.body.classList.toggle('light-theme');
+        const theme = document.body.classList.contains('light-theme') ? 'light' : 'dark';
+        localStorage.setItem('theme', theme);
+    });
 });

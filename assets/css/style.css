@@ -1,8 +1,31 @@
 @charset "UTF-8";
 @import 'print_style.css';
+
+/* CSS variables for light and dark themes */
+:root {
+  --background-color-light: #f4f4f9;
+  --background-color-dark: #1a1a1a;
+  --text-color-light: #333;
+  --text-color-dark: #e0e0e0;
+  --primary-color-light: #007bff;
+  --primary-color-dark: #00bcd4;
+  --secondary-color-light: #666;
+  --secondary-color-dark: #cccccc;
+  --border-color-light: #ddd;
+  --border-color-dark: #555;
+  --highlight-color-light: #007bff;
+  --highlight-color-dark: #00bcd4;
+  --button-background-light: #007bff;
+  --button-background-dark: #00bcd4;
+  --button-hover-background-light: #0056b3;
+  --button-hover-background-dark: #00acc1;
+  --button-text-color-light: #fff;
+  --button-text-color-dark: #ffffff;
+}
+
 body {
-  background-color: #1a1a1a; /* Темный фон */
-  color: #e0e0e0; /* Светлый текст */
+  background-color: var(--background-color-dark); /* Темный фон */
+  color: var(--text-color-dark); /* Светлый текст */
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.6;
   margin: 0;
@@ -12,7 +35,7 @@ body {
 .container {
   max-width: 900px;
   margin: auto;
-  background: #2c2c2c; /* Чуть светлее фон для основного блока */
+  background: var(--background-color-dark); /* Чуть светлее фон для основного блока */
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
@@ -21,7 +44,7 @@ body {
 header {
   display: flex;
   align-items: center;
-  border-bottom: 2px solid #00bcd4; /* Изменено на cyan/50 */
+  border-bottom: 2px solid var(--primary-color-dark); /* Изменено на cyan/50 */
   padding-bottom: 20px;
   margin-bottom: 30px;
 }
@@ -34,19 +57,19 @@ header {
   width: 150px;
   height: 150px;
   border-radius: 50%;
-  border: 3px solid #00bcd4; /* Изменено на cyan/50 */
+  border: 3px solid var(--primary-color-dark); /* Изменено на cyan/50 */
   object-fit: cover;
 }
 
 .header-text h1 {
   margin: 0;
-  color: #00bcd4; /* Изменено на cyan/50 */
+  color: var(--primary-color-dark); /* Изменено на cyan/50 */
   font-size: 2.5em;
 }
 
 .header-text h2 {
   margin: 0;
-  color: #cccccc;
+  color: var(--secondary-color-dark);
   font-size: 1.5em;
   font-weight: normal;
 }
@@ -56,8 +79,8 @@ section {
 }
 
 section h3 {
-  color: #00bcd4; /* Изменено на cyan/50 */
-  border-bottom: 1px solid #555;
+  color: var(--primary-color-dark); /* Изменено на cyan/50 */
+  border-bottom: 1px solid var(--border-color-dark);
   padding-bottom: 10px;
   margin-bottom: 15px;
   font-size: 1.8em;
@@ -65,11 +88,11 @@ section h3 {
 
 /* Стиль для выделенного заголовка секции Опыт работы */
 .highlighted-section-title {
-  color: #00bcd4; /* Изменено на cyan/50 */
+  color: var(--primary-color-dark); /* Изменено на cyan/50 */
   font-size: 2em; /* Крупнее */
   text-transform: uppercase;
   letter-spacing: 1px;
-  border-bottom: 2px solid #00bcd4; /* Изменено на cyan/50 */
+  border-bottom: 2px solid var(--primary-color-dark); /* Изменено на cyan/50 */
 }
 
 ul {
@@ -82,11 +105,11 @@ li {
 }
 
 strong {
-  color: #00bcd4; /* Изменено на cyan/50 */
+  color: var(--primary-color-dark); /* Изменено на cyan/50 */
 }
 
 a {
-  color: #00bcd4; /* Изменено на cyan/50 */
+  color: var(--primary-color-dark); /* Изменено на cyan/50 */
   text-decoration: none;
 }
 
@@ -97,11 +120,11 @@ a:hover {
 .job-entry, .education-entry, .course-entry, .skills-subsection, .project-subsection {
   margin-bottom: 20px;
   padding-left: 15px;
-  border-left: 3px solid #00bcd4; /* Изменено на cyan/50 */
+  border-left: 3px solid var(--primary-color-dark); /* Изменено на cyan/50 */
 }
 
 .job-entry h4, .education-entry h4, .course-entry h4, .skills-subsection h4, .project-subsection h4 {
-  color: #e0e0e0;
+  color: var(--text-color-dark);
   margin-top: 0;
   margin-bottom: 5px;
   font-size: 1.3em;
@@ -109,12 +132,12 @@ a:hover {
 
 /* Стиль для заголовков типов проектов */
 .project-type-heading {
-  color: #00bcd4; /* Изменено на cyan/50 */
+  color: var(--primary-color-dark); /* Изменено на cyan/50 */
   font-size: 1.4em; /* Немного крупнее */
   font-weight: bold;
   margin-top: 15px; /* Отступ сверху */
   margin-bottom: 10px;
-  border-left: 4px solid #00bcd4; /* Изменено на cyan/50 */
+  border-left: 4px solid var(--primary-color-dark); /* Изменено на cyan/50 */
   padding-left: 10px;
 }
 
@@ -126,8 +149,8 @@ a:hover {
 }
 
 .preview-toggle {
-  background-color: #00bcd4; /* Изменено на cyan/50 */
-  color: #ffffff;
+  background-color: var(--button-background-dark); /* Изменено на cyan/50 */
+  color: var(--button-text-color-dark);
   border: none;
   padding: 8px 15px;
   border-radius: 5px;
@@ -138,7 +161,7 @@ a:hover {
 }
 
 .preview-toggle:hover {
-  background-color: #00acc1; /* Немного темнее cyan/50 при наведении */
+  background-color: var(--button-hover-background-dark); /* Немного темнее cyan/50 при наведении */
 }
 
 .project-image {
@@ -146,7 +169,7 @@ a:hover {
   height: auto;
   border-radius: 8px;
   margin-top: 10px;
-  border: 2px solid #555;
+  border: 2px solid var(--border-color-dark);
 }
 
 .preview-content {
@@ -160,7 +183,7 @@ footer {
   text-align: center;
   margin-top: 40px;
   padding-top: 20px;
-  border-top: 1px solid #555;
+  border-top: 1px solid var(--border-color-dark);
   color: #aaaaaa;
   font-size: 0.9em;
 }
@@ -284,77 +307,94 @@ footer {
 /* Update styles to match the styles from https://oekrdekz.manus.space/ */
 body {
   font-family: 'Roboto', sans-serif;
-  background-color: #f4f4f9;
-  color: #333;
+  background-color: var(--background-color-light);
+  color: var(--text-color-light);
 }
 
 .container {
-  background-color: #fff;
-  border: 1px solid #ddd;
+  background-color: var(--background-color-light);
+  border: 1px solid var(--border-color-light);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 header {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--border-color-light);
 }
 
 .header-text h1 {
-  color: #333;
+  color: var(--text-color-light);
 }
 
 .header-text h2 {
-  color: #666;
+  color: var(--secondary-color-light);
 }
 
 section h3 {
-  color: #333;
-  border-bottom: 1px solid #ddd;
+  color: var(--text-color-light);
+  border-bottom: 1px solid var(--border-color-light);
 }
 
 .highlighted-section-title {
-  color: #333;
-  border-bottom: 1px solid #ddd;
+  color: var(--text-color-light);
+  border-bottom: 1px solid var(--border-color-light);
 }
 
 .project-type-heading {
-  color: #333;
-  border-left: 4px solid #ddd;
+  color: var(--text-color-light);
+  border-left: 4px solid var(--border-color-light);
 }
 
 strong {
-  color: #333;
+  color: var(--text-color-light);
 }
 
 a {
-  color: #007bff;
+  color: var(--highlight-color-light);
 }
 
 a:hover {
-  color: #0056b3;
+  color: var(--button-hover-background-light);
 }
 
 .preview-toggle {
-  background-color: #007bff;
-  color: #fff;
+  background-color: var(--button-background-light);
+  color: var(--button-text-color-light);
 }
 
 .preview-toggle:hover {
-  background-color: #0056b3;
+  background-color: var(--button-hover-background-light);
 }
 
 footer {
-  border-top: 1px solid #ddd;
-  color: #666;
+  border-top: 1px solid var(--border-color-light);
+  color: var(--secondary-color-light);
 }
 
 /* Update skills style to match button style from https://oekrdekz.manus.space/ */
 .skills-subsection h4 {
-  color: #007bff;
+  color: var(--highlight-color-light);
   font-size: 1.2em;
   margin-top: 15px;
   margin-bottom: 8px;
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
-  border-left: 4px solid #007bff;
+  border-left: 4px solid var(--highlight-color-light);
   padding-left: 10px;
+}
+
+/* Styles for the theme switch button */
+#theme-switcher {
+  background-color: var(--button-background-light);
+  color: var(--button-text-color-light);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-left: auto;
+  transition: background-color 0.3s ease;
+}
+
+#theme-switcher:hover {
+  background-color: var(--button-hover-background-light);
 }
