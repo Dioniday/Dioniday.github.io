@@ -1,6 +1,5 @@
 @import 'print_style.css';
 
-update-dark-theme
 /* CSS variables for light and dark themes */
 :root {
   --background-color-light: #f4f4f9;
@@ -49,6 +48,7 @@ header {
     border-bottom: 2px solid #00bcd4; /* Изменено на cyan/50 */
     padding-bottom: 20px;
     margin-bottom: 30px;
+    background: linear-gradient(102.66deg, #0D0D0D 0%, #1F1F1F 100%); /* P327e */
 }
 
 .profile-photo-container {
@@ -61,6 +61,7 @@ header {
     border-radius: 50%;
     border: 3px solid #00bcd4; /* Изменено на cyan/50 */
     object-fit: cover;
+    opacity: 0.5; /* P7a20 */
 }
 
 .header-text h1 {
@@ -78,6 +79,8 @@ header {
 
 section {
     margin-bottom: 30px;
+    padding: 20px 30px 62px; /* P38b0 */
+    gap: 20.01px; /* P38b0 */
 }
 
 section h3 {
@@ -169,7 +172,6 @@ a:hover {
 }
 
 .project-image {
-  <<<<<<< update-dark-theme
   max-width: 100%;
   height: auto;
   border-radius: 8px;
@@ -198,6 +200,8 @@ footer {
     border-top: 1px solid #555;
     color: #aaaaaa;
     font-size: 0.9em;
+    background: #0D0D0D; /* Pe705 */
+    border-top: 1px solid #444444; /* Pe705 */
 }
 
 /* Стили для печати - будут в отдельном файле print_style.css */
