@@ -1,5 +1,30 @@
 @import 'print_style.css';
 
+update-dark-theme
+/* CSS variables for light and dark themes */
+:root {
+  --background-color-light: #f4f4f9;
+  --background-color-dark: #1a1a1a;
+  --text-color-light: #333;
+  --text-color-dark: #e0e0e0;
+  --primary-color-light: #007bff;
+  --primary-color-dark: #00ffff;
+  --secondary-color-light: #666;
+  --secondary-color-dark: #cccccc;
+  --border-color-light: #ddd;
+  --border-color-dark: #555;
+  --highlight-color-light: #007bff;
+  --highlight-color-dark: #00ffff;
+  --button-background-light: #007bff;
+  --button-background-dark: #00ffff;
+  --button-hover-background-light: #0056b3;
+  --button-hover-background-dark: #00acc1;
+  --button-text-color-light: #fff;
+  --button-text-color-dark: #ffffff;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700&display=swap');
+
 body {
     background-color: #1a1a1a; /* Темный фон */
     color: #e0e0e0; /* Светлый текст */
@@ -144,11 +169,19 @@ a:hover {
 }
 
 .project-image {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    margin-top: 10px;
-    border: 2px solid #555;
+  <<<<<<< update-dark-theme
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-top: 10px;
+  border: 2px solid var(--border-color-dark);
+}
+
+.profile-photo:hover {
+  border: 3px solid #00ffff; /* Add border */
+  transform: scale(1.05); /* Scale image */
+  transition: transform 0.3s ease; /* Smooth transition */
+
 }
 
 .preview-content {
@@ -169,61 +202,211 @@ footer {
 
 /* Стили для печати - будут в отдельном файле print_style.css */
 @media print {
-    body {
-        background-color: #ffffff;
-        color: #000000;
-        padding: 0;
-        font-size: 10pt; /* Уменьшаем шрифт для печати */
-    }
-    .container {
-        box-shadow: none;
-        margin: 0;
-        max-width: 100%;
-        padding: 10mm;
-        border-radius: 0;
-    }
-    header, section, footer {
-        page-break-inside: avoid;
-    }
-    header {
-        border-bottom: 2px solid #000000;
-    }
-    .profile-photo {
-        border: 3px solid #000000;
-    }
-    .header-text h1, section h3, .highlighted-section-title {
-        color: #000000;
-    }
-     .highlighted-section-title {
-        border-bottom: 2px solid #000000;
-    }
-    .project-type-heading {
-        color: #000000;
-        border-left: 4px solid #000000;
-    }
-    strong {
-        color: #000000;
-        font-weight: bold;
-    }
-    a {
-        color: #000000;
-        text-decoration: none; /* Убираем подчеркивание для печати, если не ссылка на веб */
-    }
-    a[href^="http"]::after {
-        content: " (" attr(href) ")"; /* Показываем URL для веб-ссылок */
-        font-size: 0.8em;
-    }
-    .job-entry, .education-entry, .course-entry, .skills-subsection, .project-subsection {
-        border-left: 3px solid #000000;
-    }
-    .preview-toggle, .preview-content img {
-        display: none; /* Скрываем интерактивные элементы и превью картинок при печати */
-    }
-    .preview-content {
-        background-color: transparent; /* Убираем фон для превью при печати, если они вдруг останутся */
-    }
-    footer {
-        border-top: 1px solid #000000;
-        color: #000000;
-    }
+  body {
+    background-color: #ffffff;
+    color: #000000;
+    padding: 0;
+    font-size: 10pt; /* Уменьшаем шрифт для печати */
+  }
+  .container {
+    box-shadow: none;
+    margin: 0;
+    max-width: 100%;
+    padding: 10mm;
+    border-radius: 0;
+  }
+  header, section, footer {
+    page-break-inside: avoid;
+  }
+  header {
+    border-bottom: 2px solid #000000;
+  }
+  .profile-photo {
+    border: 3px solid #000000;
+  }
+  .header-text h1, section h3, .highlighted-section-title {
+    color: #000000;
+  }
+  .highlighted-section-title {
+    border-bottom: 2px solid #000000;
+  }
+  .project-type-heading {
+    color: #000000;
+    border-left: 4px solid #000000;
+  }
+  strong {
+    color: #000000;
+    font-weight: bold;
+  }
+  a {
+    color: #000000;
+    text-decoration: none; /* Убираем подчеркивание для печати, если не ссылка на веб */
+  }
+  a[href^=http]::after {
+    content: " (" attr(href) ")"; /* Показываем URL для веб-ссылок */
+    font-size: 0.8em;
+  }
+  .job-entry, .education-entry, .course-entry, .skills-subsection, .project-subsection {
+    border-left: 3px solid #000000;
+  }
+  .preview-toggle, .preview-content img {
+    display: none; /* Скрываем интерактивные элементы и превью картинок при печати */
+  }
+  .preview-content {
+    background-color: transparent; /* Убираем фон для превью при печати, если они вдруг останутся */
+  }
+  footer {
+    border-top: 1px solid #000000;
+    color: #000000;
+  }
+}
+
+/* Media queries for better mobile optimization */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+  .container {
+    padding: 20px;
+  }
+  .header-text h1 {
+    font-size: 2em;
+  }
+  .header-text h2 {
+    font-size: 1.2em;
+  }
+  section h3 {
+    font-size: 1.5em;
+  }
+  .highlighted-section-title {
+    font-size: 1.8em;
+  }
+  .project-type-heading {
+    font-size: 1.2em;
+  }
+  .job-entry h4, .education-entry h4, .course-entry h4, .skills-subsection h4, .project-subsection h4 {
+    font-size: 1.1em;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 5px;
+  }
+  .container {
+    padding: 15px;
+  }
+  .header-text h1 {
+    font-size: 1.8em;
+  }
+  .header-text h2 {
+    font-size: 1em;
+  }
+  section h3 {
+    font-size: 1.2em;
+  }
+  .highlighted-section-title {
+    font-size: 1.5em;
+  }
+  .project-type-heading {
+    font-size: 1em;
+  }
+  .job-entry h4, .education-entry h4, .course-entry h4, .skills-subsection h4, .project-subsection h4 {
+    font-size: 1em;
+  }
+}
+
+/* Update styles to match the styles from https://oekrdekz.manus.space/ */
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--background-color-dark);
+  color: var(--text-color-dark);
+}
+
+.container {
+  background-color: var(--background-color-dark);
+  border: 1px solid var(--primary-color-dark);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header {
+  border-bottom: 1px solid var(--primary-color-dark);
+}
+
+.header-text h1 {
+  color: var(--text-color-dark);
+}
+
+.header-text h2 {
+  color: var(--secondary-color-dark);
+}
+
+section h3 {
+  color: var(--text-color-dark);
+  border-bottom: 1px solid var(--primary-color-dark);
+}
+
+.highlighted-section-title {
+  color: var(--text-color-dark);
+  border-bottom: 1px solid var(--primary-color-dark);
+}
+
+.project-type-heading {
+  color: var(--text-color-dark);
+  border-left: 4px solid var(--primary-color-dark);
+}
+
+strong {
+  color: var(--text-color-dark);
+}
+
+a {
+  color: var(--primary-color-dark);
+}
+
+a:hover {
+  color: var(--button-hover-background-dark);
+}
+
+.preview-toggle {
+  background-color: var(--button-background-dark);
+  color: var(--button-text-color-dark);
+}
+
+.preview-toggle:hover {
+  background-color: var(--button-hover-background-dark);
+}
+
+footer {
+  border-top: 1px solid var(--primary-color-dark);
+  color: var(--secondary-color-dark);
+}
+
+/* Update skills style to match button style from https://oekrdekz.manus.space/ */
+.skills-subsection h4 {
+  color: var(--primary-color-dark);
+  font-size: 1.2em;
+  margin-top: 15px;
+  margin-bottom: 8px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  border-left: 4px solid var(--primary-color-dark);
+  padding-left: 10px;
+}
+
+/* Styles for the theme switch button */
+#theme-switcher {
+  background-color: var(--button-background-dark);
+  color: var(--button-text-color-dark);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-left: auto;
+  transition: background-color 0.3s ease;
+}
+
+#theme-switcher:hover {
+  background-color: var(--button-hover-background-dark);
 }
