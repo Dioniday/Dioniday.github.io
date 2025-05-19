@@ -8,15 +8,15 @@
   --text-color-light: #333;
   --text-color-dark: #e0e0e0;
   --primary-color-light: #007bff;
-  --primary-color-dark: #00bcd4;
+  --primary-color-dark: #00ffff;
   --secondary-color-light: #666;
   --secondary-color-dark: #cccccc;
   --border-color-light: #ddd;
   --border-color-dark: #555;
   --highlight-color-light: #007bff;
-  --highlight-color-dark: #00bcd4;
+  --highlight-color-dark: #00ffff;
   --button-background-light: #007bff;
-  --button-background-dark: #00bcd4;
+  --button-background-dark: #00ffff;
   --button-hover-background-light: #0056b3;
   --button-hover-background-dark: #00acc1;
   --button-text-color-light: #fff;
@@ -202,7 +202,7 @@ a:hover {
 }
 
 .profile-photo:hover {
-  border: 3px solid #00bcd4; /* Add border */
+  border: 3px solid #00ffff; /* Add border */
   transform: scale(1.05); /* Scale image */
   transition: transform 0.3s ease; /* Smooth transition */
 }
@@ -342,85 +342,85 @@ footer {
 /* Update styles to match the styles from https://oekrdekz.manus.space/ */
 body {
   font-family: 'Roboto', sans-serif;
-  background-color: var(--background-color-light);
-  color: var(--text-color-light);
+  background-color: var(--background-color-dark);
+  color: var(--text-color-dark);
 }
 
 .container {
-  background-color: var(--background-color-light);
-  border: 1px solid var(--border-color-light);
+  background-color: var(--background-color-dark);
+  border: 1px solid var(--primary-color-dark);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 header {
-  border-bottom: 1px solid var(--border-color-light);
+  border-bottom: 1px solid var(--primary-color-dark);
 }
 
 .header-text h1 {
-  color: var(--text-color-light);
+  color: var(--text-color-dark);
 }
 
 .header-text h2 {
-  color: var(--secondary-color-light);
+  color: var(--secondary-color-dark);
 }
 
 section h3 {
-  color: var(--text-color-light);
-  border-bottom: 1px solid var(--border-color-light);
+  color: var(--text-color-dark);
+  border-bottom: 1px solid var(--primary-color-dark);
 }
 
 .highlighted-section-title {
-  color: var(--text-color-light);
-  border-bottom: 1px solid var(--border-color-light);
+  color: var(--text-color-dark);
+  border-bottom: 1px solid var(--primary-color-dark);
 }
 
 .project-type-heading {
-  color: var(--text-color-light);
-  border-left: 4px solid var(--border-color-light);
+  color: var(--text-color-dark);
+  border-left: 4px solid var(--primary-color-dark);
 }
 
 strong {
-  color: var(--text-color-light);
+  color: var(--text-color-dark);
 }
 
 a {
-  color: var(--highlight-color-light);
+  color: var(--primary-color-dark);
 }
 
 a:hover {
-  color: var(--button-hover-background-light);
+  color: var(--button-hover-background-dark);
 }
 
 .preview-toggle {
-  background-color: var(--button-background-light);
-  color: var(--button-text-color-light);
+  background-color: var(--button-background-dark);
+  color: var(--button-text-color-dark);
 }
 
 .preview-toggle:hover {
-  background-color: var(--button-hover-background-light);
+  background-color: var(--button-hover-background-dark);
 }
 
 footer {
-  border-top: 1px solid var(--border-color-light);
-  color: var(--secondary-color-light);
+  border-top: 1px solid var(--primary-color-dark);
+  color: var(--secondary-color-dark);
 }
 
 /* Update skills style to match button style from https://oekrdekz.manus.space/ */
 .skills-subsection h4 {
-  color: var(--highlight-color-light);
+  color: var(--primary-color-dark);
   font-size: 1.2em;
   margin-top: 15px;
   margin-bottom: 8px;
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
-  border-left: 4px solid var(--highlight-color-light);
+  border-left: 4px solid var(--primary-color-dark);
   padding-left: 10px;
 }
 
 /* Styles for the theme switch button */
 #theme-switcher {
-  background-color: var(--button-background-light);
-  color: var(--button-text-color-light);
+  background-color: var(--button-background-dark);
+  color: var(--button-text-color-dark);
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
@@ -431,5 +431,5 @@ footer {
 }
 
 #theme-switcher:hover {
-  background-color: var(--button-hover-background-light);
+  background-color: var(--button-hover-background-dark);
 }
