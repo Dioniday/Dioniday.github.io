@@ -1,33 +1,23 @@
 @import 'print_style.css';
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
-/* CSS variables for light and dark themes */
+/* CSS variables for light theme */
 :root {
-  --background-color-light: #f4f4f9;
-  --background-color-dark: #1a1a1a;
-  --text-color-light: #333;
-  --text-color-dark: #e0e0e0;
-  --primary-color-light: #007bff;
-  --primary-color-dark: #00ffff;
-  --secondary-color-light: #666;
-  --secondary-color-dark: #cccccc;
-  --border-color-light: #ddd;
-  --border-color-dark: #555;
-  --highlight-color-light: #007bff;
-  --highlight-color-dark: #00ffff;
-  --button-background-light: #007bff;
-  --button-background-dark: #00ffff;
-  --button-hover-background-light: #0056b3;
-  --button-hover-background-dark: #00acc1;
-  --button-text-color-light: #fff;
-  --button-text-color-dark: #ffffff;
+  --background-color: #ffffff; /* White background */
+  --secondary-background-color: #f8f9fa; /* Light gray for subtle contrast */
+  --text-color: #212529; /* Dark gray/black for text */
+  --primary-color: #007bff; /* Professional blue for accents */
+  --secondary-color: #6c757d; /* Muted gray for secondary text */
+  --border-color: #dee2e6; /* Light gray for borders */
+  --button-background-color: #007bff;
+  --button-hover-background-color: #0056b3;
+  --button-text-color: #ffffff;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700&display=swap');
-
 body {
-    background-color: var(--background-color-dark); /* Темный фон */
-    color: var(--text-color-dark); /* Светлый текст */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: 'Roboto', Arial, sans-serif;
     line-height: 1.6;
     margin: 0;
     padding: 20px;
@@ -36,19 +26,19 @@ body {
 .container {
     max-width: 900px;
     margin: auto;
-    background: var(--background-color-dark); /* Чуть светлее фон для основного блока */
+    background: var(--background-color);
     padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    border-radius: 8px; /* Slightly softer radius */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* Softer shadow */
 }
 
 header {
     display: flex;
     align-items: center;
-    border-bottom: 2px solid var(--primary-color-dark); /* Изменено на cyan/50 */
+    border-bottom: 1px solid var(--border-color);
     padding-bottom: 20px;
     margin-bottom: 30px;
-    background: linear-gradient(102.66deg, #0D0D0D 0%, #1F1F1F 100%); /* P327e */
+    background: none; /* Removed gradient */
 }
 
 .profile-photo-container {
@@ -56,50 +46,63 @@ header {
 }
 
 .profile-photo {
-    width: 150px;
-    height: 150px;
+    width: 120px; /* Adjusted size */
+    height: 120px; /* Adjusted size */
     border-radius: 50%;
-    border: 3px solid var(--primary-color-dark); /* Изменено на cyan/50 */
+    border: 3px solid var(--border-color);
     object-fit: cover;
-    opacity: 0.5; /* P7a20 */
+    opacity: 1; /* Removed opacity */
+}
+
+.profile-photo:hover {
+  border-color: var(--primary-color); /* Accent color on hover */
+  transform: scale(1.05);
+  transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
 .header-text h1 {
     margin: 0;
-    color: var(--primary-color-dark); /* Изменено на cyan/50 */
-    font-size: 2.5em;
+    color: var(--text-color); /* Standard text color */
+    font-size: 2.2em; /* Adjusted size */
+    font-weight: 700; /* Bold for name */
+    font-family: 'Roboto', Arial, sans-serif; /* Standard font */
+}
+.header-text h1 a {
+    color: var(--text-color);
+    text-decoration: none;
 }
 
 .header-text h2 {
     margin: 0;
-    color: var(--secondary-color-dark);
-    font-size: 1.5em;
-    font-weight: normal;
+    color: var(--secondary-color); /* Muted secondary color */
+    font-size: 1.3em; /* Adjusted size */
+    font-weight: 400; /* Normal weight */
+    font-family: 'Roboto', Arial, sans-serif; /* Standard font */
 }
 
 section {
-    margin-bottom: 30px;
-    padding: 20px 30px 62px; /* P38b0 */
-    gap: 20.01px; /* P38b0 */
+    margin-bottom: 25px; /* Adjusted spacing */
+    padding: 0; /* Removed section padding, rely on container and element margins */
 }
 
-section h3 {
-    color: var(--primary-color-dark); /* Изменено на cyan/50 */
-    border-bottom: 1px solid #555;
-    padding-bottom: 10px;
-    margin-bottom: 15px;
-    font-size: 1.8em;
+section h3 { /* General style for section titles */
+    color: var(--text-color);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 8px;
+    margin-bottom: 20px; /* Increased space after title */
+    font-size: 1.6em; /* Adjusted size */
+    font-weight: 500; /* Medium weight */
+    font-family: 'Roboto', Arial, sans-serif;
 }
 
-/* Стиль для выделенного заголовка секции Опыт работы */
-.highlighted-section-title {
-    color: var(--primary-color-dark); /* Изменено на cyan/50 */
-    font-size: 2em; /* Крупнее */
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border-bottom: 2px solid var(--primary-color-dark); /* Изменено на cyan/50 */
+.highlighted-section-title { /* Specific for "Опыт работы" */
+    color: var(--primary-color); /* Accent color */
+    font-size: 1.7em; /* Slightly larger */
+    text-transform: none; /* Removed uppercase */
+    letter-spacing: 0; /* Removed letter-spacing */
+    border-bottom: 2px solid var(--primary-color); /* Accent border */
+    font-weight: 500;
 }
-
 
 ul {
     list-style: none;
@@ -107,168 +110,132 @@ ul {
 }
 
 li {
-    margin-bottom: 8px;
+    margin-bottom: 10px; /* Increased spacing for list items */
 }
 
 strong {
-    color: var(--primary-color-dark); /* Изменено на cyan/50 */
+    color: var(--text-color); /* Standard text color, rely on font-weight */
+    font-weight: 500; /* Medium weight for emphasis */
 }
 
 a {
-    color: var(--primary-color-dark); /* Изменено на cyan/50 */
+    color: var(--primary-color);
     text-decoration: none;
 }
 
 a:hover {
     text-decoration: underline;
+    color: var(--button-hover-background-color);
 }
 
 .job-entry, .education-entry, .course-entry, .skills-subsection, .project-subsection {
     margin-bottom: 20px;
-    padding-left: 15px;
-    border-left: 3px solid var(--primary-color-dark); /* Изменено на cyan/50 */
+    padding-left: 20px; /* Indentation for structure */
+    border-left: 2px solid var(--primary-color); /* Accent border */
 }
+.job-entry:last-child, .education-entry:last-child, .course-entry:last-child, .skills-subsection:last-child, .project-subsection:last-child {
+    margin-bottom: 0;
+}
+
 
 .job-entry h4, .education-entry h4, .course-entry h4, .skills-subsection h4, .project-subsection h4 {
-    color: var(--text-color-dark);
+    color: var(--text-color);
     margin-top: 0;
     margin-bottom: 5px;
-    font-size: 1.3em;
+    font-size: 1.15em; /* Adjusted size */
+    font-weight: 500; /* Medium weight */
 }
 
-/* Стиль для заголовков типов проектов */
-.project-type-heading {
-    color: var(--primary-color-dark); /* Изменено на cyan/50 */
-    font-size: 1.4em; /* Немного крупнее */
-    font-weight: bold;
-    margin-top: 15px; /* Отступ сверху */
+.project-type-heading { /* For sub-headings within Experience */
+    color: var(--text-color);
+    font-size: 1.1em;
+    font-weight: 500; /* Medium weight */
+    margin-top: 15px;
     margin-bottom: 10px;
-    border-left: 4px solid var(--primary-color-dark); /* Изменено на cyan/50 */
-    padding-left: 10px;
+    border-left: none; /* Removed its own border, relies on parent .project-subsection border */
+    padding-left: 0;
 }
-
 
 .job-duration {
-    font-style: italic;
-    color: #aaaaaa;
+    font-style: normal; /* Removed italic */
+    color: var(--secondary-color);
     font-size: 0.9em;
     margin-bottom: 10px;
 }
 
 .preview-toggle {
-    background-color: var(--button-background-dark); /* Изменено на cyan/50 */
-    color: var(--button-text-color-dark);
+    background-color: var(--button-background-color);
+    color: var(--button-text-color);
     border: none;
     padding: 8px 15px;
-    border-radius: 5px;
+    border-radius: 4px; /* Standard radius */
     cursor: pointer;
-    font-weight: bold;
+    font-weight: 500; /* Medium weight */
     margin-top: 10px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.2s ease-in-out;
+    font-size: 0.9em;
 }
 
 .preview-toggle:hover {
-    background-color: var(--button-hover-background-dark); /* Немного темнее cyan/50 при наведении */
+    background-color: var(--button-hover-background-color);
 }
 
 .project-image {
   max-width: 100%;
   height: auto;
-  border-radius: 8px;
+  border-radius: 4px;
   margin-top: 10px;
-  border: 2px solid var(--border-color-dark);
-}
-
-.profile-photo:hover {
-  border: 3px solid var(--primary-color-dark); /* Add border */
-  transform: scale(1.05); /* Scale image */
-  transition: transform 0.3s ease; /* Smooth transition */
-
+  border: 1px solid var(--border-color);
 }
 
 .preview-content {
     margin-top: 10px;
-    padding: 10px;
-    background-color: #333333;
-    border-radius: 5px;
+    padding: 15px; /* Increased padding */
+    background-color: var(--secondary-background-color); /* Light gray background */
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
 }
 
 footer {
     text-align: center;
-    margin-top: 40px;
-    padding-top: 20px;
-    border-top: 1px solid #555;
-    color: #aaaaaa;
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px solid var(--border-color);
+    color: var(--secondary-color);
     font-size: 0.9em;
-    background: #0D0D0D; /* Pe705 */
-    border-top: 1px solid #444444; /* Pe705 */
+    background: none; /* Removed dark background */
 }
 
-/* Стили для печати - будут в отдельном файле print_style.css */
-@media print {
-  body {
-    background-color: #ffffff;
-    color: #000000;
-    padding: 0;
-    font-size: 10pt; /* Уменьшаем шрифт для печати */
-  }
-  .container {
-    box-shadow: none;
-    margin: 0;
-    max-width: 100%;
-    padding: 10mm;
-    border-radius: 0;
-  }
-  header, section, footer {
-    page-break-inside: avoid;
-  }
-  header {
-    border-bottom: 2px solid #000000;
-  }
-  .profile-photo {
-    border: 3px solid #000000;
-  }
-  .header-text h1, section h3, .highlighted-section-title {
-    color: #000000;
-  }
-  .highlighted-section-title {
-    border-bottom: 2px solid #000000;
-  }
-  .project-type-heading {
-    color: #000000;
-    border-left: 4px solid #000000;
-  }
-  strong {
-    color: #000000;
-    font-weight: bold;
-  }
-  a {
-    color: #000000;
-    text-decoration: none; /* Убираем подчеркивание для печати, если не ссылка на веб */
-  }
-  a[href^=http]::after {
-    content: " (" attr(href) ")"; /* Показываем URL для веб-ссылок */
-    font-size: 0.8em;
-  }
-  .job-entry, .education-entry, .course-entry, .skills-subsection, .project-subsection {
-    border-left: 3px solid #000000;
-  }
-  .preview-toggle, .preview-content img {
-    display: none; /* Скрываем интерактивные элементы и превью картинок при печати */
-  }
-  .preview-content {
-    background-color: transparent; /* Убираем фон для превью при печати, если они вдруг останутся */
-  }
-  footer {
-    border-top: 1px solid #000000;
-    color: #000000;
-  }
+/* Remove unused/experimental styles */
+/* .list, .item, #theme-switcher and their specific styles are removed as they are not part of the core resume content/functionality described */
+
+/* Styles for new subheadings in the "Обо мне" section - ensure they are consistent */
+#about h4 { /* If used, should match .project-type-heading or section h3 */
+  color: var(--text-color);
+  font-size: 1.1em; /* Consistent with .project-type-heading */
+  font-weight: 500;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  border-left: none;
+  padding-left: 0;
 }
 
-/* Media queries for better mobile optimization */
+/* Styles for new lists in the "Обо мне" section */
+#about ul { /* If used, ensure consistent list styling */
+  list-style-type: disc; /* Standard disc for unordered lists if not overridden by main ul style */
+  padding-left: 20px; /* Typical indentation for disc lists */
+  margin-bottom: 20px;
+}
+
+#about ul li {
+  margin-bottom: 8px;
+  color: var(--text-color);
+}
+
+/* Media queries for better mobile optimization - simplified */
 @media (max-width: 768px) {
   body {
-    padding: 10px;
+    padding: 15px;
   }
   .container {
     padding: 20px;
@@ -279,240 +246,54 @@ footer {
   .header-text h2 {
     font-size: 1.2em;
   }
-  section h3 {
-    font-size: 1.5em;
+  section h3, .highlighted-section-title {
+    font-size: 1.4em;
   }
-  .highlighted-section-title {
-    font-size: 1.8em;
-  }
-  .project-type-heading {
-    font-size: 1.2em;
-  }
-  .job-entry h4, .education-entry h4, .course-entry h4, .skills-subsection h4, .project-subsection h4 {
+  .job-entry h4, .education-entry h4, .course-entry h4, .skills-subsection h4, .project-subsection h4, #about h4 {
     font-size: 1.1em;
   }
 }
 
 @media (max-width: 480px) {
   body {
-    padding: 5px;
+    padding: 10px;
   }
   .container {
     padding: 15px;
+  }
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .profile-photo-container {
+    margin-bottom: 15px;
+    margin-right: 0;
   }
   .header-text h1 {
     font-size: 1.8em;
   }
   .header-text h2 {
-    font-size: 1em;
+    font-size: 1.1em;
   }
-  section h3 {
-    font-size: 1.2em;
+  section h3, .highlighted-section-title {
+    font-size: 1.3em;
   }
-  .highlighted-section-title {
-    font-size: 1.5em;
-  }
-  .project-type-heading {
-    font-size: 1em;
-  }
-  .job-entry h4, .education-entry h4, .course-entry h4, .skills-subsection h4, .project-subsection h4 {
+   .job-entry h4, .education-entry h4, .course-entry h4, .skills-subsection h4, .project-subsection h4, #about h4 {
     font-size: 1em;
   }
 }
 
-/* Update styles to match the styles from https://oekrdekz.manus.space/ */
-body {
-  font-family: 'Roboto', sans-serif;
-  background-color: var(--background-color-dark);
-  color: var(--text-color-dark);
+/* Ensure specific skills subsection titles are styled if needed, but general .skills-subsection h4 should cover it */
+/* .skills-subsection h4 was already defined, so any more specific styling for it might be redundant unless behavior needs to differ */
+/* The previous specific .skills-subsection h4 had a border-left and different font color, this is now harmonized by the general .job-entry h4, etc. styles */
+
+/* Ensure padding and gap from previous design are reset or harmonized */
+section {
+    /* gap: 20.01px; */ /* This was in <section>, if it's for flex/grid, ensure it's still relevant or remove */
+    /* padding: 20px 30px 62px; */ /* Reset earlier */
 }
 
-.container {
-  background-color: var(--background-color-dark);
-  border: 1px solid var(--primary-color-dark);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-header {
-  border-bottom: 1px solid var(--primary-color-dark);
-}
-
-.header-text h1 {
-  color: var(--text-color-dark);
-}
-
-.header-text h2 {
-  color: var(--secondary-color-dark);
-}
-
-section h3 {
-  color: var(--text-color-dark);
-  border-bottom: 1px solid var(--primary-color-dark);
-}
-
-.highlighted-section-title {
-  color: var(--text-color-dark);
-  border-bottom: 1px solid var(--primary-color-dark);
-}
-
-.project-type-heading {
-  color: var(--text-color-dark);
-  border-left: 4px solid var(--primary-color-dark);
-}
-
-strong {
-  color: var(--text-color-dark);
-}
-
-a {
-  color: var(--primary-color-dark);
-}
-
-a:hover {
-  color: var(--button-hover-background-dark);
-}
-
-.preview-toggle {
-  background-color: var(--button-background-dark);
-  color: var(--button-text-color-dark);
-}
-
-.preview-toggle:hover {
-  background-color: var(--button-hover-background-dark);
-}
-
-footer {
-  border-top: 1px solid var(--primary-color-dark);
-  color: var(--secondary-color-dark);
-}
-
-/* Update skills style to match button style from https://oekrdekz.manus.space/ */
-.skills-subsection h4 {
-  color: var(--primary-color-dark);
-  font-size: 1.2em;
-  margin-top: 15px;
-  margin-bottom: 8px;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 500;
-  border-left: 4px solid var(--primary-color-dark);
-  padding-left: 10px;
-}
-
-/* Styles for the theme switch button */
-#theme-switcher {
-  background-color: var(--button-background-dark);
-  color: var(--button-text-color-dark);
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-  margin-left: auto;
-  transition: background-color 0.3s ease;
-}
-
-#theme-switcher:hover {
-  background-color: var(--button-hover-background-dark);
-}
-
-/* List */
-.list {
-  position: absolute;
-  height: 251.56px;
-  left: 30px;
-  right: 30px;
-  top: 300.5px;
-}
-
-/* Item */
-.item {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 9px 16px;
-  position: absolute;
-  width: 511px;
-  left: 0px;
-  top: 0px;
-  bottom: 209.25px;
-  background: #333333;
-  border: 1px solid var(--primary-color-dark);
-  box-shadow: 0px 0px 5px rgba(0, 255, 255, 0.2);
-  border-radius: 5px;
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14.1312px;
-  line-height: 24px;
-  color: var(--primary-color-dark);
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-}
-
-.item:nth-child(2) {
-  width: 469px;
-  top: 52.31px;
-  bottom: 156.94px;
-  font-size: 14.25px;
-}
-
-.item:nth-child(3) {
-  width: 526px;
-  top: 104.62px;
-  bottom: 104.63px;
-  font-size: 14.3687px;
-}
-
-.item:nth-child(4) {
-  width: 590px;
-  top: 156.93px;
-  bottom: 52.32px;
-  font-size: 14.4875px;
-}
-
-.item:nth-child(5) {
-  width: 295px;
-  left: 599.52px;
-  top: 156.93px;
-  bottom: 52.32px;
-  font-size: 14.25px;
-}
-
-.item:nth-child(6) {
-  width: 365px;
-  top: 209.25px;
-  bottom: 0px;
-  font-size: 14.1312px;
-}
-
-.item:nth-child(7) {
-  width: 403px;
-  left: 376.61px;
-  top: 209.25px;
-  bottom: 0px;
-  font-size: 14.25px;
-}
-
-/* Styles for new subheadings in the "Обо мне" section */
-#about h4 {
-  color: var(--primary-color-dark);
-  font-size: 1.5em;
-  margin-top: 20px;
-  margin-bottom: 10px;
-  border-left: 4px solid var(--primary-color-dark);
-  padding-left: 10px;
-}
-
-/* Styles for new lists in the "Обо мне" section */
-#about ul {
-  list-style-type: disc;
-  padding-left: 20px;
-  margin-bottom: 20px;
-}
-
-#about ul li {
-  margin-bottom: 10px;
-  color: var(--text-color-dark);
-}
+/* Ensure styles for .list and .item are fully removed if they were from the old design */
+/* (Covered by general comment about removing unused styles) */
+/* The @import 'print_style.css' is kept at the top */
+/* The @import for Google Fonts ('Press Start 2P', 'Orbitron') is removed, Roboto is kept. */
