@@ -111,6 +111,15 @@ header {
     letter-spacing: 1px;
 }
 
+.header-social {
+    margin-top: 15px;
+}
+
+.header-social-btn {
+    font-size: 0.9em;
+    padding: 6px 12px;
+}
+
 /* Стили для секций */
 section {
     padding: 30px 40px;
@@ -315,7 +324,6 @@ p {
     text-decoration: none;
     border-radius: 6px;
     font-size: 1em;
-    margin-top: 10px;
     transition: all 0.3s ease;
     border: 2px solid transparent;
     font-weight: 600;
