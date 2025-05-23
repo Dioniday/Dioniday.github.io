@@ -308,6 +308,36 @@ p {
     padding-bottom: 10px;
 }
 
+/* Стили для социальных кнопок */
+.social-button {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 1em;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    font-weight: 600;
+    width: fit-content;
+}
+
+.social-button:hover {
+    background-color: white;
+    color: #007bff;
+    border-color: #007bff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+}
+
+.social-button .icon {
+    margin-right: 8px;
+    font-size: 1.2em;
+}
+
 /* Стили для футера */
 footer {
     background: #0D0D0D;
