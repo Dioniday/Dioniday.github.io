@@ -134,6 +134,27 @@ header p {
     color: var(--primary-color); /* Цвет текста при наведении */
 }
 
+/* Стили для кнопки "Назад" */
+.back-button {
+    display: inline-block;
+    margin-bottom: 25px; /* Отступ снизу от кнопки до хедера */
+    padding: 10px 18px;
+    background-color: #718096; /* Приглушенный цвет, сочетающийся с темой */
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 0.95em;
+    font-weight: 500;
+    transition: background-color 0.2s ease-in-out, transform 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.back-button:hover {
+    background-color: #4A5568; /* Темнее при наведении */
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
 /* Стили для футера */
 footer {
     background: #0D0D0D;
