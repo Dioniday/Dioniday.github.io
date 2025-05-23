@@ -140,7 +140,7 @@ header p {
     margin-top: 20px;
     margin-bottom: 20px;
     padding: 10px 18px;
-    background-color: #718096; /* Приглушенный цвет, сочетающийся с темой */
+    background-color: #333; /* Приглушенный цвет, сочетающийся с темой */
     color: white;
     text-decoration: none;
     border-radius: 8px;
@@ -148,10 +148,11 @@ header p {
     font-weight: 500;
     transition: background-color 0.2s ease-in-out, transform 0.2s ease;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border: 1px solid var(--border-color);
 }
 
 .back-button:hover {
-    background-color: #4A5568; /* Темнее при наведении */
+    background-color: #3a3a3a; /* Темнее при наведении */
     transform: translateY(-1px);
     box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
