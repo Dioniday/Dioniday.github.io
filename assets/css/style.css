@@ -141,24 +141,6 @@ h3 {
     display: inline-block;
 }
 
-.accordion-header {
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.accordion-icon {
-    font-size: 1.2em;
-    transition: transform 0.3s ease;
-}
-
-.accordion-content {
-    display: none;
-    overflow: hidden;
-    transition: max-height 0.3s ease-out;
-}
-
 h4 {
     font-family: 'Inter', sans-serif;
     font-size: 1.3em;
@@ -249,25 +231,6 @@ p {
     border-bottom: none;
     padding-bottom: 0;
 }
-
-.job-entry .accordion-header {
-    font-size: 1.3em; /* Slightly smaller than section h3 */
-    color: var(--accent-color);
-    margin-bottom: 10px; /* Adjusted margin */
-    border-bottom: 1px solid var(--border-color); /* Lighter border */
-    padding-bottom: 8px;
-}
-
-.job-entry .accordion-icon {
-    font-size: 1em; /* Smaller icon for nested accordion */
-}
-
-.job-entry .accordion-content {
-    padding-left: 20px; /* Indent nested content */
-    border-left: 2px solid var(--primary-color-dark); /* Visual indicator for nesting */
-    margin-top: 10px;
-}
-
 
 .preview-toggle {
     background-color: var(--primary-color);
