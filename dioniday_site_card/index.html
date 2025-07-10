@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dioniday - Все ссылки</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+        }
+        
+        .profile-img {
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .profile-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .link-card {
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .link-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+            }
+        }
+    </style>
+</head>
+<body class="text-white">
+    <div class="container mx-auto px-4 py-12 max-w-4xl">
+        <!-- Header with back button -->
+        <div class="flex justify-between items-center mb-8">
+            <a href="https://dioniday.me/index.html" class="flex items-center text-gray-300 hover:text-white transition">
+                <i class="fas fa-arrow-left mr-2"></i>
+                <span>Назад на главную</span>
+            </a>
+            </div>
+        
+        <!-- Profile Section -->
+        <div class="flex flex-col items-center mb-12 text-center">
+            <img src="https://dioniday.me/dioniday_site_card/profile.jpg" 
+                 alt="Dioniday" 
+                 class="profile-img w-40 h-40 rounded-full object-cover mb-6 pulse">
+            
+            <h1 class="text-4xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
+                Dioniday
+            </h1>
+            
+            <p class="text-lg text-gray-300 max-w-md">
+                Привет! Я Dioniday. Погружаюсь в миры игр, творю в дизайне и делюсь строками стихотворений. Подключайся ко всем моим площадкам!
+            </p>
+        </div>
+        
+        <!-- Links Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <!-- Telegram -->
+            <a href="https://t.me/Dioniday" 
+               class="link-card rounded-xl p-6 flex items-center group">
+                <div class="w-12 h-12 rounded-lg bg-blue-500 flex items-center justify-center mr-4">
+                    <i class="fab fa-telegram text-2xl"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg">Telegram</h3>
+                    <p class="text-sm text-gray-400 group-hover:text-gray-300">Чат и обновления</p>
+                </div>
+                <i class="fas fa-arrow-right ml-auto opacity-0 group-hover:opacity-100 transition"></i>
+            </a>
+            
+            <!-- Instagram -->
+            <a href="https://www.instagram.com/dioniday?igsh=d3FrY2p4bG94Y25r" 
+               class="link-card rounded-xl p-6 flex items-center group">
+                <div class="w-12 h-12 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 flex items-center justify-center mr-4">
+                    <i class="fab fa-instagram text-2xl"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg">Instagram</h3>
+                    <p class="text-sm text-gray-400 group-hover:text-gray-300">Фото и сторис</p>
+                </div>
+                <i class="fas fa-arrow-right ml-auto opacity-0 group-hover:opacity-100 transition"></i>
+            </a>
+            
+            <!-- YouTube -->
+            <a href="https://youtube.com/@dioniday" 
+               class="link-card rounded-xl p-6 flex items-center group">
+                <div class="w-12 h-12 rounded-lg bg-red-600 flex items-center justify-center mr-4">
+                    <i class="fab fa-youtube text-2xl"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg">YouTube</h3>
+                    <p class="text-sm text-gray-400 group-hover:text-gray-300">Видео и стримы</p>
+                </div>
+                <i class="fas fa-arrow-right ml-auto opacity-0 group-hover:opacity-100 transition"></i>
+            </a>
+            
+            <!-- Behance -->
+            <a href="https://www.behance.net/dioniday" 
+               class="link-card rounded-xl p-6 flex items-center group">
+                <div class="w-12 h-12 rounded-lg bg-blue-600 flex items-center justify-center mr-4">
+                    <i class="fab fa-behance text-2xl"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg">Behance</h3>
+                    <p class="text-sm text-gray-400 group-hover:text-gray-300">Дизайн проекты</p>
+                </div>
+                <i class="fas fa-arrow-right ml-auto opacity-0 group-hover:opacity-100 transition"></i>
+            </a>
+            
+            <!-- Twitch -->
+            <a href="https://m.twitch.tv/dioniday?desktop-redirect=true" 
+               class="link-card rounded-xl p-6 flex items-center group">
+                <div class="w-12 h-12 rounded-lg bg-purple-600 flex items-center justify-center mr-4">
+                    <i class="fab fa-twitch text-2xl"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg">Twitch</h3>
+                    <p class="text-sm text-gray-400 group-hover:text-gray-300">Игровые стримы</p>
+                </div>
+                <i class="fas fa-arrow-right ml-auto opacity-0 group-hover:opacity-100 transition"></i>
+            </a>
+            
+            <!-- Boosty -->
+            <a href="https://boosty.to/dioniday" 
+               class="link-card rounded-xl p-6 flex items-center group">
+                <div class="w-12 h-12 rounded-lg bg-orange-500 flex items-center justify-center mr-4">
+                    <i class="fas fa-rocket text-2xl"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg">Boosty</h3>
+                    <p class="text-sm text-gray-400 group-hover:text-gray-300">Поддержка</p>
+                </div>
+                <i class="fas fa-arrow-right ml-auto opacity-0 group-hover:opacity-100 transition"></i>
+            </a>
+            
+            <!-- DonationAlerts -->
+            <a href="https://www.donationalerts.com/r/dioniday" 
+               class="link-card rounded-xl p-6 flex items-center group">
+                <div class="w-12 h-12 rounded-lg bg-green-600 flex items-center justify-center mr-4">
+                    <i class="fas fa-hand-holding-heart text-2xl"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg">DonationAlerts</h3>
+                    <p class="text-sm text-gray-400 group-hover:text-gray-300">Донаты</p>
+                </div>
+                <i class="fas fa-arrow-right ml-auto opacity-0 group-hover:opacity-100 transition"></i>
+            </a>
+            
+            <!-- Back to Main -->
+            <a href="https://dioniday.me/index.html" 
+               class="link-card rounded-xl p-6 flex items-center group">
+                <div class="w-12 h-12 rounded-lg bg-gray-600 flex items-center justify-center mr-4">
+                    <i class="fas fa-home text-2xl"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg">На главную</h3>
+                    <p class="text-sm text-gray-400 group-hover:text-gray-300">Вернуться на сайт</p>
+                </div>
+                <i class="fas fa-arrow-right ml-auto opacity-0 group-hover:opacity-100 transition"></i>
+            </a>
+        </div>
+        
+        <!-- Footer -->
+        <div class="mt-16 text-center text-gray-500 text-sm">
+            <p>© 2025 Dioniday. Все права защищены.</p>
+        </div>
+    </div>
+
+    <script>
+        // Simple animation on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.link-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100 * index);
+            });
+        });
+    </script>
+<p style="border-radius: 8px; text-align: center; font-size: 12px; color: #fff; margin-top: 16px;position: fixed; left: 8px; bottom: 8px; z-index: 10; background: rgba(0, 0, 0, 0.8); padding: 4px 8px;">Made with <img src="https://enzostvs-deepsite.hf.space/logo.svg" alt="DeepSite Logo" style="width: 16px; height: 16px; vertical-align: middle;display:inline-block;margin-right:3px;filter:brightness(0) invert(1);"><a href="https://enzostvs-deepsite.hf.space" style="color: #fff;text-decoration: underline;" target="_blank" >DeepSite</a> - 🧬 <a href="https://enzostvs-deepsite.hf.space?remix=Dioniday/card" style="color: #fff;text-decoration: underline;" target="_blank" >Remix</a></p></body>
+</html>
