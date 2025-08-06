@@ -1,89 +1,18 @@
-# Dioniday.github.io
 
-Личный сайт-резюме Дениса Газутдинова (Dioniday) - Middle Graphic & Motion Designer.
+## 🌐 Socials:
+[![Behance](https://img.shields.io/badge/Behance-1769ff?logo=behance&logoColor=white)](https://behance.net/Dioniday) [![Facebook](https://img.shields.io/badge/Facebook-%231877F2.svg?logo=Facebook&logoColor=white)](https://facebook.com/Dioniday) [![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?logo=Instagram&logoColor=white)](https://instagram.com/Dioniday) [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white)](https://linkedin.com/in/Dioniday) [![Reddit](https://img.shields.io/badge/Reddit-%23FF4500.svg?logo=Reddit&logoColor=white)](https://reddit.com/user/Dioniday) [![TikTok](https://img.shields.io/badge/TikTok-%23000000.svg?logo=TikTok&logoColor=white)](https://tiktok.com/@Dioniday) [![Twitch](https://img.shields.io/badge/Twitch-%239146FF.svg?logo=Twitch&logoColor=white)](https://twitch.tv/Dioniday) [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?logo=YouTube&logoColor=white)](https://youtube.com/@Dioniday) [![email](https://img.shields.io/badge/Email-D14836?logo=gmail&logoColor=white)](mailto:dioniday@internet.ru) 
 
-## 📋 О проекте
+# 💻 Tech Stack:
+![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) ![Markdown](https://img.shields.io/badge/markdown-%23000000.svg?style=for-the-badge&logo=markdown&logoColor=white) ![C#](https://img.shields.io/badge/c%23-%23239120.svg?style=for-the-badge&logo=csharp&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![Adobe Creative Cloud](https://img.shields.io/badge/Adobe%20Creative%20Cloud-DA1F26.svg?style=for-the-badge&logo=Adobe%20Creative%20Cloud&logoColor=white) ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white) ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white) ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
+# 📊 GitHub Stats:
+![](https://github-readme-stats.vercel.app/api?username=Dioniday&theme=tokyonight&hide_border=false&include_all_commits=false&count_private=false)<br/>
+![](https://nirzak-streak-stats.vercel.app/?user=Dioniday&theme=tokyonight&hide_border=false)<br/>
+![](https://github-readme-stats.vercel.app/api/top-langs/?username=Dioniday&theme=tokyonight&hide_border=false&include_all_commits=false&count_private=false&layout=compact)
 
-Этот репозиторий содержит исходный код персонального сайта-резюме, размещенного на GitHub Pages по адресу [dioniday.me](https://dioniday.me). Сайт представляет собой современное веб-резюме с адаптивным дизайном и интерактивными элементами.
-
-## 🚀 Функциональность
-
-- **Адаптивный дизайн** - корректное отображение на всех устройствах
-- **Темная тема** - современный dark-режим интерфейса
-- **Интерактивные элементы** - кнопки для показа/скрытия превью проектов
-- **Переключение тем** - возможность смены светлой/темной темы
-- **Печатная версия** - оптимизированные стили для печати резюме
-- **Страница социальных сетей** - отдельная страница со ссылками на все профили
-
-## 📁 Структура проекта
-
-```
-├── index.html                    # Главная страница с резюме
-├── profile_photo.jpg            # Фотография профиля
-├── CNAME                        # Настройка кастомного домена
-├── README.md                    # Документация проекта
-├── assets/
-│   └── css/
-│       ├── style.css           # Основные стили
-│       └── print_style.css     # Стили для печати
-├── js/
-│   └── script.js               # JavaScript функциональность
-├── dioniday_site_card/         # Страница социальных сетей
-│   ├── index.html
-│   ├── profile.jpg
-│   └── assets/css/style.css
-└── project_images/             # Изображения и видео проектов
-    ├── *.jpeg                  # Скриншоты проектов
-    └── *.mp4                   # Видео-превью
-```
-
-## 🛠 Технологии
-
-- **HTML5** - семантическая разметка
-- **CSS3** - современные стили с CSS Grid и Flexbox
-- **Vanilla JavaScript** - интерактивность без фреймворков
-- **Google Fonts** - типографика (Inter, Orbitron, Roboto)
-- **GitHub Pages** - хостинг
-
-## 🎨 Особенности дизайна
-
-- Использование CSS-переменных для цветовой схемы
-- Градиентные фоны и тени для глубины
-- Анимации и переходы для улучшения UX
-- Оптимизированная типографика для читаемости
-- Профессиональная цветовая палитра
-
-## 📱 Адаптивность
-
-Сайт оптимизирован для всех устройств:
-- **Desktop** (960px+) - полная версия с максимальной функциональностью
-- **Tablet** (768px-959px) - адаптированная сетка и размеры
-- **Mobile** (до 767px) - мобильная версия с упрощенным интерфейсом
-
-## 🖨️ Печатная версия
-
-Специальные стили в [`print_style.css`](assets/css/print_style.css) обеспечивают:
-- Оптимизацию для формата A4
-- Черно-белую цветовую схему
-- Скрытие интерактивных элементов
-- Правильные отступы и шрифты
-
-## 🔗 Полезные ссылки
-
-- **Сайт**: [dioniday.me](https://dioniday.me)
-- **Портфолио**: [behance.net/dioniday](https://behance.net/dioniday)
-- **Социальные сети**: [dioniday.me/dioniday_site_card](https://dioniday.me/dioniday_site_card)
-
-## 📧 Контакты
-
-- **Email**: dioniday@internet.ru
-- **Телефон**: +7 (996) 403-56-64
-- **Telegram**: [@Dioniday](https://t.me/Dioniday)
-
-## 📄 Лицензия
-
-© 2025 Денис Газутдинов. Все права защищены.
+## 🏆 GitHub Trophies
+![](https://github-profile-trophy.vercel.app/?username=Dioniday&theme=radical&no-frame=false&no-bg=true&margin-w=4)
 
 ---
+[![](https://visitcount.itsvg.in/api?id=Dioniday&icon=0&color=0)](https://visitcount.itsvg.in)
 
-*Этот сайт создан как современное веб-резюме, демонстрирующее навыки веб-разработки и дизайна.*
+<!-- Proudly created with GPRM ( https://gprm.itsvg.in ) -->
