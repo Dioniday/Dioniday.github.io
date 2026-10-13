@@ -16,3 +16,14 @@
 [![](https://visitcount.itsvg.in/api?id=Dioniday&icon=0&color=0)](https://visitcount.itsvg.in)
 
 <!-- Proudly created with GPRM ( https://gprm.itsvg.in ) -->
+
+---
+
+## 🛠 Сайт dioniday.dev
+
+Статический сайт на GitHub Pages: резюме (`/`, `/en/`) и страница со ссылками (`/dioniday_site_card/`).
+
+- Стили — Tailwind CSS, собранный в `assets/css/site.css` (исходник: `assets/css/tailwind.input.css`).
+  После правок HTML GitHub Action **Build CSS** сам пересобирает стили. Локально: `npm ci && npm run build:css`.
+- Иконки — SVG-спрайт `assets/icons.svg` (Font Awesome Free, CC BY 4.0), шрифт Montserrat лежит в `assets/fonts/`.
+- Картинки и видео работ — `assets/img/works/` и `assets/video/`.

@@ -1,0 +1,12 @@
+{
+  "name": "dioniday-site",
+  "private": true,
+  "description": "Static personal site for dioniday.dev (GitHub Pages)",
+  "scripts": {
+    "build:css": "tailwindcss -i assets/css/tailwind.input.css -o assets/css/site.css --minify",
+    "watch:css": "tailwindcss -i assets/css/tailwind.input.css -o assets/css/site.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "3.4.17"
+  }
+}

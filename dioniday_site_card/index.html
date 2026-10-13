@@ -3,223 +3,183 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dioniday - Все ссылки</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Dioniday — все ссылки</title>
+    <meta name="description" content="Dioniday: игры, дизайн и стихи. Telegram, YouTube, Twitch, Behance, GitHub и другие площадки в одном месте.">
+    <meta name="theme-color" content="#1a1a2e">
+    <link rel="canonical" href="https://dioniday.dev/dioniday_site_card/">
+
+    <meta property="og:type" content="profile">
+    <meta property="og:site_name" content="Dioniday">
+    <meta property="og:title" content="Dioniday — все ссылки">
+    <meta property="og:description" content="Игры, дизайн и стихи. Все мои площадки в одном месте.">
+    <meta property="og:url" content="https://dioniday.dev/dioniday_site_card/">
+    <meta property="og:image" content="https://dioniday.dev/profile_photo.jpg">
+    <meta property="og:locale" content="ru_RU">
+    <meta name="twitter:card" content="summary">
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="preload" href="/assets/fonts/montserrat-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/assets/css/site.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
-        
         body {
-            font-family: 'Montserrat', sans-serif;
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             min-height: 100vh;
         }
-        
+
         .profile-img {
             border: 4px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            animation: pulse 2s infinite;
         }
-        
+
         .profile-img:hover {
             transform: scale(1.05);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
             border-color: rgba(255, 255, 255, 0.2);
         }
-        
+
         .link-card {
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        
+
         .link-card:hover {
             transform: translateY(-5px);
             background: rgba(255, 255, 255, 0.1);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
-        
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-        
+
         @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
-            }
-            70% {
-                box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
-            }
+            0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 255, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
         }
     </style>
 </head>
 <body class="text-white">
-    <div class="container mx-auto px-4 py-12 max-w-4xl">
-        <!-- Header with back button -->
-        <div class="flex justify-between items-center mb-8">
-            <a href="https://dioniday.dev/index.html" class="flex items-center text-gray-300 hover:text-white transition">
-                <i class="fas fa-arrow-left mr-2"></i>
+    <main class="container mx-auto max-w-4xl px-4 py-12">
+        <!-- Back to resume -->
+        <div class="mb-8">
+            <a href="/" class="inline-flex items-center gap-2 text-slate-300 transition hover:text-white">
+                <svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#arrow-left"></use></svg>
                 <span>Назад на главную</span>
             </a>
-            </div>
-        
-        <!-- Profile Section -->
-        <div class="flex flex-col items-center mb-12 text-center">
-            <img src="https://dioniday.dev/dioniday_site_card/profile.jpg" 
-                 alt="Dioniday" 
-                 class="profile-img w-40 h-40 rounded-full object-cover mb-6 pulse">
-            
-            <h1 class="text-4xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
-                Dioniday
-            </h1>
-            
-            <p class="text-lg text-gray-300 max-w-md">
+        </div>
+
+        <!-- Profile -->
+        <div class="mb-12 flex flex-col items-center text-center">
+            <img src="/assets/img/profile-320.webp" width="160" height="160" alt="Dioniday" class="profile-img mb-6 h-40 w-40 rounded-full object-cover">
+
+            <h1 class="mb-2 bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-4xl font-bold text-transparent">Dioniday</h1>
+
+            <p class="max-w-md text-lg text-slate-300">
                 Привет! Я Dioniday. Погружаюсь в миры игр, творю в дизайне и делюсь строками стихотворений. Подключайся ко всем моим площадкам!
             </p>
         </div>
-        
-        <!-- Links Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <!-- GitHub -->
-            <a href="https://github.com/Dioniday" 
-               class="link-card rounded-xl p-6 flex items-center group">
-                <div class="w-12 h-12 rounded-lg bg-gray-800 flex items-center justify-center mr-4">
-                    <i class="fab fa-github text-2xl"></i>
-                </div>
-                <div>
-                    <h3 class="font-bold text-lg">GitHub</h3>
-                    <p class="text-sm text-gray-400 group-hover:text-gray-300">Код и проекты</p>
-                </div>
-                <i class="fas fa-arrow-right ml-auto opacity-0 group-hover:opacity-100 transition"></i>
-            </a>
 
-            <!-- Telegram -->
-            <a href="https://t.me/Dioniday" 
-               class="link-card rounded-xl p-6 flex items-center group">
-                <div class="w-12 h-12 rounded-lg bg-blue-500 flex items-center justify-center mr-4">
-                    <i class="fab fa-telegram text-2xl"></i>
-                </div>
-                <div>
-                    <h3 class="font-bold text-lg">Telegram</h3>
-                    <p class="text-sm text-gray-400 group-hover:text-gray-300">Чат и обновления</p>
-                </div>
-                <i class="fas fa-arrow-right ml-auto opacity-0 group-hover:opacity-100 transition"></i>
-            </a>
-            
-            <!-- Instagram -->
-            <a href="https://www.instagram.com/dioniday?igsh=d3FrY2p4bG94Y25r" 
-               class="link-card rounded-xl p-6 flex items-center group">
-                <div class="w-12 h-12 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 flex items-center justify-center mr-4">
-                    <i class="fab fa-instagram text-2xl"></i>
-                </div>
-                <div>
-                    <h3 class="font-bold text-lg">Instagram</h3>
-                    <p class="text-sm text-gray-400 group-hover:text-gray-300">Фото и сторис</p>
-                </div>
-                <i class="fas fa-arrow-right ml-auto opacity-0 group-hover:opacity-100 transition"></i>
-            </a>
-            
-            <!-- YouTube -->
-            <a href="https://youtube.com/@dioniday" 
-               class="link-card rounded-xl p-6 flex items-center group">
-                <div class="w-12 h-12 rounded-lg bg-red-600 flex items-center justify-center mr-4">
-                    <i class="fab fa-youtube text-2xl"></i>
-                </div>
-                <div>
-                    <h3 class="font-bold text-lg">YouTube</h3>
-                    <p class="text-sm text-gray-400 group-hover:text-gray-300">Видео и стримы</p>
-                </div>
-                <i class="fas fa-arrow-right ml-auto opacity-0 group-hover:opacity-100 transition"></i>
-            </a>
-            
-            <!-- Behance -->
-            <a href="https://www.behance.net/dioniday" 
-               class="link-card rounded-xl p-6 flex items-center group">
-                <div class="w-12 h-12 rounded-lg bg-blue-600 flex items-center justify-center mr-4">
-                    <i class="fab fa-behance text-2xl"></i>
-                </div>
-                <div>
-                    <h3 class="font-bold text-lg">Behance</h3>
-                    <p class="text-sm text-gray-400 group-hover:text-gray-300">Дизайн проекты</p>
-                </div>
-                <i class="fas fa-arrow-right ml-auto opacity-0 group-hover:opacity-100 transition"></i>
-            </a>
-            
-            <!-- Twitch -->
-            <a href="https://m.twitch.tv/dioniday?desktop-redirect=true" 
-               class="link-card rounded-xl p-6 flex items-center group">
-                <div class="w-12 h-12 rounded-lg bg-purple-600 flex items-center justify-center mr-4">
-                    <i class="fab fa-twitch text-2xl"></i>
-                </div>
-                <div>
-                    <h3 class="font-bold text-lg">Twitch</h3>
-                    <p class="text-sm text-gray-400 group-hover:text-gray-300">Игровые стримы</p>
-                </div>
-                <i class="fas fa-arrow-right ml-auto opacity-0 group-hover:opacity-100 transition"></i>
-            </a>
-            
-            <!-- Boosty -->
-            <a href="https://boosty.to/dioniday" 
-               class="link-card rounded-xl p-6 flex items-center group">
-                <div class="w-12 h-12 rounded-lg bg-orange-500 flex items-center justify-center mr-4">
-                    <i class="fas fa-rocket text-2xl"></i>
-                </div>
-                <div>
-                    <h3 class="font-bold text-lg">Boosty</h3>
-                    <p class="text-sm text-gray-400 group-hover:text-gray-300">Поддержка</p>
-                </div>
-                <i class="fas fa-arrow-right ml-auto opacity-0 group-hover:opacity-100 transition"></i>
-            </a>
-            
-            <!-- DonationAlerts -->
-            <a href="https://www.donationalerts.com/r/dioniday" 
-               class="link-card rounded-xl p-6 flex items-center group">
-                <div class="w-12 h-12 rounded-lg bg-green-600 flex items-center justify-center mr-4">
-                    <i class="fas fa-hand-holding-heart text-2xl"></i>
-                </div>
-                <div>
-                    <h3 class="font-bold text-lg">DonationAlerts</h3>
-                    <p class="text-sm text-gray-400 group-hover:text-gray-300">Донаты</p>
-                </div>
-                <i class="fas fa-arrow-right ml-auto opacity-0 group-hover:opacity-100 transition"></i>
-            </a>
-        </div>
+        <!-- Links -->
+        <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <li>
+                <a href="https://github.com/Dioniday" class="link-card group flex items-center rounded-xl p-6">
+                    <span class="mr-4 grid h-12 w-12 place-items-center rounded-lg bg-gray-800 text-2xl"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#github"></use></svg></span>
+                    <span>
+                        <span class="block text-lg font-bold">GitHub</span>
+                        <span class="block text-sm text-slate-400 group-hover:text-slate-300">Код и проекты</span>
+                    </span>
+                    <svg class="icon ml-auto opacity-0 transition group-hover:opacity-100" aria-hidden="true"><use href="/assets/icons.svg#arrow-right"></use></svg>
+                </a>
+            </li>
+            <li>
+                <a href="https://t.me/Dioniday" class="link-card group flex items-center rounded-xl p-6">
+                    <span class="mr-4 grid h-12 w-12 place-items-center rounded-lg bg-blue-500 text-2xl"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#telegram"></use></svg></span>
+                    <span>
+                        <span class="block text-lg font-bold">Telegram</span>
+                        <span class="block text-sm text-slate-400 group-hover:text-slate-300">Чат и обновления</span>
+                    </span>
+                    <svg class="icon ml-auto opacity-0 transition group-hover:opacity-100" aria-hidden="true"><use href="/assets/icons.svg#arrow-right"></use></svg>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.instagram.com/dioniday" class="link-card group flex items-center rounded-xl p-6">
+                    <span class="mr-4 grid h-12 w-12 place-items-center rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 text-2xl"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#instagram"></use></svg></span>
+                    <span>
+                        <span class="block text-lg font-bold">Instagram</span>
+                        <span class="block text-sm text-slate-400 group-hover:text-slate-300">Фото и сторис</span>
+                    </span>
+                    <svg class="icon ml-auto opacity-0 transition group-hover:opacity-100" aria-hidden="true"><use href="/assets/icons.svg#arrow-right"></use></svg>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/@dioniday" class="link-card group flex items-center rounded-xl p-6">
+                    <span class="mr-4 grid h-12 w-12 place-items-center rounded-lg bg-red-600 text-2xl"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#youtube"></use></svg></span>
+                    <span>
+                        <span class="block text-lg font-bold">YouTube</span>
+                        <span class="block text-sm text-slate-400 group-hover:text-slate-300">Видео и стримы</span>
+                    </span>
+                    <svg class="icon ml-auto opacity-0 transition group-hover:opacity-100" aria-hidden="true"><use href="/assets/icons.svg#arrow-right"></use></svg>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.behance.net/dioniday" class="link-card group flex items-center rounded-xl p-6">
+                    <span class="mr-4 grid h-12 w-12 place-items-center rounded-lg bg-blue-600 text-2xl"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#behance"></use></svg></span>
+                    <span>
+                        <span class="block text-lg font-bold">Behance</span>
+                        <span class="block text-sm text-slate-400 group-hover:text-slate-300">Дизайн проекты</span>
+                    </span>
+                    <svg class="icon ml-auto opacity-0 transition group-hover:opacity-100" aria-hidden="true"><use href="/assets/icons.svg#arrow-right"></use></svg>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.twitch.tv/dioniday" class="link-card group flex items-center rounded-xl p-6">
+                    <span class="mr-4 grid h-12 w-12 place-items-center rounded-lg bg-purple-600 text-2xl"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#twitch"></use></svg></span>
+                    <span>
+                        <span class="block text-lg font-bold">Twitch</span>
+                        <span class="block text-sm text-slate-400 group-hover:text-slate-300">Игровые стримы</span>
+                    </span>
+                    <svg class="icon ml-auto opacity-0 transition group-hover:opacity-100" aria-hidden="true"><use href="/assets/icons.svg#arrow-right"></use></svg>
+                </a>
+            </li>
+            <li>
+                <a href="https://boosty.to/dioniday" class="link-card group flex items-center rounded-xl p-6">
+                    <span class="mr-4 grid h-12 w-12 place-items-center rounded-lg bg-orange-500 text-2xl"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#rocket"></use></svg></span>
+                    <span>
+                        <span class="block text-lg font-bold">Boosty</span>
+                        <span class="block text-sm text-slate-400 group-hover:text-slate-300">Поддержка</span>
+                    </span>
+                    <svg class="icon ml-auto opacity-0 transition group-hover:opacity-100" aria-hidden="true"><use href="/assets/icons.svg#arrow-right"></use></svg>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.donationalerts.com/r/dioniday" class="link-card group flex items-center rounded-xl p-6">
+                    <span class="mr-4 grid h-12 w-12 place-items-center rounded-lg bg-green-600 text-2xl"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#heart"></use></svg></span>
+                    <span>
+                        <span class="block text-lg font-bold">DonationAlerts</span>
+                        <span class="block text-sm text-slate-400 group-hover:text-slate-300">Донаты</span>
+                    </span>
+                    <svg class="icon ml-auto opacity-0 transition group-hover:opacity-100" aria-hidden="true"><use href="/assets/icons.svg#arrow-right"></use></svg>
+                </a>
+            </li>
+        </ul>
 
-        <!-- Back to Main -->
+        <!-- Back to resume -->
         <div class="mt-8 flex justify-center">
-            <a href="https://dioniday.dev/index.html" 
-               class="link-card rounded-xl p-6 flex items-center group w-full max-w-sm">
-                <div class="w-12 h-12 rounded-lg bg-gray-600 flex items-center justify-center mr-4">
-                    <i class="fas fa-home text-2xl"></i>
-                </div>
-                <div>
-                    <h3 class="font-bold text-lg">На главную</h3>
-                    <p class="text-sm text-gray-400 group-hover:text-gray-300">Вернуться на сайт</p>
-                </div>
-                <i class="fas fa-arrow-right ml-auto opacity-0 group-hover:opacity-100 transition"></i>
+            <a href="/" class="link-card group flex w-full max-w-sm items-center rounded-xl p-6">
+                <span class="mr-4 grid h-12 w-12 place-items-center rounded-lg bg-gray-600 text-2xl"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#home"></use></svg></span>
+                <span>
+                    <span class="block text-lg font-bold">На главную</span>
+                    <span class="block text-sm text-slate-400 group-hover:text-slate-300">Вернуться на сайт</span>
+                </span>
+                <svg class="icon ml-auto opacity-0 transition group-hover:opacity-100" aria-hidden="true"><use href="/assets/icons.svg#arrow-right"></use></svg>
             </a>
         </div>
-        
-        <!-- Footer -->
-        <div class="mt-16 text-center text-gray-500 text-sm">
-            <p>© 2025 Dioniday. Все права защищены.</p>
-        </div>
-    </div>
 
-    <script>
-        // Simple animation on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            const cards = document.querySelectorAll('.link-card');
-            cards.forEach((card, index) => {
-                setTimeout(() => {
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, 100 * index);
-            });
-        });
-    </script>
+        <footer class="mt-16 text-center text-sm text-slate-500">
+            <p>© 2026 Dioniday. Все права защищены.</p>
+        </footer>
+    </main>
+</body>
 </html>

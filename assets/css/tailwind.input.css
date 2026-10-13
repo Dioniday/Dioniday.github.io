@@ -1,0 +1,191 @@
+/* Source for assets/css/site.css — rebuild with `npm run build:css` */
+
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('/assets/fonts/montserrat-cyrillic-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('/assets/fonts/montserrat-latin-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-slate-50 font-sans text-slate-800 antialiased dark:bg-slate-900 dark:text-slate-200;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-indigo-400 ring-offset-2 ring-offset-white dark:ring-offset-slate-900;
+  }
+}
+
+@layer components {
+  .gradient-bg {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  }
+
+  .icon {
+    @apply inline-block h-[1em] w-[1em] shrink-0 fill-current;
+  }
+
+  .card {
+    @apply rounded-2xl bg-white p-6 shadow-md ring-1 ring-slate-900/5 dark:bg-slate-800 dark:shadow-none dark:ring-white/10;
+  }
+
+  .card-title {
+    @apply mb-4 flex items-center gap-2 text-2xl font-bold text-indigo-600 dark:text-indigo-400;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 text-white transition hover:bg-white/30;
+  }
+
+  .pill {
+    @apply rounded-full px-3 py-1 text-sm transition duration-300 hover:-translate-y-0.5 hover:shadow-md;
+  }
+  .pill-indigo {
+    @apply bg-indigo-100 text-indigo-800 dark:bg-indigo-500/20 dark:text-indigo-200;
+  }
+  .pill-purple {
+    @apply bg-purple-100 text-purple-800 dark:bg-purple-500/20 dark:text-purple-200;
+  }
+  .pill-blue {
+    @apply bg-blue-100 text-blue-800 dark:bg-blue-500/20 dark:text-blue-200;
+  }
+
+  .job {
+    @apply relative rounded-lg bg-indigo-50 p-6 dark:bg-slate-700/50;
+  }
+  .job::before {
+    content: '';
+    @apply absolute -left-[33px] top-6 h-4 w-4 rounded-full border-[3px] border-slate-200 bg-indigo-500 dark:border-slate-800;
+  }
+  .job-meta {
+    @apply mb-4 text-slate-600 dark:text-slate-400;
+  }
+  .result {
+    @apply text-sm text-slate-600 dark:text-slate-300;
+  }
+
+  .work-card {
+    @apply flex flex-col overflow-hidden rounded-2xl bg-white shadow-md ring-1 ring-slate-900/5 transition duration-300 hover:-translate-y-1 hover:shadow-xl dark:bg-slate-800 dark:ring-white/10;
+  }
+  .work-media {
+    @apply aspect-video w-full bg-black object-cover;
+  }
+  .video-cover {
+    @apply absolute inset-0 grid place-items-center bg-black/10 transition hover:bg-black/30;
+  }
+  .video-cover-icon {
+    @apply grid h-16 w-16 place-items-center rounded-full bg-white/90 pl-1 text-2xl text-indigo-600 shadow-lg transition;
+  }
+  .video-cover:hover .video-cover-icon {
+    @apply scale-110 bg-white;
+  }
+  .work-tag {
+    @apply mb-2 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-indigo-600 dark:text-indigo-400;
+  }
+
+  .social-link {
+    @apply grid h-11 w-11 place-items-center rounded-full text-2xl text-white transition hover:bg-white/15 hover:text-indigo-100;
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* "Save as PDF" / print: one clean A4 column, no decoration */
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm;
+  }
+  html, body {
+    background: #fff !important;
+    color: #000 !important;
+    font-size: 11px;
+  }
+  .no-print {
+    display: none !important;
+  }
+  header.gradient-bg {
+    background: none !important;
+    color: #000 !important;
+    border-bottom: 1px solid #ccc;
+  }
+  header.gradient-bg p {
+    color: #000 !important;
+  }
+  header .chip {
+    background: none !important;
+    color: #000 !important;
+    padding: 0 12px 0 0;
+  }
+  header img {
+    animation: none !important;
+    width: 7rem !important;
+    height: 7rem !important;
+    box-shadow: none !important;
+    border-color: #ddd !important;
+  }
+  header .container {
+    padding-top: 0 !important;
+    padding-bottom: 1rem !important;
+  }
+  main.container {
+    padding-top: 1rem !important;
+  }
+  .card, .job {
+    box-shadow: none !important;
+    background: #fff !important;
+    border: 1px solid #ddd;
+  }
+  .job, .card > div > div {
+    break-inside: avoid;
+  }
+  h2, h3 {
+    break-after: avoid;
+  }
+  .pill {
+    background: #fff !important;
+    color: #000 !important;
+    border: 1px solid #ccc;
+  }
+  a {
+    color: inherit !important;
+    text-decoration: none !important;
+  }
+}
