@@ -3,412 +3,375 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Denis Gazutdinov</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
-        
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: #f8fafc;
-            color: #1e293b;
-        }
-        
-        .gradient-bg {
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-        }
-        
-        .skill-pill {
-            transition: all 0.3s ease;
-        }
-        
-        .skill-pill:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
-        
-        .link-card {
-            transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .link-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-        
-        .social-icon {
-            transition: all 0.3s ease;
-        }
-        
-        .link-card:hover .social-icon {
-            transform: scale(1.2);
-        }
-        
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -38px;
-            top: 0;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: #6366f1;
-            border: 3px solid #e2e8f0;
-        }
-        
-        @media (max-width: 768px) {
-            .timeline-item::before {
-                left: -28px;
-            }
-        }
-        
-        .animate-float {
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-    </style>
-</head>
-<body class="antialiased">
-    <div class="min-h-screen">
-        <!-- Header Section -->
-        <header class="gradient-bg text-white">
-            <div class="container mx-auto px-4 py-12 md:py-20">
-                <!-- Language toggle -->
-                <div class="flex justify-end mb-6">
-                    <button id="lang-toggle" class="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-full text-sm font-medium transition" aria-label="Switch language">RU</button>
-                </div>
-                <div class="flex flex-col md:flex-row items-center">
-                    <div class="w-full md:w-1/3 flex justify-center mb-8 md:mb-0">
-                        <div class="relative">
-                            <img src="https://dioniday.dev/profile_photo.jpg" alt="Denis Gazutdinov" class="w-48 h-48 md:w-64 md:h-64 rounded-full object-cover border-4 border-white shadow-xl animate-float">
-                        </div>
-                    </div>
-                    <div class="w-full md:w-2/3 text-center md:text-left">
-                        <h1 class="text-3xl md:text-5xl font-bold mb-2">Denis Gazutdinov</h1>
-                        <h2 class="text-xl md:text-2xl font-semibold mb-4">Middle Designer</h2>
-                        <p class="text-lg mb-6 max-w-2xl">Graphic design, motion design, video production</p>
-                        <div class="flex flex-wrap justify-center md:justify-start gap-2">
-                            <a href="tel:+7(996)4035664" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-4 py-2 rounded-full flex items-center transition">
-                                <i class="fas fa-phone mr-2"></i> +7 (996) 403-56-64
-                            </a>
-                            <a href="mailto:dioniday@internet.ru" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-4 py-2 rounded-full flex items-center transition">
-                                <i class="fas fa-envelope mr-2"></i> Dioniday@internet.ru
-                            </a>
-                            <div class="bg-white bg-opacity-20 px-4 py-2 rounded-full flex items-center">
-                                <i class="fas fa-map-marker-alt mr-2"></i> Ufa, Russia
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
+    <title>Denis Gazutdinov — Middle Designer</title>
+    <meta name="description" content="Denis Gazutdinov — graphic and motion designer, video production. 10+ years of experience, Master's in Design. Portfolio, work experience and contacts.">
+    <meta name="author" content="Denis Gazutdinov">
+    <meta name="theme-color" content="#6366f1">
+    <link rel="canonical" href="https://dioniday.dev/en/">
+    <link rel="alternate" hreflang="ru" href="https://dioniday.dev/">
+    <link rel="alternate" hreflang="en" href="https://dioniday.dev/en/">
+    <link rel="alternate" hreflang="x-default" href="https://dioniday.dev/">
 
-        <!-- Main Content -->
-        <main class="container mx-auto px-4 py-12">
-            <div class="flex flex-col lg:flex-row gap-8">
-                <!-- Left Column -->
-                <div class="w-full lg:w-1/3 space-y-8">
-                    <!-- About Section -->
-                    <section class="bg-white rounded-xl shadow-md p-6">
-                        <h2 class="text-2xl font-bold mb-4 text-indigo-600 flex items-center">
-                            <i class="fas fa-user mr-2"></i> About me
-                        </h2>
-                        <p class="mb-4">I'm Denis — a designer and content maker with 10 years of experience in visual creativity and digital projects.</p>
-                        <p class="mb-4">My passion is turning ideas into impressive visual solutions: from dynamic videos to intuitive interfaces.</p>
-                        <p class="mb-4">I constantly explore new technologies and design trends, including AI tools.</p>
-                        <p class="mb-4">In January 2026, I graduated with honors from the Master's program in Design at USPTU (Institute of Economics and Service).</p>
-                    </section>
+    <meta property="og:type" content="profile">
+    <meta property="og:site_name" content="Dioniday">
+    <meta property="og:title" content="Denis Gazutdinov — Middle Designer">
+    <meta property="og:description" content="Graphic design, motion design, video production. 10+ years of experience.">
+    <meta property="og:url" content="https://dioniday.dev/en/">
+    <meta property="og:image" content="https://dioniday.dev/assets/img/og-en.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="ru_RU">
+    <meta name="twitter:card" content="summary_large_image">
 
-                    <!-- Portfolio Section -->
-                    <section class="bg-white rounded-xl shadow-md p-6">
-                        <h2 class="text-2xl font-bold mb-4 text-indigo-600 flex items-center">
-                            <i class="fas fa-briefcase mr-2"></i> Portfolio
-                        </h2>
-                        <div class="space-y-4">
-                            <a href="http://behance.net/dioniday" target="_blank" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg font-medium transition flex items-center w-full">
-                                <i class="fab fa-behance mr-2"></i> View on Behance
-                            </a>
-                            <a href="https://dioniday.dev/dioniday_site_card/index.html" target="_blank" class="link-card rounded-xl p-6 flex items-center space-x-4 hover:border-indigo-400">
-                                <div class="social-icon bg-indigo-600 p-3 rounded-lg">
-                                    <i class="fas fa-globe text-2xl"></i>
-                                </div>
-                                <div>
-                                    <h3 class="font-semibold text-lg">Social media</h3>
-                                    <p class="text-gray-400 text-sm">All my platforms</p>
-                                </div>
-                            </a>
-                        </div>
-                    </section>
-
-                    <!-- Skills Section -->
-                    <section class="bg-white rounded-xl shadow-md p-6">
-                        <h2 class="text-2xl font-bold mb-4 text-indigo-600 flex items-center">
-                            <i class="fas fa-cogs mr-2"></i> Skills
-                        </h2>
-                        <h3 class="font-semibold mb-2 text-lg">Professional software:</h3>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="skill-pill bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">Adobe Premiere Pro</span>
-                            <span class="skill-pill bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">After Effects</span>
-                            <span class="skill-pill bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">Photoshop</span>
-                            <span class="skill-pill bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">Illustrator</span>
-                            <span class="skill-pill bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">InDesign</span>
-                            <span class="skill-pill bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">Figma</span>
-                            <span class="skill-pill bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">Tilda</span>
-                            <span class="skill-pill bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">AutoCAD</span>
-                            <span class="skill-pill bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">Visual Studio</span>
-                            <span class="skill-pill bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">VS Code</span>
-                        </div>
-
-                        <h3 class="font-semibold mb-2 text-lg">AI tools:</h3>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="skill-pill bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">ChatGPT</span>
-                            <span class="skill-pill bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Gemini</span>
-                            <span class="skill-pill bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Perplexity</span>
-                            <span class="skill-pill bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Midjourney</span>
-                            <span class="skill-pill bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Llama.cpp</span>
-                            <span class="skill-pill bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Qwen</span>
-                            <span class="skill-pill bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Deepseek</span>
-                            <span class="skill-pill bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">LM Studio</span>
-                            <span class="skill-pill bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">OpenCode</span>
-                            <span class="skill-pill bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Local model deployment</span>
-                        </div>
-
-                        <h3 class="font-semibold mb-2 text-lg">Programming:</h3>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="skill-pill bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Visual Lisp</span>
-                            <span class="skill-pill bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Vibecoding</span>
-                            <span class="skill-pill bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Beginner C#</span>
-                            <span class="skill-pill bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">HTML</span>
-                            <span class="skill-pill bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">CSS</span>
-                            <span class="skill-pill bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">JavaScript</span>
-                            <span class="skill-pill bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">.NET</span>
-                        </div>
-                    </section>
-
-                </div>
-
-                <!-- Right Column -->
-                <div class="w-full lg:w-2/3 space-y-8">
-                    <!-- Objective Section -->
-                    <section class="bg-white rounded-xl shadow-md p-6">
-                        <h2 class="text-2xl font-bold mb-4 text-indigo-600 flex items-center">
-                            <i class="fas fa-bullseye mr-2"></i> Objective
-                        </h2>
-                        <p class="text-lg">Seeking a <span class="font-bold">Middle Designer</span> position (graphic design, motion design, presentation design, video production) with a salary level <span class="font-bold">from 100,000 RUB</span>, where I can apply my years of experience, creative approach, and technical skills to build impressive visual products and solve complex design challenges.</p>
-                    </section>
-
-                    <!-- Experience Section -->
-                    <section class="bg-white rounded-xl shadow-md p-6">
-                        <h2 class="text-2xl font-bold mb-6 text-indigo-600 flex items-center">
-                            <i class="fas fa-briefcase mr-2"></i> Work Experience
-                        </h2>
-                        
-                        <div class="border-l-2 border-gray-200 pl-6 relative space-y-8">
-                            <!-- Freelance -->
-                            <div class="timeline-item relative">
-                                <div class="bg-indigo-50 rounded-lg p-6">
-                                    <h3 class="text-xl font-bold mb-1">Freelance | Graphic Designer, Video Editor, Motion Designer, Content Maker</h3>
-                                    <p class="text-gray-600 mb-4">2016 — present (10+ years)</p>
-                                    
-                                    <div class="mb-4">
-                                        <h4 class="font-semibold mb-2">Brand identity and visual concepts:</h4>
-                                        <p class="mb-2"><span class="font-medium">Project:</span> Developed brand concept and presentation for psychologist Anna Lebedeva.</p>
-                                        <p class="text-sm text-gray-600">Result: A cohesive and professional brand identity that helped increase recognition and audience trust.</p>
-                                    </div>
-                                    
-                                    <div class="mb-4">
-                                        <h4 class="font-semibold mb-2">Video content and motion design:</h4>
-                                        <p class="mb-2"><span class="font-medium">Project:</span> Produced a promotional video for the concert tour of the band "Ruki Vverh".</p>
-                                        <p class="text-sm text-gray-600">Result: An energetic and stylish promo video that helped attract attention to the tour.</p>
-                                    </div>
-                                    
-                                    <div class="mb-4">
-                                        <p class="mb-2"><span class="font-medium">Project:</span> Created animated videos and subtitled content for the educational platform Skillbox.</p>
-                                        <p class="text-sm text-gray-600">Result: High-quality educational videos praised for clarity and visuals.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- CAD Specialist -->
-                            <div class="timeline-item relative">
-                                <div class="bg-indigo-50 rounded-lg p-6">
-                                    <h3 class="text-xl font-bold mb-1">CAD Specialist | LLC PC USPTU "NEFTEGAZENGINEERING"</h3>
-                                    <p class="text-gray-600 mb-4">July 2025 — July 2026 (1 year)</p>
-
-                                    <div class="space-y-3">
-                                        <p><span class="font-medium">Department:</span> Information Technology</p>
-
-                                        <div>
-                                            <h4 class="font-semibold mb-1">Main responsibilities:</h4>
-                                            <ul class="list-disc pl-5 space-y-1">
-                                                <li>Administration and configuration of CAD systems (AutoCAD, SmartLep)</li>
-                                                <li>Technical support for CAD users</li>
-                                                <li>Development of standards and templates for design work</li>
-                                                <li>Support of the parallel design system</li>
-                                                <li>Development of software for BIM design</li>
-                                                <li>Training employees to work with AutoCAD and other CAD tools</li>
-                                            </ul>
-                                        </div>
-                                        <div class="mb-4">
-                                            <p class="mb-2"><span class="font-medium">Project:</span> Developed a program to automate project launch workflows for chief project engineers.</p>
-                                            <p class="text-sm text-gray-600">Result: The application was built with .NET and C# using Windows Forms UI. It provides drawing attachment via external references, directory creation, object registry updates, and authorship tracking. Productivity in CPE departments increased by 65%.</p>
-                                        </div>
-                                        <div class="mb-4">
-                                            <p class="mb-2"><span class="font-medium">Project:</span> Created a script for automated distribution of CryptoPro CSP license keys.</p>
-                                            <p class="text-sm text-gray-600">Result: The script was built in C#, connects to user PCs over the subnet, validates license keys from .csv files, and reinstalls .msi packages with license binding.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Previous Role in the Same Company -->
-                            <div class="timeline-item relative">
-                                <div class="bg-indigo-50 rounded-lg p-6">
-                                    <h3 class="text-xl font-bold mb-1">Engineer, Designer (part-time) | LLC PC USPTU "NEFTEGAZENGINEERING"</h3>
-                                    <p class="text-gray-600 mb-4">September 2022 — July 2025 (2 years 10 months)</p>
-                                    
-                                    <div class="space-y-3">
-                                        <p><span class="font-medium">Main responsibilities:</span> Development of working and design documentation for overhead power lines.</p>
-                                        
-                                        <div>
-                                            <h4 class="font-semibold mb-1">Additional projects:</h4>
-                                            <ul class="list-disc pl-5 space-y-1">
-                                                <li>Participated in planning and design for the company's internal portal</li>
-                                                <li>Created a user interface for AutoCAD using Visual Lisp</li>
-                                                <li>Actively contributed to BIM automation projects</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Previous Jobs -->
-                            <div class="timeline-item relative">
-                                <div class="bg-indigo-50 rounded-lg p-6">
-                                    <h3 class="text-xl font-bold mb-1">Design Engineer | LLC "RN-BASHNIPINEFT"</h3>
-                                    <p class="text-gray-600 mb-3">February 2022 — June 2022 (5 months)</p>
-                                    <p>Development of working and design documentation for gas condensate recovery unit (GCRU).</p>
-                                </div>
-                            </div>
-                            
-                            <div class="timeline-item relative">
-                                <div class="bg-indigo-50 rounded-lg p-6">
-                                    <h3 class="text-xl font-bold mb-1">Video Editor | Magic World Cinema</h3>
-                                    <p class="text-gray-600 mb-3">June 2018 — August 2019 (1 year 3 months)</p>
-                                    <p>Performed final editing (scene cuts, transitions, story pacing), basic color correction, and audio work.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- Education Section -->
-                    <section class="bg-white rounded-xl shadow-md p-6">
-                        <h2 class="text-2xl font-bold mb-6 text-indigo-600 flex items-center">
-                            <i class="fas fa-graduation-cap mr-2"></i> Education
-                        </h2>
-                        
-                        <div class="space-y-6">
-                            <div class="flex items-start">
-                                <div class="bg-indigo-100 p-3 rounded-full mr-4">
-                                    <i class="fas fa-university text-indigo-600"></i>
-                                </div>
-                                <div>
-                                    <h3 class="text-lg font-bold">Ufa State Petroleum Technological University</h3>
-                                    <p class="text-gray-600 mb-1">Institute of Economics and Service, <span class="font-medium">Design</span> (Master's degree with honors)</p>
-                                    <p class="text-sm text-gray-500">2023 – 2026</p>
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-start">
-                                <div class="bg-indigo-100 p-3 rounded-full mr-4">
-                                    <i class="fas fa-university text-indigo-600"></i>
-                                </div>
-                                <div>
-                                    <h3 class="text-lg font-bold">Ufa State Aviation Technical University</h3>
-                                    <p class="text-gray-600 mb-1">Faculty of Avionics, Electric Power Engineering and Infocommunications, <span class="font-medium">Electric Power and Electrical Engineering</span> (Bachelor's)</p>
-                                    <p class="text-sm text-gray-500">2017 – 2021</p>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- Courses Section -->
-                    <section class="bg-white rounded-xl shadow-md p-6">
-                        <h2 class="text-2xl font-bold mb-4 text-indigo-600 flex items-center">
-                            <i class="fas fa-certificate mr-2"></i> Professional development
-                        </h2>
-                        
-                        <div class="space-y-4">
-                            <div>
-                                <h3 class="font-semibold">FSBEI HE "USATU", Department of Electromechanics</h3>
-                                <p class="text-gray-600">Electrical personnel (Advanced training)</p>
-                                <p class="text-sm text-gray-500">2021</p>
-                            </div>
-                            
-                            <div>
-                                <h3 class="font-semibold">SmartLEP Software Training Course</h3>
-                                <p class="text-gray-600">Completed a course by JSC "Russian CAD" (Advanced training)</p>
-                                <p class="text-sm text-gray-500">2025</p>
-                            </div>
-                        </div>
-                    </section>
-                </div>
-            </div>
-        </main>
-
-        <!-- Footer -->
-        <footer class="gradient-bg text-white py-8">
-            <div class="container mx-auto px-4 text-center">
-                <div class="flex justify-center space-x-6 mb-6">
-                    <a href="http://behance.net/dioniday" target="_blank" class="text-white hover:text-indigo-200 text-2xl">
-                        <i class="fab fa-behance"></i>
-                    </a>
-                    <a href="https://stopgame.ru/user/DisokJenkins/games" target="_blank" class="text-white hover:text-indigo-200 text-2xl">
-                        <i class="fas fa-gamepad"></i>
-                    </a>
-                    <a href="mailto:dioniday@internet.ru" class="text-white hover:text-indigo-200 text-2xl">
-                        <i class="fas fa-envelope"></i>
-                    </a>
-                    <a href="tel:+7(996)4035664" class="text-white hover:text-indigo-200 text-2xl">
-                        <i class="fas fa-phone"></i>
-                    </a>
-                </div>
-                <p>© 2026 Denis Gazutdinov. All rights reserved.</p>
-            </div>
-        </footer>
-    </div>
-
-    <script src="/js/lang-toggle.js" defer></script>
-    <script>
-        // Simple animation for skills on hover
-        document.querySelectorAll('.skill-pill').forEach(pill => {
-            pill.addEventListener('mouseenter', function() {
-                this.classList.add('shadow-md');
-            });
-            pill.addEventListener('mouseleave', function() {
-                this.classList.remove('shadow-md');
-            });
-        });
-        
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="preload" href="/assets/fonts/montserrat-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/assets/css/site.css">
+    <script src="/js/lang.js"></script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Denis Gazutdinov",
+        "alternateName": ["Денис Газутдинов", "Dioniday"],
+        "jobTitle": "Middle Designer",
+        "url": "https://dioniday.dev/en/",
+        "image": "https://dioniday.dev/profile_photo.jpg",
+        "email": "mailto:dioniday@internet.ru",
+        "telephone": "+79964035664",
+        "address": { "@type": "PostalAddress", "addressLocality": "Ufa", "addressCountry": "RU" },
+        "alumniOf": [
+            { "@type": "CollegeOrUniversity", "name": "Ufa State Petroleum Technological University" },
+            { "@type": "CollegeOrUniversity", "name": "Ufa State Aviation Technical University" }
+        ],
+        "sameAs": ["https://www.behance.net/dioniday", "https://t.me/Dioniday", "https://github.com/Dioniday"]
+    }
     </script>
+</head>
+<body>
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:text-indigo-700">Skip to content</a>
+
+    <!-- Header -->
+    <header class="gradient-bg text-white">
+        <div class="container mx-auto px-4 pb-12 pt-6 md:pb-20">
+            <div class="no-print mb-6 flex justify-end gap-2">
+                <button type="button" data-print class="chip text-sm font-medium">
+                    <svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#download"></use></svg> Download PDF
+                </button>
+                <a href="/" data-lang="ru" hreflang="ru" lang="ru" class="chip text-sm font-medium" aria-label="Русская версия">RU</a>
+            </div>
+            <div class="flex flex-col items-center md:flex-row">
+                <div class="mb-8 flex w-full justify-center md:mb-0 md:w-1/3">
+                    <img src="/assets/img/profile.webp" srcset="/assets/img/profile-320.webp 320w, /assets/img/profile.webp 640w" sizes="(min-width: 768px) 256px, 192px" width="256" height="256" alt="Denis Gazutdinov" fetchpriority="high" class="animate-float h-48 w-48 rounded-full border-4 border-white object-cover shadow-xl md:h-64 md:w-64">
+                </div>
+                <div class="w-full text-center md:w-2/3 md:text-left">
+                    <h1 class="mb-2 text-3xl font-bold md:text-5xl">Denis Gazutdinov</h1>
+                    <p class="mb-4 text-xl font-semibold md:text-2xl">Middle Designer</p>
+                    <p class="mb-6 max-w-2xl text-lg text-indigo-50">Graphic design, motion design, video production</p>
+                    <ul class="flex flex-wrap justify-center gap-2 md:justify-start">
+                        <li><a href="tel:+79964035664" class="chip"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#phone"></use></svg> +7 (996) 403-56-64</a></li>
+                        <li><a href="mailto:dioniday@internet.ru" class="chip"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#envelope"></use></svg> dioniday@internet.ru</a></li>
+                        <li><a href="https://t.me/Dioniday" target="_blank" rel="noopener" class="chip"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#telegram"></use></svg> @Dioniday</a></li>
+                        <li><span class="chip hover:bg-white/20"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#location"></use></svg> Ufa, Russia</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main id="main" class="container mx-auto space-y-8 px-4 py-12">
+        <!-- Works -->
+        <section id="works" class="no-print" aria-labelledby="works-title">
+            <div class="mb-6 flex flex-wrap items-end justify-between gap-4">
+                <h2 id="works-title" class="card-title mb-0">
+                    <svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#palette"></use></svg> Selected work
+                </h2>
+                <a href="https://www.behance.net/dioniday" target="_blank" rel="noopener" class="inline-flex items-center gap-2 font-semibold text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300">
+                    All projects on Behance <svg class="icon text-sm" aria-hidden="true"><use href="/assets/icons.svg#external"></use></svg>
+                </a>
+            </div>
+            <div class="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+                <article class="work-card">
+                    <a href="https://www.behance.net/dioniday" target="_blank" rel="noopener" aria-label="Brand identity for a psychologist — view on Behance">
+                        <img src="/assets/img/works/psychologist-branding.webp" width="800" height="450" loading="lazy" alt="Cover of the brand identity presentation for psychologist Anna Lebedeva" class="work-media">
+                    </a>
+                    <div class="flex flex-1 flex-col p-5">
+                        <p class="work-tag"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#palette"></use></svg> Branding · Presentation</p>
+                        <h3 class="mb-2 text-lg font-bold">Brand identity for a psychologist</h3>
+                        <p class="result">Brand concept and presentation for psychologist Anna Lebedeva.</p>
+                    </div>
+                </article>
+                <article class="work-card">
+                    <video data-cover class="work-media object-contain" controls preload="none" playsinline poster="/assets/img/works/ruki-vverh-poster.webp" aria-label="Promo video for the Ruki Vverh! concert tour">
+                        <source src="/assets/video/ruki-vverh-promo.mp4" type="video/mp4">
+                    </video>
+                    <div class="flex flex-1 flex-col p-5">
+                        <p class="work-tag"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#film"></use></svg> Motion design · Advertising</p>
+                        <h3 class="mb-2 text-lg font-bold">“Ruki Vverh!” tour promo</h3>
+                        <p class="result">Social media promo for the band's concert at Volgograd Arena.</p>
+                    </div>
+                </article>
+                <article class="work-card">
+                    <video data-cover class="work-media" controls preload="none" playsinline poster="/assets/img/works/skillbox-poster.webp" aria-label="Animated video for Skillbox">
+                        <source src="/assets/video/skillbox-promo.mp4" type="video/mp4">
+                    </video>
+                    <div class="flex flex-1 flex-col p-5">
+                        <p class="work-tag"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#film"></use></svg> Animation · Editing</p>
+                        <h3 class="mb-2 text-lg font-bold">Video for Skillbox</h3>
+                        <p class="result">Animated recap of the Management faculty's open student project defense.</p>
+                    </div>
+                </article>
+                <article class="work-card">
+                    <a href="https://www.behance.net/dioniday" target="_blank" rel="noopener" aria-label="Tilda portfolio website — view on Behance">
+                        <img src="/assets/img/works/tilda-portfolio.webp" width="800" height="450" loading="lazy" alt="Hero section of a graphic designer's portfolio website built on Tilda" class="work-media object-top">
+                    </a>
+                    <div class="flex flex-1 flex-col p-5">
+                        <p class="work-tag"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#globe"></use></svg> Web design · Tilda</p>
+                        <h3 class="mb-2 text-lg font-bold">Portfolio website on Tilda</h3>
+                        <p class="result">One-page site for a graphic designer: portfolio, services and contact form.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <div class="flex flex-col gap-8 lg:flex-row">
+            <!-- Left Column -->
+            <div class="w-full space-y-8 lg:w-1/3">
+                <!-- About -->
+                <section class="card">
+                    <h2 class="card-title"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#user"></use></svg> About me</h2>
+                    <p class="mb-4">I'm Denis — a designer and content maker with 10 years of experience in visual creativity and digital projects.</p>
+                    <p class="mb-4">My passion is turning ideas into impressive visual solutions: from dynamic videos to intuitive interfaces.</p>
+                    <p class="mb-4">I constantly explore new technologies and design trends, including AI tools.</p>
+                    <p>In January 2026, I graduated with honors from the Master's program in Design at USPTU (Institute of Economics and Service).</p>
+                </section>
+
+                <!-- Portfolio links -->
+                <section class="card no-print">
+                    <h2 class="card-title"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#briefcase"></use></svg> Portfolio</h2>
+                    <div class="space-y-3">
+                        <a href="https://www.behance.net/dioniday" target="_blank" rel="noopener" class="flex w-full items-center gap-2 rounded-lg bg-indigo-600 px-6 py-3 font-medium text-white transition hover:bg-indigo-700">
+                            <svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#behance"></use></svg> View on Behance
+                        </a>
+                        <a href="/dioniday_site_card/" class="group flex items-center gap-4 rounded-xl border border-slate-200 p-4 transition hover:-translate-y-0.5 hover:border-indigo-300 hover:shadow-md dark:border-slate-700 dark:hover:border-indigo-500">
+                            <span class="grid h-12 w-12 place-items-center rounded-lg bg-indigo-600 text-2xl text-white"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#globe"></use></svg></span>
+                            <span>
+                                <span class="block text-lg font-semibold">Social media</span>
+                                <span class="block text-sm text-slate-500 dark:text-slate-400">All my platforms</span>
+                            </span>
+                            <svg class="icon ml-auto text-slate-400 transition group-hover:translate-x-1 group-hover:text-indigo-500" aria-hidden="true"><use href="/assets/icons.svg#arrow-right"></use></svg>
+                        </a>
+                    </div>
+                </section>
+
+                <!-- Skills -->
+                <section class="card">
+                    <h2 class="card-title"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#gears"></use></svg> Skills</h2>
+                    <h3 class="mb-2 text-lg font-semibold">Professional software:</h3>
+                    <ul class="mb-4 flex flex-wrap gap-2">
+                        <li class="pill pill-indigo">Adobe Premiere Pro</li>
+                        <li class="pill pill-indigo">After Effects</li>
+                        <li class="pill pill-indigo">Photoshop</li>
+                        <li class="pill pill-indigo">Illustrator</li>
+                        <li class="pill pill-indigo">InDesign</li>
+                        <li class="pill pill-indigo">Figma</li>
+                        <li class="pill pill-indigo">Tilda</li>
+                        <li class="pill pill-indigo">AutoCAD</li>
+                        <li class="pill pill-indigo">Visual Studio</li>
+                        <li class="pill pill-indigo">VS Code</li>
+                    </ul>
+
+                    <h3 class="mb-2 text-lg font-semibold">AI tools:</h3>
+                    <ul class="mb-4 flex flex-wrap gap-2">
+                        <li class="pill pill-purple">ChatGPT</li>
+                        <li class="pill pill-purple">Gemini</li>
+                        <li class="pill pill-purple">Perplexity</li>
+                        <li class="pill pill-purple">Midjourney</li>
+                        <li class="pill pill-purple">Llama.cpp</li>
+                        <li class="pill pill-purple">Qwen</li>
+                        <li class="pill pill-purple">Deepseek</li>
+                        <li class="pill pill-purple">LM Studio</li>
+                        <li class="pill pill-purple">OpenCode</li>
+                        <li class="pill pill-purple">Local model deployment</li>
+                    </ul>
+
+                    <h3 class="mb-2 text-lg font-semibold">Programming:</h3>
+                    <ul class="flex flex-wrap gap-2">
+                        <li class="pill pill-blue">Visual Lisp</li>
+                        <li class="pill pill-blue">Vibecoding</li>
+                        <li class="pill pill-blue">Beginner C#</li>
+                        <li class="pill pill-blue">HTML</li>
+                        <li class="pill pill-blue">CSS</li>
+                        <li class="pill pill-blue">JavaScript</li>
+                        <li class="pill pill-blue">.NET</li>
+                    </ul>
+                </section>
+            </div>
+
+            <!-- Right Column -->
+            <div class="w-full space-y-8 lg:w-2/3">
+                <!-- Objective -->
+                <section class="card">
+                    <h2 class="card-title"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#bullseye"></use></svg> Objective</h2>
+                    <p class="text-lg">Seeking a <span class="font-bold">Middle Designer</span> position (graphic design, motion design, presentation design, video production) with a salary level <span class="font-bold">from 100,000 RUB</span>, where I can apply my years of experience, creative approach, and technical skills to build impressive visual products and solve complex design challenges.</p>
+                </section>
+
+                <!-- Experience -->
+                <section id="experience" class="card">
+                    <h2 class="card-title mb-6"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#briefcase"></use></svg> Work Experience</h2>
+
+                    <div class="relative space-y-8 border-l-2 border-slate-200 pl-6 dark:border-slate-700">
+                        <!-- Freelance -->
+                        <article class="job">
+                            <h3 class="mb-1 text-xl font-bold">Freelance | Graphic Designer, Video Editor, Motion Designer, Content Maker</h3>
+                            <p class="job-meta">2016 — present (10+ years)</p>
+
+                            <div class="mb-4">
+                                <h4 class="mb-2 font-semibold">Brand identity and visual concepts:</h4>
+                                <p class="mb-2"><span class="font-medium">Project:</span> Developed brand concept and presentation for psychologist Anna Lebedeva.</p>
+                                <p class="result">Result: A cohesive and professional brand identity that helped increase recognition and audience trust.</p>
+                            </div>
+
+                            <div class="mb-4">
+                                <h4 class="mb-2 font-semibold">Video content and motion design:</h4>
+                                <p class="mb-2"><span class="font-medium">Project:</span> Produced a promotional video for the concert tour of the band "Ruki Vverh".</p>
+                                <p class="result">Result: An energetic and stylish promo video that helped attract attention to the tour.</p>
+                            </div>
+
+                            <div>
+                                <p class="mb-2"><span class="font-medium">Project:</span> Created animated videos and subtitled content for the educational platform Skillbox.</p>
+                                <p class="result">Result: High-quality educational videos praised for clarity and visuals.</p>
+                            </div>
+                        </article>
+
+                        <!-- CAD Specialist -->
+                        <article class="job">
+                            <h3 class="mb-1 text-xl font-bold">CAD Specialist | LLC PC USPTU "NEFTEGAZENGINEERING"</h3>
+                            <p class="job-meta">July 2025 — July 2026 (1 year)</p>
+
+                            <div class="space-y-3">
+                                <p><span class="font-medium">Department:</span> Information Technology</p>
+
+                                <div>
+                                    <h4 class="mb-1 font-semibold">Main responsibilities:</h4>
+                                    <ul class="list-disc space-y-1 pl-5">
+                                        <li>Administration and configuration of CAD systems (AutoCAD, SmartLep)</li>
+                                        <li>Technical support for CAD users</li>
+                                        <li>Development of standards and templates for design work</li>
+                                        <li>Support of the parallel design system</li>
+                                        <li>Development of software for BIM design</li>
+                                        <li>Training employees to work with AutoCAD and other CAD tools</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <p class="mb-2"><span class="font-medium">Project:</span> Developed a program to automate project launch workflows for chief project engineers.</p>
+                                    <p class="result">Result: The application was built with .NET and C# using Windows Forms UI. It provides drawing attachment via external references, directory creation, object registry updates, and authorship tracking. Productivity in CPE departments increased by 65%.</p>
+                                </div>
+                                <div>
+                                    <p class="mb-2"><span class="font-medium">Project:</span> Created a script for automated distribution of CryptoPro CSP license keys.</p>
+                                    <p class="result">Result: The script was built in C#, connects to user PCs over the subnet, validates license keys from .csv files, and reinstalls .msi packages with license binding.</p>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- Engineer, Designer -->
+                        <article class="job">
+                            <h3 class="mb-1 text-xl font-bold">Engineer, Designer (part-time) | LLC PC USPTU "NEFTEGAZENGINEERING"</h3>
+                            <p class="job-meta">September 2022 — July 2025 (2 years 10 months)</p>
+
+                            <div class="space-y-3">
+                                <p><span class="font-medium">Main responsibilities:</span> Development of working and design documentation for overhead power lines.</p>
+
+                                <div>
+                                    <h4 class="mb-1 font-semibold">Additional projects:</h4>
+                                    <ul class="list-disc space-y-1 pl-5">
+                                        <li>Participated in planning and design for the company's internal portal</li>
+                                        <li>Created a user interface for AutoCAD using Visual Lisp</li>
+                                        <li>Actively contributed to BIM automation projects</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- Previous Jobs -->
+                        <article class="job">
+                            <h3 class="mb-1 text-xl font-bold">Design Engineer | LLC "RN-BASHNIPINEFT"</h3>
+                            <p class="job-meta mb-3">February 2022 — June 2022 (5 months)</p>
+                            <p>Development of working and design documentation for gas condensate recovery unit (GCRU).</p>
+                        </article>
+
+                        <article class="job">
+                            <h3 class="mb-1 text-xl font-bold">Video Editor | Magic World Cinema</h3>
+                            <p class="job-meta mb-3">June 2018 — August 2019 (1 year 3 months)</p>
+                            <p>Performed final editing (scene cuts, transitions, story pacing), basic color correction, and audio work.</p>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- Education -->
+                <section class="card">
+                    <h2 class="card-title mb-6"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#graduation"></use></svg> Education</h2>
+
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-indigo-100 text-indigo-600 dark:bg-indigo-500/20 dark:text-indigo-300"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#university"></use></svg></span>
+                            <div>
+                                <h3 class="text-lg font-bold">Ufa State Petroleum Technological University</h3>
+                                <p class="mb-1 text-slate-600 dark:text-slate-400">Institute of Economics and Service, <span class="font-medium">Design</span> (Master's degree with honors)</p>
+                                <p class="text-sm text-slate-500">2023 – 2026</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-indigo-100 text-indigo-600 dark:bg-indigo-500/20 dark:text-indigo-300"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#university"></use></svg></span>
+                            <div>
+                                <h3 class="text-lg font-bold">Ufa State Aviation Technical University</h3>
+                                <p class="mb-1 text-slate-600 dark:text-slate-400">Faculty of Avionics, Electric Power Engineering and Infocommunications, <span class="font-medium">Electric Power and Electrical Engineering</span> (Bachelor's)</p>
+                                <p class="text-sm text-slate-500">2017 – 2021</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Courses -->
+                <section class="card">
+                    <h2 class="card-title"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#certificate"></use></svg> Professional development</h2>
+
+                    <div class="space-y-4">
+                        <div>
+                            <h3 class="font-semibold">FSBEI HE "USATU", Department of Electromechanics</h3>
+                            <p class="text-slate-600 dark:text-slate-400">Electrical personnel (Advanced training)</p>
+                            <p class="text-sm text-slate-500">2021</p>
+                        </div>
+
+                        <div>
+                            <h3 class="font-semibold">SmartLEP Software Training Course</h3>
+                            <p class="text-slate-600 dark:text-slate-400">Completed a course by JSC "Russian CAD" (Advanced training)</p>
+                            <p class="text-sm text-slate-500">2025</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contacts" class="gradient-bg no-print py-8 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <ul class="no-print mb-6 flex flex-wrap justify-center gap-2">
+                <li><a href="https://www.behance.net/dioniday" target="_blank" rel="noopener" class="social-link" aria-label="Behance"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#behance"></use></svg></a></li>
+                <li><a href="https://t.me/Dioniday" target="_blank" rel="noopener" class="social-link" aria-label="Telegram"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#telegram"></use></svg></a></li>
+                <li><a href="https://github.com/Dioniday" target="_blank" rel="noopener" class="social-link" aria-label="GitHub"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#github"></use></svg></a></li>
+                <li><a href="https://stopgame.ru/user/DisokJenkins/games" target="_blank" rel="noopener" class="social-link" aria-label="StopGame"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#gamepad"></use></svg></a></li>
+                <li><a href="mailto:dioniday@internet.ru" class="social-link" aria-label="Email"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#envelope"></use></svg></a></li>
+                <li><a href="tel:+79964035664" class="social-link" aria-label="Call"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#phone"></use></svg></a></li>
+            </ul>
+            <p>© 2026 Denis Gazutdinov. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="/js/main.js" defer></script>
 </body>
 </html>
