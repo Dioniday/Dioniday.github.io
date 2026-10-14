@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Безопасность DoПортала простым языком: данные в вашей сети, вход только через домен, права на каждое обращение, журналы, независимая проверка.">
+<link rel="canonical" href="https://dioniday.dev/doportal/security.html">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="DoПортал — безопасность">
+<meta property="og:description" content="Безопасность DoПортала простым языком: данные в вашей сети, вход только через домен, права на каждое обращение, журналы, независимая проверка.">
+<meta property="og:url" content="https://dioniday.dev/doportal/security.html">
+<meta property="og:image" content="https://dioniday.dev/doportal/img/home.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<title>DoПортал — безопасность</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800&family=PT+Mono&family=PT+Sans+Narrow:wght@400;700&display=swap">
+<style>
+/* Раскладка: лист проектной документации — одна колонка ~1000px, основная надпись по ГОСТ 2.104 как мотив обложки */
+:root {
+  --paper: #ffffff;
+  --paper-2: #f4f6fa;
+  --ink: #162033;
+  --muted: #5a6478;
+  --line: #d6dbe4;
+  --accent: #2457d6;
+  --accent-soft: #eaf0fd;
+  --ok: #17803d; --ok-bg: #e5f5ea;
+  --warn: #8a5a00; --warn-bg: #fdf1d3;
+  --bad: #b42318; --bad-bg: #fde8e6;
+  --fill: #fff1b8; --fill-ink: #5c4300;
+  --shadow: 0 1px 2px rgba(22,32,51,.06), 0 8px 24px rgba(22,32,51,.08);
+  --f-body: "Golos Text", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "PT Mono", "Consolas", monospace;
+  --f-narrow: "PT Sans Narrow", "Arial Narrow", sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0f141d; --paper-2: #161d29; --ink: #e5e9f0; --muted: #9aa4b7; --line: #2a3344;
+    --accent: #7ea3ff; --accent-soft: #1a2442;
+    --ok: #6fd391; --ok-bg: #12301f; --warn: #f2c66b; --warn-bg: #3a2c0c; --bad: #ff8f84; --bad-bg: #3b1714;
+    --fill: #4b3c0c; --fill-ink: #ffe28a; --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0f141d; --paper-2: #161d29; --ink: #e5e9f0; --muted: #9aa4b7; --line: #2a3344;
+  --accent: #7ea3ff; --accent-soft: #1a2442;
+  --ok: #6fd391; --ok-bg: #12301f; --warn: #f2c66b; --warn-bg: #3a2c0c; --bad: #ff8f84; --bad-bg: #3b1714;
+  --fill: #4b3c0c; --fill-ink: #ffe28a; --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+.doc { max-width: 1040px; margin: 0 auto; padding-inline: max(16px, 4vw); padding-block: 40px 64px; }
+h1, h2, h3 { line-height: 1.15; text-wrap: balance; margin: 0; }
+h2 { font-size: clamp(1.6rem, 3.2vw, 2.2rem); font-weight: 700; letter-spacing: -.005em; }
+h3 { font-size: 1.15rem; font-weight: 700; }
+p { margin: 0; max-width: 68ch; }
+.muted { color: var(--muted); }
+.mono { font-variant-numeric: tabular-nums; font-weight: 500; white-space: nowrap; }  /* шифры в тексте — тем же шрифтом, моноширинный разрежал бы строку */
+.eyebrow { font-family: var(--f-narrow); text-transform: uppercase; letter-spacing: .08em; font-size: .85rem; color: var(--accent); font-weight: 700; }
+.fill { background: var(--fill); color: var(--fill-ink); padding: 0 .3em; border-radius: 3px; border-bottom: 1px dashed currentColor; white-space: nowrap; }
+a { color: var(--accent); }
+.btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 16px; border-radius: 8px; border: 1px solid var(--line); color: var(--ink); text-decoration: none; font-weight: 600; font-size: .95rem; background: var(--paper); }
+.btn:hover { border-color: var(--accent); color: var(--accent); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--paper); }
+.btn.primary:hover { color: var(--paper); filter: brightness(1.08); }
+.btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+@media print { .btn { display: none; } }
+
+section.chapter { padding-block: 56px 8px; border-top: 1px solid var(--line); display: grid; gap: 22px; }
+section.chapter:first-of-type { border-top: 0; }
+.chapter-head { display: grid; gap: 10px; }
+section.chapter > * { min-width: 0; }
+.chapter-head .num { font-family: var(--f-mono); color: var(--muted); font-size: .9rem; }
+
+/* ===== Обложка ===== */
+.cover { display: grid; gap: 28px; padding-bottom: 40px; }
+.cover-top { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; align-items: baseline; }
+.brand { font-weight: 700; font-size: 1.15rem; color: var(--accent); letter-spacing: -.01em; }
+.cover h1 { font-size: clamp(2.4rem, 6.4vw, 4.4rem); font-weight: 700; letter-spacing: -.01em; line-height: 1.08; }
+.cover h1 span { color: var(--accent); display: block; }
+.cover .lead { font-size: clamp(1.05rem, 2vw, 1.3rem); color: var(--muted); max-width: 46ch; }
+.for-whom { display: flex; gap: 10px 28px; flex-wrap: wrap; font-size: .98rem; }
+.for-whom b { font-weight: 600; }
+
+.shot { margin: 0; display: grid; gap: 8px; min-width: 0; }
+.shot .frame { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--paper-2); box-shadow: var(--shadow); }
+.shot img { display: block; width: 100%; height: auto; }
+.shot figcaption { font-size: .88rem; color: var(--muted); }
+.shot.crop .frame { max-height: 560px; }
+.shot.crop img { object-fit: cover; object-position: top; }
+
+/* Основная надпись (мотив ГОСТ 2.104) */
+.stamp { display: grid; grid-template-columns: 1.1fr 1.6fr 2.4fr .8fr .8fr;
+  grid-template-areas: "dev exec title stage sheets" "cust cust title code code";
+  border: 2px solid var(--ink); font-family: var(--f-narrow); font-size: .95rem; }
+.stamp > div { border-right: 1px solid var(--ink); border-bottom: 1px solid var(--ink); padding: 4px 8px; min-width: 0; }
+.stamp .lbl { color: var(--muted); font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; display: block; }
+.s-dev { grid-area: dev; } .s-exec { grid-area: exec; } .s-stage { grid-area: stage; } .s-cust { grid-area: cust; }
+.stamp .s-sheets { grid-area: sheets; border-right: 0; }
+.stamp .title { grid-area: title; border-bottom: 0; display: flex; flex-direction: column; justify-content: center; font-family: var(--f-body); font-weight: 700; font-size: 1.05rem; }
+.stamp .code { grid-area: code; border-right: 0; border-bottom: 0; display: grid; place-items: center; font-family: var(--f-mono); font-size: 1.1rem; letter-spacing: .04em; white-space: nowrap; }
+.stamp .s-cust { border-bottom: 0; }
+
+/* ===== Сравнение «было/стало» ===== */
+.compare { width: 100%; border-collapse: collapse; font-size: .97rem; }
+.compare th, .compare td { text-align: left; vertical-align: top; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+.compare th { font-family: var(--f-narrow); text-transform: uppercase; letter-spacing: .08em; font-size: .82rem; color: var(--muted); font-weight: 700; }
+.compare td:first-child { font-weight: 600; width: 22%; }
+.compare td:nth-child(2) { color: var(--muted); width: 33%; }
+.table-wrap { overflow-x: auto; }
+
+.facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.facts > div { padding: 18px 18px 16px; border-right: 1px solid var(--line); display: grid; gap: 4px; align-content: start; }
+.facts > div:last-child { border-right: 0; }
+.facts b { font-size: 1.9rem; font-weight: 700; letter-spacing: 0; color: var(--accent); line-height: 1.1; }
+.facts span { font-size: .9rem; color: var(--muted); }
+
+/* ===== Сквозной процесс ===== */
+.flow { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0; counter-reset: step; }
+.flow li { position: relative; padding: 14px 14px 14px 0; display: grid; gap: 6px; align-content: start; counter-increment: step; min-width: 0; }
+.flow li::before { content: counter(step); font-family: var(--f-mono); width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: var(--accent); color: var(--paper); font-size: .9rem; position: relative; z-index: 1; }
+.flow li::after { content: ""; position: absolute; top: 29px; left: 30px; right: 0; height: 2px; background: var(--line); }
+.flow li:last-child::after { display: none; }
+.flow b { font-size: .98rem; }
+.flow span { font-size: .85rem; color: var(--muted); line-height: 1.4; }
+
+/* ===== Модули ===== */
+.module { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 28px; align-items: start; }
+.module.wide { grid-template-columns: 1fr; }
+.module .text { display: grid; gap: 14px; }
+.module ul, .list { margin: 0; padding-left: 1.1em; display: grid; gap: 7px; }
+.module li::marker, .list li::marker { color: var(--accent); }
+.tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { display: inline-block; font-size: .8rem; padding: 1px 9px; border-radius: 999px; background: var(--paper-2); border: 1px solid var(--line); white-space: nowrap; }
+.chip.ok { background: var(--ok-bg); color: var(--ok); border-color: transparent; }
+.chip.warn { background: var(--warn-bg); color: var(--warn); border-color: transparent; }
+.chip.bad { background: var(--bad-bg); color: var(--bad); border-color: transparent; }
+.chip.acc { background: var(--accent-soft); color: var(--accent); border-color: transparent; }
+.two-shots { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 3fr); gap: 20px; align-items: start; }
+
+.note { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: .95rem; }
+.note.warn { border-color: var(--warn); background: var(--warn-bg); }
+
+/* ===== Роли ===== */
+.roles { width: 100%; border-collapse: collapse; font-size: .94rem; }
+.roles th, .roles td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.roles th { font-family: var(--f-narrow); text-transform: uppercase; letter-spacing: .08em; font-size: .8rem; color: var(--muted); }
+.roles td:first-child { font-weight: 600; white-space: nowrap; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.card { border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: grid; gap: 8px; align-content: start; background: var(--paper); }
+.card h3 { font-size: 1.02rem; }
+.card p { font-size: .93rem; color: var(--muted); }
+
+/* ===== Этапы и стоимость ===== */
+.phases { list-style: none; margin: 0 0 0 14px; padding: 0; display: grid; gap: 0; border-left: 2px solid var(--line); counter-reset: ph; }
+.phases li { position: relative; padding: 4px 0 18px 26px; display: grid; gap: 3px; counter-increment: ph; }
+.phases li::before { content: counter(ph); position: absolute; left: -13px; top: 2px; width: 24px; height: 24px; border-radius: 50%; background: var(--paper); border: 2px solid var(--accent); color: var(--accent); font-family: var(--f-mono); font-size: .8rem; display: grid; place-items: center; }
+.phases .when { font-family: var(--f-mono); font-size: .85rem; color: var(--muted); }
+.price { width: 100%; border-collapse: collapse; font-size: .97rem; }
+.price th, .price td { padding: 12px 14px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+.price th { font-family: var(--f-narrow); text-transform: uppercase; letter-spacing: .08em; font-size: .8rem; color: var(--muted); }
+.price td.sum, .price th.sum { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.price tfoot td { font-weight: 700; border-bottom: 2px solid var(--ink); }
+
+.contacts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.contacts div { display: grid; gap: 2px; }
+.contacts .lbl { font-family: var(--f-narrow); text-transform: uppercase; letter-spacing: .08em; font-size: .78rem; color: var(--muted); }
+
+footer.end { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--line); font-size: .85rem; color: var(--muted); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+@media screen and (max-width: 860px) {
+  .module, .two-shots, .grid-3, .grid-2, .contacts { grid-template-columns: 1fr; }
+  .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .facts > div:nth-child(2) { border-right: 0; }
+  .facts > div:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+  .flow { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 8px; }
+  .flow li::after { display: none; }
+  .stamp { grid-template-columns: 1fr 1fr; grid-template-areas: "dev exec" "title title" "stage sheets" "cust cust" "code code"; }
+  .stamp .title, .stamp .s-cust { border-bottom: 1px solid var(--ink); border-right: 0; }
+  .stamp .s-exec { border-right: 0; }
+  .stamp .code { padding-block: 8px; }
+}
+@media (prefers-reduced-motion: no-preference) { a { transition: color .15s; } }
+
+/* ===== Печать в PDF (A4) ===== */
+@page { size: A4; margin: 14mm 14mm 16mm; }
+@media print {
+  :root, :root[data-theme="dark"] {
+    --paper: #fff; --paper-2: #f4f6fa; --ink: #162033; --muted: #5a6478; --line: #d6dbe4; --accent: #2457d6; --accent-soft: #eaf0fd;
+    --ok: #17803d; --ok-bg: #e5f5ea; --warn: #8a5a00; --warn-bg: #fdf1d3; --bad: #b42318; --bad-bg: #fde8e6; --fill: #fff1b8; --fill-ink: #5c4300;
+    --shadow: none; color-scheme: light;
+  }
+  body { font-size: 10.5pt; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .doc { max-width: none; padding: 0; }
+  .cover { gap: 16px; padding-bottom: 0; }
+  .cover h1 { font-size: 34pt; }
+  .screen-only { display: none !important; }
+  .offer-grid { grid-template-columns: 1fr !important; }
+  .flow b { font-size: 9pt; } .flow span { font-size: 8pt; }
+  section.chapter { break-before: page; border-top: 0; padding-top: 0; }
+  section.chapter.keep { break-before: auto; padding-top: 28px; border-top: 1px solid var(--line); }
+  .price, .module, .shot, .card, .roles tr, .price tr, .phases li, .flow, .facts, .stamp, .compare tr { break-inside: avoid; }
+  .shot .frame { box-shadow: none; }
+  .shot.crop .frame { max-height: 125mm; }
+  .cover .shot .frame { max-height: 98mm; }
+  .cover .shot img, .two-shots .shot img { object-fit: cover; object-position: top; }
+  .two-shots .shot .frame { max-height: 150mm; }
+  .facts b { font-size: 20pt; }
+  .stamp .code { font-size: 10pt; letter-spacing: .02em; }
+  h2 { font-size: 20pt; }
+  .module { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+  a { color: var(--ink); text-decoration: none; }
+}
+/* ===== Дополнительно для документа по безопасности ===== */
+.scheme { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1.3fr) auto minmax(0, 1fr); gap: 10px; align-items: center; }
+.scheme .node { border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; display: grid; gap: 4px; background: var(--paper); }
+.scheme .node b { font-size: 1rem; }
+.scheme .node span { font-size: .86rem; color: var(--muted); line-height: 1.4; }
+.scheme .node.core { border: 2px solid var(--accent); background: var(--accent-soft); }
+.scheme .arrow { font-family: var(--f-mono); color: var(--muted); font-size: 1.2rem; text-align: center; }
+.scheme .stack { display: grid; gap: 10px; }
+.perimeter { border: 2px dashed var(--ok); border-radius: 16px; padding: 18px; display: grid; gap: 14px; }
+.perimeter > .lbl { font-family: var(--f-narrow); text-transform: uppercase; letter-spacing: .08em; font-size: .82rem; color: var(--ok); font-weight: 700; }
+.nointernet { display: flex; gap: 10px; align-items: center; font-size: .92rem; color: var(--bad); }
+.nointernet::before { content: "✕"; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--bad-bg); font-size: .8rem; flex: none; }
+.threats td:first-child { width: 30%; }
+.threats td:nth-child(2) { color: var(--ink); }
+.check { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.check li { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 10px; align-items: start; }
+.check li::before { content: "✓"; display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--ok-bg); color: var(--ok); font-size: .8rem; font-weight: 700; margin-top: 2px; }
+.check.todo li::before { content: "□"; background: var(--paper-2); color: var(--muted); border: 1px solid var(--line); }
+.check.no li::before { content: "—"; background: var(--warn-bg); color: var(--warn); }
+.check b { font-weight: 600; }
+.check div > span { display: block; color: var(--muted); font-size: .93rem; }
+.big-quote { font-size: clamp(1.15rem, 2.2vw, 1.45rem); line-height: 1.4; font-weight: 600; max-width: 52ch; }
+.sla td.sum { white-space: nowrap; }
+@media screen and (max-width: 860px) {
+  .scheme { grid-template-columns: 1fr; }
+  .scheme .arrow { transform: rotate(90deg); }
+}
+@media print {
+  .scheme, .perimeter, .check li, .threats tr, .sla tr { break-inside: avoid; }
+  .big-quote { font-size: 13pt; }
+  .chapter-head { break-inside: avoid; break-after: avoid; }
+}
+</style>
+</head>
+<body>
+<main class="doc">
+
+<!-- ===================== Обложка ===================== -->
+<header class="cover">
+  <div class="cover-top">
+    <div class="brand">DoПортал</div>
+    <a class="muted" href="/">dioniday.dev</a>
+  </div>
+
+  <div style="display:grid;gap:18px">
+    <div class="eyebrow">Информационная безопасность</div>
+    <h1>Безопасность <span>DoПортала</span></h1>
+    <p class="lead">Где хранятся данные, кто что видит, что фиксируется и как проверить это самостоятельно. Простым языком, без технических терминов там, где без них можно обойтись.</p>
+    <div class="for-whom">
+      <a class="btn primary" href="./">О портале</a>
+      <a class="btn" href="DoPortal-security.pdf">PDF для печати</a>
+      <a class="btn" href="mailto:dioniday@internet.ru">Задать вопрос</a>
+    </div>
+  </div>
+
+  <div class="stamp" aria-label="Основная надпись">
+    <div class="s-dev"><span class="lbl">Разраб.</span>Газутдинов Д.</div>
+    <div class="s-exec"><span class="lbl">Исполнитель</span>dioniday.dev</div>
+    <div class="title">DoПортал<span class="muted" style="font-weight:400;font-size:.9rem">Описание мер безопасности</span></div>
+    <div class="s-stage"><span class="lbl">Стадия</span>П</div>
+    <div class="s-sheets"><span class="lbl">Листов</span>11</div>
+    <div class="s-cust"><span class="lbl">Для</span>проектных институтов</div>
+    <div class="code">DOPORTAL-ИБ-2026</div>
+  </div>
+</header>
+
+<!-- ===================== 1. Коротко ===================== -->
+<section class="chapter keep" id="short">
+  <div class="chapter-head">
+    <span class="num">01</span>
+    <h2>Коротко</h2>
+  </div>
+  <p class="big-quote">Портал — это ещё одна программа на вашем сервере. Данные не уходят за пределы вашей сети, войти можно только под доменной учётной записью, а права проверяются при каждом обращении.</p>
+  <div class="facts">
+    <div><b>0</b><span>обращений в интернет: портал работает в закрытой сети</span></div>
+    <div><b>0</b><span>собственных паролей: вход через Windows (Active Directory)</span></div>
+    <div><b>100%</b><span>действий с файлами и карточками фиксируются в журналах</span></div>
+    <div><b>Код</b><span>исходный код открыт заказчику для любой проверки</span></div>
+  </div>
+  <div class="note">Мы не просим верить на слово. В разделе 7 описано, как ваш администратор может проверить каждое утверждение за полчаса, а в разделе 8 — как заказать независимую проверку.</div>
+</section>
+
+<!-- ===================== 2. Где живут данные ===================== -->
+<section class="chapter" id="where">
+  <div class="chapter-head">
+    <span class="num">02</span>
+    <h2>Где живут данные</h2>
+    <p class="muted">Все три части портала устанавливаются на ваши серверы. Ни одна из них не требует доступа в интернет.</p>
+  </div>
+  <div class="perimeter">
+    <span class="lbl">Ваша сеть</span>
+    <div class="scheme">
+      <div class="node"><b>Сотрудник</b><span>Обычный браузер (Edge, Chrome). Ничего не устанавливается, данные на компьютере не сохраняются.</span></div>
+      <div class="arrow" aria-hidden="true">→</div>
+      <div class="node core"><b>Сервер портала</b><span>Ваша виртуальная машина Windows Server с IIS. Проверяет, кто вошёл и что ему разрешено. Хранит только программу и настройки.</span></div>
+      <div class="arrow" aria-hidden="true">→</div>
+      <div class="stack">
+        <div class="node"><b>База данных</b><span>PostgreSQL на вашем сервере: карточки, история, журналы.</span></div>
+        <div class="node"><b>Файловый сервер</b><span>Ваша сетевая папка с объектами — та же, что сейчас.</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="grid-3">
+    <div class="nointernet">Нет облачных сервисов</div>
+    <div class="nointernet">Нет «звонков домой» и телеметрии</div>
+    <div class="nointernet">Нет шрифтов и скриптов из интернета</div>
+  </div>
+  <p class="muted">Разработчик не имеет доступа к вашим данным. Подключение для сопровождения — только по вашей заявке, через ваш VPN и под учётной записью, которую выдаёт и отключает ваш администратор (раздел 9).</p>
+</section>
+
+<!-- ===================== 3. Вход ===================== -->
+<section class="chapter keep" id="login">
+  <div class="chapter-head">
+    <span class="num">03</span>
+    <h2>Кто может войти</h2>
+  </div>
+  <div class="grid-2">
+    <div class="card"><h3>Только сотрудники домена</h3><p>Портал узнаёт человека по его входу в Windows. Отдельных логинов и паролей нет — нечего подбирать, нечего записывать на стикере.</p></div>
+    <div class="card"><h3>Уволили — доступ закрыт</h3><p>Отключили учётную запись в Active Directory — сотрудник больше не войдёт в портал. Отдельно в портале ничего делать не нужно.</p></div>
+    <div class="card"><h3>Чужой компьютер в сети не войдёт</h3><p>Устройство без доменной учётной записи получает отказ на первой же странице.</p></div>
+    <div class="card"><h3>Новичок получает минимум</h3><p>Сотрудник домена при первом входе получает роль «Сотрудник» своего отдела. Роли «ГИП» и «Начальник отдела» подбираются по должности из AD. Права администратора портал сам не выдаёт никому — только вручную.</p></div>
+    <div class="card"><h3>Доступ можно закрыть отдельно</h3><p>Администратор может закрыть сотруднику вход в портал, не трогая его учётную запись в домене: например, подрядчику или на время служебной проверки. Действие попадает в журнал.</p></div>
+    <div class="card"><h3>Роли — по группам AD</h3><p>Роли можно назначать через группы Active Directory: ваш администратор управляет доступом привычными средствами.</p></div>
+  </div>
+</section>
+
+<!-- ===================== 4. Кто что видит ===================== -->
+<section class="chapter" id="roles">
+  <div class="chapter-head">
+    <span class="num">04</span>
+    <h2>Кто что видит</h2>
+    <p class="muted">Принцип: каждый видит только то, что нужно ему для работы. Права проверяет сервер при каждом обращении — недостаточно знать ссылку на чужой документ, чтобы его открыть.</p>
+  </div>
+  <div class="table-wrap">
+  <table class="roles">
+    <thead><tr><th>Роль</th><th>Видит</th><th>Файлы объектов (чертежи, документация)</th></tr></thead>
+    <tbody>
+      <tr><td>Сотрудник</td><td>Объекты, задания и письма своего отдела</td><td>Только объектов, в которых участвует его отдел</td></tr>
+      <tr><td>Начальник отдела</td><td>То же, плюс сводка «Мой отдел»</td><td>Только объектов своего отдела</td></tr>
+      <tr><td>ГИП</td><td>Свои объекты целиком, задания и письма по ним</td><td>Своих объектов</td></tr>
+      <tr><td>Нормоконтролёр, выпускающий</td><td>Комплекты, переданные им на проверку и выпуск</td><td>Только объектов из своей очереди</td></tr>
+      <tr><td>Делопроизводитель</td><td>Всю входящую корреспонденцию, перечень объектов</td><td>Нет доступа к чертежам — не нужны для работы с письмами</td></tr>
+      <tr><td>Офис-менеджер</td><td>Удостоверения по охране труда, входящую корреспонденцию, перечень объектов</td><td>Нет доступа к чертежам</td></tr>
+      <tr><td>Администратор</td><td>Всё, включая настройки</td><td>Все — его действия попадают в отдельный журнал</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="muted">Матрицу прав можно ужесточить под ваши правила: что разрешено каждой роли, настраивается на странице «Права доступа».</p>
+</section>
+
+<!-- ===================== 5. Что фиксируется ===================== -->
+<section class="chapter" id="logs">
+  <div class="chapter-head">
+    <span class="num">05</span>
+    <h2>Что фиксируется</h2>
+    <p class="muted">Записи журналов только добавляются. В интерфейсе портала нет функции их правки или удаления — ни у кого, включая администратора.</p>
+  </div>
+  <div class="grid-3">
+    <div class="card"><h3>История карточек</h3><p>Кто и когда зарегистрировал письмо, передал его в отдел, сменил статус объекта, выдал задание или замечание, согласовал.</p></div>
+    <div class="card"><h3>Журнал файлов</h3><p>Кто просмотрел, скачал или открыл каждый файл объекта, с датой и временем. Последние действия видны прямо на странице объекта.</p></div>
+    <div class="card"><h3>Журнал администрирования</h3><p>Изменения прав, ролей, справочников и настроек — отдельно от рабочих действий.</p></div>
+  </div>
+  <div class="note">Пример вопроса, на который теперь есть ответ: «Кто скачивал чертежи по объекту за последний месяц?» При работе только через сетевую папку ответить на него обычно невозможно, а портал хранит каждое такое действие.</div>
+</section>
+
+<!-- ===================== 6. Защита от типовых угроз ===================== -->
+<section class="chapter" id="threats">
+  <div class="chapter-head">
+    <span class="num">06</span>
+    <h2>Защита от типовых угроз</h2>
+  </div>
+  <div class="table-wrap">
+  <table class="compare threats">
+    <thead><tr><th>Что может случиться</th><th>Что сделано в портале</th></tr></thead>
+    <tbody>
+      <tr><td>Подбор или кража пароля к порталу</td><td>Паролей портала нет — вход только через Windows. Действует ваша политика паролей домена.</td></tr>
+      <tr><td>Сотрудник открывает чужой объект, подставив номер в адресную строку</td><td>Сервер сверяет права при каждом открытии карточки, файла и вложения. Без прав — «Нет доступа».</td></tr>
+      <tr><td>Кто-то из сотрудников заводит себе отдельную учётную запись</td><td>Регистрация отключена. Страницы входа по паролю, оставшиеся от стандартного шаблона, удалены из доступа.</td></tr>
+      <tr><td>В папку объекта подложили вредоносный файл</td><td>Портал не запускает программы: открываются только чертежи и документы Office. Изображения показываются в «песочнице», файлы SVG, где может прятаться скрипт, только скачиваются.</td></tr>
+      <tr><td>Подмена страницы, внедрение чужого кода</td><td>Браузеру запрещено загружать что-либо, кроме файлов самого портала, и показывать портал внутри чужих сайтов.</td></tr>
+      <tr><td>Взлом через поля ввода (SQL-инъекции)</td><td>Все обращения к базе формируются стандартной библиотекой с параметрами, а не склейкой текста.</td></tr>
+      <tr><td>Пароль к базе данных в файле настроек</td><td>Пароли к базе и сетевой папке хранятся зашифрованными ключом конкретного сервера. Скопированный на другой компьютер файл настроек бесполезен.</td></tr>
+      <tr><td>Перехват данных в сети</td><td>Портал работает по HTTPS с сертификатом вашего домена (настраивается при установке).</td></tr>
+      <tr><td>Ошибка при обучении или проверке обновления</td><td>Тестовый режим: отдельная база и отдельное хранилище, рабочие данные не затрагиваются.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div style="display:grid;gap:12px">
+    <h3>Самопроверка перед предложением</h3>
+    <p class="muted">Перед подготовкой предложения код портала был проверен на типовые уязвимости веб-приложений. Найденное исправлено:</p>
+    <ul class="check">
+      <li><div><b>Отключены страницы регистрации и входа по паролю</b><span>Остались от стандартного шаблона Microsoft и позволяли завести учётную запись в обход домена.</span></div></li>
+      <li><div><b>Добавлены защитные заголовки</b><span>Политика безопасности содержимого (CSP), запрет встраивания в чужие сайты, запрет «угадывания» типа файла браузером.</span></div></li>
+      <li><div><b>Убрана загрузка шрифта из интернета</b><span>Портал не делает ни одного внешнего запроса.</span></div></li>
+      <li><div><b>Файлы из папок объектов показываются безопасно</b><span>SVG не открывается в браузере, изображения и текст — в «песочнице».</span></div></li>
+      <li><div><b>Сужены права на файлы</b><span>Делопроизводитель и офис-менеджер больше не видят чертежи всех объектов.</span></div></li>
+      <li><div><b>Ограничен запуск файлов на сервере</b><span>Только чертежи и документы Office, никаких программ.</span></div></li>
+      <li><div><b>Добавлена блокировка сотрудника в портале</b><span>Доступ закрывается одним флажком, даже если учётная запись в домене действует.</span></div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== 7. Как проверить самим ===================== -->
+<section class="chapter keep" id="verify">
+  <div class="chapter-head">
+    <span class="num">07</span>
+    <h2>Как проверить самим</h2>
+    <p class="muted">Эти проверки ваш системный администратор выполнит на опытной установке без помощи разработчика.</p>
+  </div>
+  <ul class="check todo">
+    <li><div><b>Чужой компьютер не войдёт</b><span>Откройте портал с ноутбука, не включённого в домен. Ожидается отказ во входе.</span></div></li>
+    <li><div><b>Чужой объект не откроется</b><span>Войдите сотрудником отдела, не участвующего в объекте, и вставьте ссылку на этот объект или его файл. Ожидается «Нет доступа».</span></div></li>
+    <li><div><b>Регистрации нет</b><span>Откройте адрес портала с окончанием <span class="mono">/Account/Register</span>. Ожидается «Страница не найдена».</span></div></li>
+    <li><div><b>Портал не ходит в интернет</b><span>Запретите серверу портала выход в интернет на межсетевом экране. Работа портала не изменится.</span></div></li>
+    <li><div><b>Журнал всё помнит</b><span>Скачайте файл объекта и обновите страницу объекта. В списке «кто работал с файлами» ожидается запись с вашим именем и временем.</span></div></li>
+    <li><div><b>Заблокированный не войдёт</b><span>Закройте тестовому сотруднику доступ в конфигураторе («Пользователи и роли»). Ожидается отказ во входе, а в журнале администрирования — запись о блокировке.</span></div></li>
+    <li><div><b>Пароли не лежат открыто</b><span>Откройте файл настроек на сервере. Пароли к базе и сетевой папке — в зашифрованном виде.</span></div></li>
+  </ul>
+</section>
+
+<!-- ===================== 8. Чего нет и что предлагаем ===================== -->
+<section class="chapter" id="honest">
+  <div class="chapter-head">
+    <span class="num">08</span>
+    <h2>Чего нет — честно</h2>
+    <p class="muted">Ни одна программа не бывает «полностью безопасной», и обещать это было бы неправдой. Вот чего у портала нет и как это закрывается.</p>
+  </div>
+  <ul class="check no">
+    <li><div><b>Сертификата ФСТЭК</b><span>Для внутренней системы документооборота проектного института сертификация, как правило, не требуется. Если ваша организация относится к субъектам КИИ или у вас есть требования головной структуры — это нужно оценить до внедрения. Мы предоставим описание системы для такой оценки.</span></div></li>
+    <li><div><b>Собственного резервного копирования</b><span>Резервные копии делаются вашими средствами — так же, как для остальных серверов. Копировать нужно две вещи: базу данных PostgreSQL и папку данных портала (вложения и шаблоны). Чертежи и так лежат на файловом сервере, который вы уже копируете.</span></div></li>
+    <li><div><b>Собственного антивируса</b><span>Файлы объектов лежат на вашем файловом сервере и проверяются вашим антивирусом, как и сейчас.</span></div></li>
+    <li><div><b>Внешнего аудита (пока)</b><span>Портал проверен разработчиком, но не сторонней организацией. Это предлагаем исправить — ниже.</span></div></li>
+  </ul>
+
+  <div class="card" style="border:2px solid var(--accent);gap:12px">
+    <div class="eyebrow">Предложение</div>
+    <h3 style="font-size:1.3rem">Независимая проверка — с исправлениями за счёт исполнителя</h3>
+    <ul class="list">
+      <li>Проверяющего выбираете вы: компанию по информационной безопасности или специалиста, которому доверяете.</li>
+      <li>Для проверки предоставляются исходный код, опытная установка и документация.</li>
+      <li>Все найденные замечания исправляются <b>за счёт исполнителя</b> в срок, согласованный в договоре. Критичные — до перевода портала в промышленную эксплуатацию.</li>
+      <li>Отчёт проверяющего и перечень исправлений остаются у вас.</li>
+    </ul>
+  </div>
+
+  <div style="display:grid;gap:12px">
+    <h3>Рекомендации для вашего администратора при установке</h3>
+    <ul class="list">
+      <li>Выпустить для портала сертификат HTTPS вашего домена.</li>
+      <li>Запускать портал под отдельной служебной учётной записью с доступом только к папке объектов.</li>
+      <li>Завести для портала отдельного пользователя PostgreSQL с правами только на его базу. Закрыть порт базы данных для всех, кроме сервера портала.</li>
+      <li>Включить портал в ежедневное резервное копирование: база данных и папка данных портала.</li>
+      <li>Устанавливать обновления Windows и .NET в обычном порядке.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== 9. Сопровождение ===================== -->
+<section class="chapter keep" id="support">
+  <div class="chapter-head">
+    <span class="num">09</span>
+    <h2>Сопровождение и гарантии</h2>
+    <p class="muted">Безопасность — это не только программа, но и то, что будет с ней через год.</p>
+  </div>
+  <div class="grid-2">
+    <div class="card"><h3>Исходный код у вас</h3><p>Копия исходного кода с инструкцией по сборке передаётся на хранение (депонируется). Если исполнитель прекратит сопровождение, вы вправе передать код другому разработчику. Портал не «заперт» на одного человека.</p></div>
+    <div class="card"><h3>Доступ только по заявке</h3><p>Удалённое подключение — через ваш VPN, под учётной записью, которую вы выдаёте на время работ и отключаете после. Все подключения видны в ваших журналах.</p></div>
+    <div class="card"><h3>Передача знаний</h3><p>Ваш ИТ-специалист получает руководство администратора, участвует в установке и проходит обучение: перезапуск, обновление, резервное копирование, восстановление, диагностика.</p></div>
+    <div class="card"><h3>Обновления безопасности</h3><p>Уязвимости в используемых компонентах (.NET, PostgreSQL, библиотеки) отслеживаются, обновления выпускаются в рамках сопровождения. Каждое обновление сначала проверяется в тестовом режиме.</p></div>
+  </div>
+  <div class="table-wrap">
+  <table class="price sla">
+    <thead><tr><th>Обращение</th><th>Пример</th><th class="sum">Реакция</th><th class="sum">Решение</th></tr></thead>
+    <tbody>
+      <tr><td><b>Критичное</b></td><td>Портал недоступен; найдена уязвимость</td><td class="sum">2 ч</td><td class="sum">1 раб. день</td></tr>
+      <tr><td><b>Важное</b></td><td>Не работает одна функция, есть обходной путь</td><td class="sum">1 раб. день</td><td class="sum">5 раб. дней</td></tr>
+      <tr><td><b>Обычное</b></td><td>Вопрос, консультация, мелкая доработка</td><td class="sum">2 раб. дня</td><td class="sum">по согласованию</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="muted">Время — в рабочие часы заказчика. Сроки в таблице — типовые; конкретные условия сопровождения закрепляются в договоре.</p>
+
+  <footer class="end">
+    <span>DoПортал · описание мер безопасности · <a href="./">dioniday.dev/doportal</a></span>
+    <span>Вопросы: <a href="mailto:dioniday@internet.ru">dioniday@internet.ru</a></span>
+  </footer>
+</section>
+
+</main>
+</body>
+</html>
