@@ -1,0 +1,671 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="DoПортал — корпоративный портал проектного института: корреспонденция, объекты, задания ГИП, нормоконтроль, выпуск и охрана труда. Вход через Active Directory.">
+<link rel="canonical" href="https://dioniday.dev/doportal/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="DoПортал — портал проектного института">
+<meta property="og:description" content="DoПортал — корпоративный портал проектного института: корреспонденция, объекты, задания ГИП, нормоконтроль, выпуск и охрана труда. Вход через Active Directory.">
+<meta property="og:url" content="https://dioniday.dev/doportal/">
+<meta property="og:image" content="https://dioniday.dev/doportal/img/home.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<title>DoПортал — портал проектного института</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800&family=PT+Mono&family=PT+Sans+Narrow:wght@400;700&display=swap">
+<style>
+/* Раскладка: лист проектной документации — одна колонка ~1000px, основная надпись по ГОСТ 2.104 как мотив обложки */
+:root {
+  --paper: #ffffff;
+  --paper-2: #f4f6fa;
+  --ink: #162033;
+  --muted: #5a6478;
+  --line: #d6dbe4;
+  --accent: #2457d6;
+  --accent-soft: #eaf0fd;
+  --ok: #17803d; --ok-bg: #e5f5ea;
+  --warn: #8a5a00; --warn-bg: #fdf1d3;
+  --bad: #b42318; --bad-bg: #fde8e6;
+  --fill: #fff1b8; --fill-ink: #5c4300;
+  --shadow: 0 1px 2px rgba(22,32,51,.06), 0 8px 24px rgba(22,32,51,.08);
+  --f-body: "Golos Text", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "PT Mono", "Consolas", monospace;
+  --f-narrow: "PT Sans Narrow", "Arial Narrow", sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0f141d; --paper-2: #161d29; --ink: #e5e9f0; --muted: #9aa4b7; --line: #2a3344;
+    --accent: #7ea3ff; --accent-soft: #1a2442;
+    --ok: #6fd391; --ok-bg: #12301f; --warn: #f2c66b; --warn-bg: #3a2c0c; --bad: #ff8f84; --bad-bg: #3b1714;
+    --fill: #4b3c0c; --fill-ink: #ffe28a; --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0f141d; --paper-2: #161d29; --ink: #e5e9f0; --muted: #9aa4b7; --line: #2a3344;
+  --accent: #7ea3ff; --accent-soft: #1a2442;
+  --ok: #6fd391; --ok-bg: #12301f; --warn: #f2c66b; --warn-bg: #3a2c0c; --bad: #ff8f84; --bad-bg: #3b1714;
+  --fill: #4b3c0c; --fill-ink: #ffe28a; --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+.doc { max-width: 1040px; margin: 0 auto; padding-inline: max(16px, 4vw); padding-block: 40px 64px; }
+h1, h2, h3 { line-height: 1.15; text-wrap: balance; margin: 0; }
+h2 { font-size: clamp(1.6rem, 3.2vw, 2.2rem); font-weight: 800; letter-spacing: -0.02em; }
+h3 { font-size: 1.15rem; font-weight: 700; }
+p { margin: 0; max-width: 68ch; }
+.muted { color: var(--muted); }
+.mono { font-family: var(--f-mono); font-size: .92em; }
+.eyebrow { font-family: var(--f-narrow); text-transform: uppercase; letter-spacing: .12em; font-size: .85rem; color: var(--accent); font-weight: 700; }
+.fill { background: var(--fill); color: var(--fill-ink); padding: 0 .3em; border-radius: 3px; border-bottom: 1px dashed currentColor; white-space: nowrap; }
+a { color: var(--accent); }
+.btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 16px; border-radius: 8px; border: 1px solid var(--line); color: var(--ink); text-decoration: none; font-weight: 600; font-size: .95rem; background: var(--paper); }
+.btn:hover { border-color: var(--accent); color: var(--accent); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--paper); }
+.btn.primary:hover { color: var(--paper); filter: brightness(1.08); }
+.btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+@media print { .btn { display: none; } }
+
+section.chapter { padding-block: 56px 8px; border-top: 1px solid var(--line); display: grid; gap: 22px; }
+section.chapter:first-of-type { border-top: 0; }
+.chapter-head { display: grid; gap: 10px; }
+section.chapter > * { min-width: 0; }
+.chapter-head .num { font-family: var(--f-mono); color: var(--muted); font-size: .9rem; }
+
+/* ===== Обложка ===== */
+.cover { display: grid; gap: 28px; padding-bottom: 40px; }
+.cover-top { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; align-items: baseline; }
+.brand { font-weight: 800; font-size: 1.15rem; color: var(--accent); letter-spacing: -.01em; }
+.cover h1 { font-size: clamp(2.4rem, 6.4vw, 4.4rem); font-weight: 800; letter-spacing: -.035em; }
+.cover h1 span { color: var(--accent); }
+.cover .lead { font-size: clamp(1.05rem, 2vw, 1.3rem); color: var(--muted); max-width: 46ch; }
+.for-whom { display: flex; gap: 10px 28px; flex-wrap: wrap; font-size: .98rem; }
+.for-whom b { font-weight: 600; }
+
+.shot { margin: 0; display: grid; gap: 8px; min-width: 0; }
+.shot .frame { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--paper-2); box-shadow: var(--shadow); }
+.shot .frame::before { content: ""; display: block; height: 22px; border-bottom: 1px solid var(--line);
+  background: radial-gradient(circle at 12px 11px, #f26b5b 4px, transparent 4.5px), radial-gradient(circle at 26px 11px, #f2bd4b 4px, transparent 4.5px), radial-gradient(circle at 40px 11px, #4fc06a 4px, transparent 4.5px), var(--paper-2); }
+.shot.app .frame::before { display: none; }
+.shot img { display: block; width: 100%; height: auto; }
+.shot figcaption { font-size: .88rem; color: var(--muted); }
+.shot.crop .frame { max-height: 560px; }
+.shot.crop img { object-fit: cover; object-position: top; }
+
+/* Основная надпись (мотив ГОСТ 2.104) */
+.stamp { display: grid; grid-template-columns: 1.1fr 1.6fr 2.4fr .8fr .8fr;
+  grid-template-areas: "dev exec title stage sheets" "cust cust title code code";
+  border: 2px solid var(--ink); font-family: var(--f-narrow); font-size: .95rem; }
+.stamp > div { border-right: 1px solid var(--ink); border-bottom: 1px solid var(--ink); padding: 4px 8px; min-width: 0; }
+.stamp .lbl { color: var(--muted); font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; display: block; }
+.s-dev { grid-area: dev; } .s-exec { grid-area: exec; } .s-stage { grid-area: stage; } .s-cust { grid-area: cust; }
+.stamp .s-sheets { grid-area: sheets; border-right: 0; }
+.stamp .title { grid-area: title; border-bottom: 0; display: flex; flex-direction: column; justify-content: center; font-family: var(--f-body); font-weight: 700; font-size: 1.05rem; }
+.stamp .code { grid-area: code; border-right: 0; border-bottom: 0; display: grid; place-items: center; font-family: var(--f-mono); font-size: 1.1rem; letter-spacing: .04em; white-space: nowrap; }
+.stamp .s-cust { border-bottom: 0; }
+
+/* ===== Сравнение «было/стало» ===== */
+.compare { width: 100%; border-collapse: collapse; font-size: .97rem; }
+.compare th, .compare td { text-align: left; vertical-align: top; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+.compare th { font-family: var(--f-narrow); text-transform: uppercase; letter-spacing: .08em; font-size: .82rem; color: var(--muted); font-weight: 700; }
+.compare td:first-child { font-weight: 600; width: 22%; }
+.compare td:nth-child(2) { color: var(--muted); width: 33%; }
+.table-wrap { overflow-x: auto; }
+
+.facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.facts > div { padding: 18px 18px 16px; border-right: 1px solid var(--line); display: grid; gap: 4px; align-content: start; }
+.facts > div:last-child { border-right: 0; }
+.facts b { font-size: 1.9rem; font-weight: 800; letter-spacing: -.02em; color: var(--accent); line-height: 1.1; }
+.facts span { font-size: .9rem; color: var(--muted); }
+
+/* ===== Сквозной процесс ===== */
+.flow { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0; counter-reset: step; }
+.flow li { position: relative; padding: 14px 14px 14px 0; display: grid; gap: 6px; align-content: start; counter-increment: step; min-width: 0; }
+.flow li::before { content: counter(step); font-family: var(--f-mono); width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: var(--accent); color: var(--paper); font-size: .9rem; position: relative; z-index: 1; }
+.flow li::after { content: ""; position: absolute; top: 29px; left: 30px; right: 0; height: 2px; background: var(--line); }
+.flow li:last-child::after { display: none; }
+.flow b { font-size: .98rem; }
+.flow span { font-size: .85rem; color: var(--muted); line-height: 1.4; }
+
+/* ===== Модули ===== */
+.module { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 28px; align-items: start; }
+.module.wide { grid-template-columns: 1fr; }
+.module .text { display: grid; gap: 14px; }
+.module ul, .list { margin: 0; padding-left: 1.1em; display: grid; gap: 7px; }
+.module li::marker, .list li::marker { color: var(--accent); }
+.tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { display: inline-block; font-size: .8rem; padding: 1px 9px; border-radius: 999px; background: var(--paper-2); border: 1px solid var(--line); white-space: nowrap; }
+.chip.ok { background: var(--ok-bg); color: var(--ok); border-color: transparent; }
+.chip.warn { background: var(--warn-bg); color: var(--warn); border-color: transparent; }
+.chip.bad { background: var(--bad-bg); color: var(--bad); border-color: transparent; }
+.chip.acc { background: var(--accent-soft); color: var(--accent); border-color: transparent; }
+.two-shots { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 3fr); gap: 20px; align-items: start; }
+
+.note { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: .95rem; }
+.note.warn { border-color: var(--warn); background: var(--warn-bg); }
+
+/* ===== Роли ===== */
+.roles { width: 100%; border-collapse: collapse; font-size: .94rem; }
+.roles th, .roles td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.roles th { font-family: var(--f-narrow); text-transform: uppercase; letter-spacing: .08em; font-size: .8rem; color: var(--muted); }
+.roles td:first-child { font-weight: 600; white-space: nowrap; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.card { border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: grid; gap: 8px; align-content: start; background: var(--paper); }
+.card h3 { font-size: 1.02rem; }
+.card p { font-size: .93rem; color: var(--muted); }
+
+/* ===== Этапы и стоимость ===== */
+.phases { list-style: none; margin: 0 0 0 14px; padding: 0; display: grid; gap: 0; border-left: 2px solid var(--line); counter-reset: ph; }
+.phases li { position: relative; padding: 4px 0 18px 26px; display: grid; gap: 3px; counter-increment: ph; }
+.phases li::before { content: counter(ph); position: absolute; left: -13px; top: 2px; width: 24px; height: 24px; border-radius: 50%; background: var(--paper); border: 2px solid var(--accent); color: var(--accent); font-family: var(--f-mono); font-size: .8rem; display: grid; place-items: center; }
+.phases .when { font-family: var(--f-mono); font-size: .85rem; color: var(--muted); }
+.price { width: 100%; border-collapse: collapse; font-size: .97rem; }
+.price th, .price td { padding: 12px 14px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+.price th { font-family: var(--f-narrow); text-transform: uppercase; letter-spacing: .08em; font-size: .8rem; color: var(--muted); }
+.price td.sum, .price th.sum { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.price tfoot td { font-weight: 700; border-bottom: 2px solid var(--ink); }
+
+.contacts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.contacts div { display: grid; gap: 2px; }
+.contacts .lbl { font-family: var(--f-narrow); text-transform: uppercase; letter-spacing: .08em; font-size: .78rem; color: var(--muted); }
+
+footer.end { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--line); font-size: .85rem; color: var(--muted); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+@media screen and (max-width: 860px) {
+  .module, .two-shots, .grid-3, .grid-2, .contacts { grid-template-columns: 1fr; }
+  .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .facts > div:nth-child(2) { border-right: 0; }
+  .facts > div:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+  .flow { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 8px; }
+  .flow li::after { display: none; }
+  .stamp { grid-template-columns: 1fr 1fr; grid-template-areas: "dev exec" "title title" "stage sheets" "cust cust" "code code"; }
+  .stamp .title, .stamp .s-cust { border-bottom: 1px solid var(--ink); border-right: 0; }
+  .stamp .s-exec { border-right: 0; }
+  .stamp .code { padding-block: 8px; }
+}
+@media (prefers-reduced-motion: no-preference) { a { transition: color .15s; } }
+
+/* ===== Печать в PDF (A4) ===== */
+@page { size: A4; margin: 14mm 14mm 16mm; }
+@media print {
+  :root, :root[data-theme="dark"] {
+    --paper: #fff; --paper-2: #f4f6fa; --ink: #162033; --muted: #5a6478; --line: #d6dbe4; --accent: #2457d6; --accent-soft: #eaf0fd;
+    --ok: #17803d; --ok-bg: #e5f5ea; --warn: #8a5a00; --warn-bg: #fdf1d3; --bad: #b42318; --bad-bg: #fde8e6; --fill: #fff1b8; --fill-ink: #5c4300;
+    --shadow: none; color-scheme: light;
+  }
+  body { font-size: 10.5pt; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .doc { max-width: none; padding: 0; }
+  .cover { gap: 16px; padding-bottom: 0; }
+  .cover h1 { font-size: 34pt; }
+  .screen-only { display: none !important; }
+  .offer-grid { grid-template-columns: 1fr !important; }
+  .flow b { font-size: 9pt; } .flow span { font-size: 8pt; }
+  section.chapter { break-before: page; border-top: 0; padding-top: 0; }
+  section.chapter.keep { break-before: auto; padding-top: 28px; border-top: 1px solid var(--line); }
+  .price, .module, .shot, .card, .roles tr, .price tr, .phases li, .flow, .facts, .stamp, .compare tr { break-inside: avoid; }
+  .shot .frame { box-shadow: none; }
+  .shot.crop .frame { max-height: 125mm; }
+  .cover .shot .frame { max-height: 98mm; }
+  .cover .shot img, .two-shots .shot img { object-fit: cover; object-position: top; }
+  .two-shots .shot .frame { max-height: 150mm; }
+  .facts b { font-size: 20pt; }
+  .stamp .code { font-size: 10pt; letter-spacing: .02em; }
+  h2 { font-size: 20pt; }
+  .module { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+  a { color: var(--ink); text-decoration: none; }
+}
+</style>
+</head>
+<body>
+<main class="doc">
+
+<!-- ===================== Обложка ===================== -->
+<header class="cover">
+  <div class="cover-top">
+    <div class="brand">DoПортал</div>
+    <a class="muted" href="/">dioniday.dev</a>
+  </div>
+
+  <div style="display:grid;gap:18px">
+    <div class="eyebrow">Портал для проектных институтов</div>
+    <h1>Проектный институт <span>в одном окне</span></h1>
+    <p class="lead">Корпоративный портал для проектного центра нефтегазовой отрасли: входящая корреспонденция, объекты, задания ГИП, нормоконтроль, выпуск документации и учёт удостоверений по охране труда. Работает в вашей сети, вход по доменной учётной записи.</p>
+    <div class="for-whom">
+      <a class="btn primary" href="admin-guide.html">Руководство администратора</a>
+      <a class="btn" href="DoPortal-commercial-offer.pdf">PDF для печати</a>
+      <a class="btn" href="mailto:dioniday@internet.ru">Обсудить внедрение</a>
+    </div>
+  </div>
+
+  <figure class="shot">
+    <div class="frame"><img src="img/home.jpg" alt="Главная страница портала: сводка по объектам, заданиям, письмам и удостоверениям" width="1600" height="1000"></div>
+    <figcaption>Главная страница: что в работе и что требует внимания именно этому сотруднику.</figcaption>
+  </figure>
+
+  <div class="stamp" aria-label="Основная надпись">
+    <div class="s-dev"><span class="lbl">Разраб.</span>Газутдинов Д.</div>
+    <div class="s-exec"><span class="lbl">Исполнитель</span>dioniday.dev</div>
+    <div class="title">DoПортал<span class="muted" style="font-weight:400;font-size:.9rem">Корпоративный портал проектного института</span></div>
+    <div class="s-stage"><span class="lbl">Стадия</span>П</div>
+    <div class="s-sheets"><span class="lbl">Листов</span>16</div>
+    <div class="s-cust"><span class="lbl">Для</span>проектных институтов</div>
+    <div class="code">DOPORTAL-КП-2026</div>
+  </div>
+</header>
+
+<!-- ===================== 1. Что меняется ===================== -->
+<section class="chapter" id="value">
+  <div class="chapter-head">
+    <span class="num">01</span>
+    <h2>Что меняется в работе института</h2>
+    <p class="muted">Сегодня письма живут в почте и журналах, задания ГИП — в Word, папки объектов создаются вручную, нормоконтроль идёт на бумаге, а сроки удостоверений ведутся в таблице. DoПортал собирает это в один контур с общей историей.</p>
+  </div>
+
+  <div class="facts">
+    <div><b>6</b><span>модулей по техническому заданию: от письма до выпуска тома</span></div>
+    <div><b>8</b><span>ролей с разграничением прав: от администратора до выпускающего</span></div>
+    <div><b>0</b><span>паролей: вход по доменной учётной записи Windows, роли из групп AD</span></div>
+    <div><b>100%</b><span>действий в истории: записи только добавляются, удалить их нельзя</span></div>
+  </div>
+
+  <div class="table-wrap">
+  <table class="compare">
+    <thead><tr><th>Процесс</th><th>Как обычно бывает</th><th>С DoПорталом</th></tr></thead>
+    <tbody>
+      <tr><td>Входящие письма</td><td>Журнал в Excel, пересылка по почте, неясно, кто исполняет</td><td>Регистрация с уникальным шифром, маршрут по отделам «к исполнению» и «к сведению», отчёт отдела и контрольная дата в карточке</td></tr>
+      <tr><td>Новый объект</td><td>Папки на диске создаются вручную и по-разному</td><td>Карточка объекта, папки отделов создаются по шаблону типа объекта, исходные данные раскладываются по отделам ярлыками</td></tr>
+      <tr><td>Задания ГИП</td><td>Документ Word по почте, сроки считаются на календаре</td><td>Задание отделу или подрядчику, маршрут последовательно или параллельно, контрольный срок в рабочих днях с учётом праздников, документ Word одной кнопкой</td></tr>
+      <tr><td>Замечания</td><td>Устно или в переписке, теряются</td><td>Нумерованные замечания с исполнителем, сроком и копиями; задание само возвращается ГИПу, когда всё устранено</td></tr>
+      <tr><td>Нормоконтроль</td><td>Бумажные листы замечаний, повторные проверки без истории</td><td>Очередь нормоконтролёра, замечания с привязкой к листу, итерации проверки, согласование блокируется, пока есть открытые замечания</td></tr>
+      <tr><td>Выпуск</td><td>Неясно, какой том готов к печати и что ушло заказчику</td><td>Статусы выпуска от «отправлено на выпуск» до «отправлено заказчику», автоматическая сборка пояснительной записки</td></tr>
+      <tr><td>Охрана труда</td><td>Таблица со сроками, о просрочке узнают постфактум</td><td>Карточки удостоверений со сканами, статусы цветом, предупреждение за 60 дней, календарь переаттестации</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div style="display:grid;gap:14px">
+    <h3>Сквозной процесс по объекту</h3>
+    <ol class="flow">
+      <li><b>Письмо</b><span>Офис-менеджер регистрирует, делопроизводитель закрепляет объект</span></li>
+      <li><b>Объект</b><span>ГИП ведёт карточку, папки и исходные данные</span></li>
+      <li><b>Задания</b><span>Отделам и подрядчикам, с контрольным сроком</span></li>
+      <li><b>Согласование</b><span>Отдел, затем ГИП; замечания до устранения</span></li>
+      <li><b>Нормоконтроль</b><span>Проверка томов по стадиям ПД, РД, ОТР</span></li>
+      <li><b>Выпуск</b><span>Подготовка к печати и передача заказчику</span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ===================== 2. Объекты ===================== -->
+<section class="chapter" id="objects">
+  <div class="chapter-head">
+    <span class="num">02</span>
+    <h2>Объекты: карточка проекта и файлы на диске</h2>
+  </div>
+  <div class="module">
+    <div class="text">
+      <p>Объект — центр всей работы. Шифр формируется по шаблону института, например <span class="mono">УНГ.112-26</span>: код ТПП заказчика, порядковый номер, год.</p>
+      <ul>
+        <li>Заказчик (ТПП), месторождение или лицензионный участок, тип объекта, ГИП, ведущий отдел, нормоконтролёр.</li>
+        <li><b>Папки создаются автоматически</b> на сетевом хранилище по шаблону типа объекта: у каждого отдела свой каталог с разделами «Исходные данные», «Модель», «ПД», «РД», «Расчёты», «Замечания, протоколы» и другими.</li>
+        <li><b>Исходные данные</b> с версиями: ТЗ, топосъёмка, изыскания, опросные листы. Ярлык на документ появляется в папке каждого отдела.</li>
+        <li><b>Файлы проекта прямо в портале</b>: загрузка, открытие в проводнике, AutoCAD или Word одной кнопкой, отметка «файл занят: ФИО», журнал, кто работал с файлами.</li>
+        <li>Жизненный цикл: <span class="chip acc">В работе</span> <span class="chip warn">Приостановлен</span> <span class="chip">Отменен</span> <span class="chip ok">Завершен</span>. Стадия процесса (разработка, нормоконтроль, выпуск) вычисляется сама.</li>
+      </ul>
+    </div>
+    <figure class="shot crop">
+      <div class="frame"><img src="img/object.jpg" alt="Карточка объекта УНГ.112-26: файлы отделов, исходные данные, отделы-участники" width="1600" height="1333"></div>
+      <figcaption>Карточка объекта: каталоги отделов на диске, исходные данные, участники и панель нормоконтроля.</figcaption>
+    </figure>
+  </div>
+
+  <div class="module">
+    <div class="text">
+      <h3>Интеграция с AutoCAD</h3>
+      <ul>
+        <li>Модели отделов и обвязка ссылками XREF между отделами.</li>
+        <li>Обновление основной надписи в чертежах: «Разраб.», «Пров.», «Н. контр.» берутся из карточки объекта, сканы подписей сотрудников подставляются автоматически.</li>
+        <li>Пустые чертежи создаются из шаблона института.</li>
+        <li>Тяжёлые операции идут в фоновой очереди и не замедляют портал для остальных.</li>
+      </ul>
+      <p class="note">На сервере используется консольный модуль AutoCAD (accoreconsole) из лицензионной установки AutoCAD заказчика, версии 2024–2026.</p>
+    </div>
+    <div class="text">
+      <h3>Пояснительная записка</h3>
+      <ul>
+        <li>Портал генерирует заготовки разделов ПЗ для каждого отдела-участника по шаблону института для стадии ПД, РД или ОТР.</li>
+        <li>Готовые разделы собираются в итоговую пояснительную записку с титулом, содержанием и рамкой.</li>
+        <li>Шаблоны Word (титул, содержание, рамка, том) загружаются в справочник и обновляются без программиста.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 3. Задания и замечания ===================== -->
+<section class="chapter" id="tasks">
+  <div class="chapter-head">
+    <span class="num">03</span>
+    <h2>Задания ГИП и замечания</h2>
+  </div>
+  <div class="module">
+    <div class="text">
+      <p>ГИП выдаёт задание из карточки объекта. Исполнители — отделы института («свои силы») или подрядчики из справочника.</p>
+      <ul>
+        <li>Маршрут <b>параллельно</b> или <b>последовательно</b> по этапам.</li>
+        <li><b>Контрольный срок</b> задаётся в рабочих днях: портал пропускает выходные и праздники из производственного календаря.</li>
+        <li>Начальник отдела назначает исполнителя. Работа идёт по статусам: <span class="chip">Передано в отдел</span> <span class="chip acc">В работе</span> <span class="chip warn">На согласовании (отдел)</span> <span class="chip warn">На согласовании у ГИП</span> <span class="chip ok">Завершено</span>.</li>
+        <li><b>Замечания</b> нумеруются, у каждого есть исполнитель, срок, копии и вложения. Когда все замечания устранены, задание возвращается ГИПу на согласование.</li>
+        <li><b>Документ задания в Word</b> по шаблону скачивается одной кнопкой.</li>
+        <li>Комментарии, отчёты и полная история. Удалить запись истории нельзя никому, включая администратора.</li>
+      </ul>
+    </div>
+    <figure class="shot crop">
+      <div class="frame"><img src="img/task.jpg" alt="Карточка задания с замечаниями ГИП и историей" width="1600" height="1330"></div>
+      <figcaption>Задание отделу ГП: три замечания ГИП, одно устранено, история изменений.</figcaption>
+    </figure>
+  </div>
+  <figure class="shot screen-only">
+    <div class="frame"><img src="img/tasks.jpg" alt="Список заданий с фильтрами и статусами" width="1600" height="1000"></div>
+    <figcaption>Реестр заданий: фильтры по объекту, отделу и статусу, просроченные выделены.</figcaption>
+  </figure>
+</section>
+
+<!-- ===================== 4. Корреспонденция ===================== -->
+<section class="chapter" id="letters">
+  <div class="chapter-head">
+    <span class="num">04</span>
+    <h2>Входящая корреспонденция</h2>
+  </div>
+  <div class="module">
+    <div class="text">
+      <p>Порядок как в институте: офис-менеджер регистрирует письмо, делопроизводитель закрепляет за ним объект и передаёт ГИПу, ГИП направляет письмо начальникам отделов.</p>
+      <ul>
+        <li><b>Уникальный шифр</b> формируется сам: тематика, подразделение, дата и номер, например <span class="mono">ИД-АК-011026-1</span>.</li>
+        <li>Карточка: отправитель, исходящий номер и дата, тематика, тип документа, число листов, место хранения оригинала, контрольная дата, скан во вложениях.</li>
+        <li>Маршрут по отделам: <b>«К исполнению»</b> или <b>«К сведению»</b>. Отдел принимает письмо в работу и представляет отчёт или мотивированный ответ; письмо можно вернуть с указанием причины.</li>
+        <li>Статусы от <span class="chip">Зарегистрировано</span> до <span class="chip ok">Исполнено</span>. Просроченные по контрольной дате выделены.</li>
+        <li>Связи между письмами, история движения, поиск по шифру и содержанию.</li>
+        <li>Удалённое письмо скрывается из списков, но его шифр и история сохраняются.</li>
+      </ul>
+    </div>
+    <figure class="shot crop">
+      <div class="frame"><img src="img/letter.jpg" alt="Карточка письма с маршрутизацией и историей движения" width="1600" height="1222"></div>
+      <figcaption>Письмо заказчика: закреплено за объектом, направлено в АК к исполнению и в ЭС к сведению.</figcaption>
+    </figure>
+  </div>
+  <figure class="shot screen-only">
+    <div class="frame"><img src="img/letters.jpg" alt="Реестр входящей корреспонденции" width="1600" height="1000"></div>
+    <figcaption>Реестр корреспонденции: статусы цветом, контрольные даты, фильтры.</figcaption>
+  </figure>
+</section>
+
+<!-- ===================== 5. Нормоконтроль и выпуск ===================== -->
+<section class="chapter" id="nk">
+  <div class="chapter-head">
+    <span class="num">05</span>
+    <h2>Нормоконтроль и выпуск документации</h2>
+  </div>
+  <div class="two-shots">
+    <div class="text" style="display:grid;gap:14px">
+      <p>Отдел отправляет том на нормоконтроль по стадии <b>ПД</b>, <b>РД</b> или <b>ОТР</b>. Нормоконтролёр берёт его в работу и выдаёт замечания с привязкой к месту: листу, разделу, основной надписи.</p>
+      <ul class="list">
+        <li>Типовые замечания вставляются в один клик: нумерация листов, обозначение документа, шрифты по ГОСТ 2.304, подписи в основной надписи.</li>
+        <li>Разработчик отмечает «Исправлено», нормоконтролёр подтверждает. Все исправленные можно подтвердить разом.</li>
+        <li>Каждая повторная отправка — новая <b>итерация</b>, замечания сгруппированы по итерациям.</li>
+        <li>Согласовать том нельзя, пока есть открытые замечания.</li>
+        <li>Когда все отделы прошли нормоконтроль, ГИП отправляет стадию на выпуск.</li>
+      </ul>
+    </div>
+    <figure class="shot app">
+      <div class="frame"><img src="img/object-nk.jpg" alt="Панель нормоконтроля в карточке объекта" width="636" height="1212"></div>
+      <figcaption>Панель НК в карточке объекта.</figcaption>
+    </figure>
+  </div>
+  <figure class="shot">
+    <div class="frame"><img src="img/normcontrol.jpg" alt="Очередь нормоконтроля с замечаниями по итерациям" width="1600" height="904"></div>
+    <figcaption>Рабочее место нормоконтролёра: очередь томов и замечания по итерациям.</figcaption>
+  </figure>
+  <div class="module">
+    <div class="text">
+      <h3>Выпуск</h3>
+      <p>Отдел экспертизы и выпуска видит стадии, прошедшие нормоконтроль, пересобирает том и ведёт его по статусам: <span class="chip">Отправлено на выпуск</span> <span class="chip acc">Подготовка к печати</span> <span class="chip warn">Готово к печати</span> <span class="chip acc">Отправлено заказчику</span> <span class="chip ok">Выпущено</span>.</p>
+    </div>
+    <figure class="shot">
+      <div class="frame"><img src="img/release.jpg" alt="Реестр выпуска проектов" width="1600" height="377"></div>
+      <figcaption>Реестр выпуска.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ===================== 6. Охрана труда ===================== -->
+<section class="chapter" id="ot">
+  <div class="chapter-head">
+    <span class="num">06</span>
+    <h2>Удостоверения по охране труда</h2>
+  </div>
+  <div class="module">
+    <div class="text">
+      <ul>
+        <li>Карточка удостоверения: сотрудник, тип, номер, кем выдано, даты, скан во вложениях.</li>
+        <li>Срок действия считается по типу удостоверения: охрана труда, электробезопасность, промышленная безопасность, работы на высоте и другие.</li>
+        <li>Статусы цветом: <span class="chip ok">Действует</span> <span class="chip warn">Истекает</span> <span class="chip bad">Просрочено</span>. Блок «Требуют внимания» показывает, кого отправить на обучение.</li>
+        <li>За 60 дней до окончания срока портал сам уведомляет сотрудника.</li>
+        <li>Календарь переаттестации по месяцам или неделям с печатью и выгрузкой в CSV для плана обучения.</li>
+      </ul>
+    </div>
+    <figure class="shot crop">
+      <div class="frame"><img src="img/certificates.jpg" alt="Реестр удостоверений по охране труда" width="1600" height="1111"></div>
+      <figcaption>Реестр удостоверений: просроченные и истекающие сверху.</figcaption>
+    </figure>
+  </div>
+  <figure class="shot">
+    <div class="frame"><img src="img/calendar.jpg" alt="Календарь переаттестации на 2026 год" width="1600" height="924"></div>
+    <figcaption>Календарь переаттестации на год.</figcaption>
+  </figure>
+</section>
+
+<!-- ===================== 7. Роли и доступ ===================== -->
+<section class="chapter" id="roles">
+  <div class="chapter-head">
+    <span class="num">07</span>
+    <h2>Роли, доступ и вход без пароля</h2>
+    <p class="muted">Сотрудник открывает портал в браузере и сразу оказывается в системе под своей доменной учётной записью. Роли назначаются по группам Active Directory. Роль конкретного человека можно изменить вручную, и AD её больше не перезапишет.</p>
+  </div>
+  <div class="table-wrap">
+  <table class="roles">
+    <thead><tr><th>Роль</th><th>Что делает в портале</th></tr></thead>
+    <tbody>
+      <tr><td>Администратор</td><td>Полный доступ, справочники, матрица прав, журнал администрирования, фоновые задачи</td></tr>
+      <tr><td>Офис-менеджер</td><td>Регистрирует входящие письма, ведёт удостоверения по охране труда</td></tr>
+      <tr><td>Делопроизводитель</td><td>Закрепляет объект за письмом и передаёт ГИПу, контролирует исполнение</td></tr>
+      <tr><td>ГИП</td><td>Объекты, исходные данные, задания и замечания, согласование, отправка на выпуск</td></tr>
+      <tr><td>Начальник отдела</td><td>Письма и задания отдела, назначение исполнителей, согласование работы отдела</td></tr>
+      <tr><td>Сотрудник</td><td>Свои задания, файлы объектов, отчёты, уведомления, свои удостоверения</td></tr>
+      <tr><td>Нормоконтролёр</td><td>Очередь нормоконтроля, замечания по итерациям, согласование томов</td></tr>
+      <tr><td>Выпускающий</td><td>Сборка томов, подготовка к печати, передача заказчику</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="grid-2">
+    <figure class="shot">
+      <div class="frame"><img src="img/permissions.jpg" alt="Матрица прав доступа по ролям" width="1600" height="1000"></div>
+      <figcaption>Матрица прав: какие разделы видит и редактирует каждая роль. Меняется без программиста.</figcaption>
+    </figure>
+    <figure class="shot app">
+      <div class="frame"><img src="img/cfg-ad.png" alt="Сопоставление групп Active Directory и ролей портала в конфигураторе" width="1104" height="752"></div>
+      <figcaption>Группы AD → роли портала в конфигураторе.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ===================== 8. Надёжность ===================== -->
+<section class="chapter" id="trust">
+  <div class="chapter-head">
+    <span class="num">08</span>
+    <h2>Безопасность, надёжность, удобство</h2>
+  </div>
+  <div class="grid-3">
+    <div class="card"><h3>Данные остаются у вас</h3><p>Портал, база данных и файлы работают на ваших серверах. Внешние облачные сервисы не используются.</p></div>
+    <div class="card"><h3>История без удаления</h3><p>Изменения объектов, заданий, писем и замечаний только дописываются в историю. Действия администраторов попадают в отдельный журнал.</p></div>
+    <div class="card"><h3>Проверка прав на сервере</h3><p>Права проверяются при каждом обращении к файлу, вложению или документу, а не только скрытием кнопок в интерфейсе.</p></div>
+    <div class="card"><h3>Пароли зашифрованы</h3><p>Пароли базы данных и сетевой папки хранятся в настройках в зашифрованном виде, ключом конкретного сервера.</p></div>
+    <div class="card"><h3>Тестовый режим</h3><p>Отдельная база и хранилище без доступа к AD для обучения и проверки обновлений. Рабочие данные не затрагиваются.</p></div>
+    <div class="card"><h3>Уведомления</h3><p>Счётчик в меню обновляется каждые 15 секунд. Портал сам напоминает о сроках заданий, писем и удостоверений.</p></div>
+    <div class="card"><h3>«Мой отдел»</h3><p>Начальник видит письма, задания, объекты и нормоконтроль своего отдела на одной странице.</p></div>
+    <div class="card"><h3>Справочники</h3><p>Отделы с руководителем и ВРИО, заказчики, месторождения, типы объектов с шаблонами папок, подрядчики, праздники, тематики писем.</p></div>
+    <div class="card"><h3>Светлая и тёмная тема</h3><p>Интерфейс на русском, адаптирован для широких мониторов и ноутбуков.</p></div>
+  </div>
+  <figure class="shot screen-only">
+    <div class="frame"><img src="img/home-dark.jpg" alt="Главная страница в тёмной теме" width="1600" height="1000"></div>
+    <figcaption>Тёмная тема.</figcaption>
+  </figure>
+</section>
+
+<!-- ===================== 9. Администрирование ===================== -->
+<section class="chapter" id="admin">
+  <div class="chapter-head">
+    <span class="num">09</span>
+    <h2>Администрирование без программиста</h2>
+    <p class="muted">Настройка выполняется в конфигураторе — отдельной программе на сервере. Подробная инструкция по установке — в <a href="admin-guide.html">руководстве системного администратора</a>.</p>
+  </div>
+  <div class="grid-2">
+    <figure class="shot app"><div class="frame"><img src="img/cfg-overview.png" alt="Конфигуратор: обзор и диагностика" width="1104" height="752"></div><figcaption>Диагностика: база, хранилище, AD, AutoCAD, IIS и доступность портала одной кнопкой.</figcaption></figure>
+    <figure class="shot app"><div class="frame"><img src="img/cfg-users.png" alt="Конфигуратор: пользователи и роли" width="1104" height="752"></div><figcaption>Пользователи и роли: совмещение ролей, ручная настройка поверх AD.</figcaption></figure>
+  </div>
+  <div class="table-wrap">
+  <table class="roles">
+    <thead><tr><th>Компонент</th><th>Требования</th></tr></thead>
+    <tbody>
+      <tr><td>Сервер портала</td><td>Windows Server 2019 или новее (подходит виртуальная машина), IIS с проверкой подлинности Windows и протоколом WebSocket, .NET 10 Hosting Bundle. Рекомендуется 4 ядра, 8 ГБ ОЗУ.</td></tr>
+      <tr><td>База данных</td><td>PostgreSQL 14 или новее, на том же или отдельном сервере.</td></tr>
+      <tr><td>Хранилище</td><td>Сетевая папка Windows для каталога объектов, например <span class="mono">\\fileserver\projects\01НГИ</span>.</td></tr>
+      <tr><td>Домен</td><td>Active Directory: вход сотрудников и роли по группам.</td></tr>
+      <tr><td>AutoCAD</td><td>Лицензионный AutoCAD 2024–2026 на сервере для штампов, моделей и XREF. Без него портал работает, но эти функции отключены.</td></tr>
+      <tr><td>Рабочие места</td><td>Microsoft Edge или Google Chrome. Установка не нужна. Для открытия файлов из портала в AutoCAD и Word ставится небольшой модуль запуска.</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- ===================== 10. Внедрение и стоимость ===================== -->
+<section class="chapter" id="offer">
+  <div class="chapter-head">
+    <span class="num">10</span>
+    <h2>Как проходит внедрение</h2>
+  </div>
+  <div class="grid-2 offer-grid" style="align-items:start">
+    <ol class="phases">
+      <li><b>Обследование</b><span class="muted">Структура отделов, шаблоны папок и документов, порядок движения писем.</span></li>
+      <li><b>Установка</b><span class="muted">Сервер, база данных, IIS, доступ к хранилищу, группы AD.</span></li>
+      <li><b>Настройка</b><span class="muted">Справочники, шаблоны Word, импорт сотрудников из AD, права ролей.</span></li>
+      <li><b>Опытная эксплуатация</b><span class="muted">Работа пилотных отделов, сначала в тестовом режиме.</span></li>
+      <li><b>Обучение</b><span class="muted">Занятия по ролям: офис-менеджер, делопроизводитель, ГИП, отделы, НК, выпуск, администратор.</span></li>
+      <li><b>Промышленная эксплуатация</b><span class="muted">Подключение всех отделов, сопровождение.</span></li>
+    </ol>
+    <div class="card">
+      <h3>Стоимость</h3>
+      <p>Рассчитывается под организацию: число пользователей, объём настройки шаблонов и справочников, обучение и сопровождение. Напишите — подготовим коммерческое предложение и покажем портал на демонстрационных данных.</p>
+      <p><a class="btn primary" href="mailto:dioniday@internet.ru">dioniday@internet.ru</a></p>
+    </div>
+  </div>
+  
+
+  <div style="display:grid;gap:12px">
+    <h3>Развитие портала</h3>
+    <p class="muted">Доработки, которые можно включить в план по согласованию с заказчиком:</p>
+    <ul class="list">
+      <li>Дублирование уведомлений на корпоративную почту.</li>
+      <li>Полнотекстовый поиск по содержимому вложений.</li>
+      <li>Исходящая корреспонденция и реестры отправки.</li>
+      <li>Отчёты для руководства: загрузка отделов, просрочки, сроки по объектам.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== Контакты ===================== -->
+<section class="chapter keep" id="contacts">
+  <div class="chapter-head">
+    <h2>Контакты</h2>
+    <p class="muted">Покажем портал на демонстрационных данных и ответим на вопросы ваших специалистов.</p>
+  </div>
+  <div class="contacts">
+    <div><span class="lbl">Разработчик</span><span>Денис Газутдинов</span></div>
+    <div><span class="lbl">Почта</span><a href="mailto:dioniday@internet.ru">dioniday@internet.ru</a></div>
+    <div><span class="lbl">Сайт</span><a href="/">dioniday.dev</a></div>
+  </div>
+  <footer class="end">
+    <span>DoПортал · <a href="/">dioniday.dev</a></span>
+    <span>Снимки экрана сделаны на демонстрационных данных.</span>
+  </footer>
+</section>
+
+</main>
+
+<!-- Просмотр снимков: клик по картинке — на весь экран -->
+<style>
+.shot img { cursor: zoom-in; }
+.shot img:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.zoom { position: fixed; inset: 0; z-index: 100; background: rgba(9, 12, 20, .9); overflow: auto; cursor: zoom-out;
+  padding: calc(env(safe-area-inset-top, 0px) + 56px) max(16px, 3vw) calc(env(safe-area-inset-bottom, 0px) + 24px);
+  display: grid; justify-items: center; align-content: start; gap: 12px; }
+.zoom[hidden] { display: none; }
+.zoom img { display: block; width: auto; max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 12px 48px rgba(0, 0, 0, .5); background: #fff; }
+.zoom p { margin: 0; color: #e5e9f0; font-size: .95rem; text-align: center; max-width: 80ch; }
+.zoom button { position: fixed; top: calc(env(safe-area-inset-top, 0px) + 12px); right: 16px; width: 40px; height: 40px; border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, .35); background: rgba(255, 255, 255, .12); color: #fff; font-size: 22px; line-height: 1; cursor: pointer; }
+.zoom button:hover, .zoom button:focus-visible { background: rgba(255, 255, 255, .25); outline: none; }
+@media (prefers-reduced-motion: no-preference) { .zoom:not([hidden]) { animation: zoom-in .15s ease-out; } }
+@keyframes zoom-in { from { opacity: 0; } to { opacity: 1; } }
+@media print { .zoom { display: none !important; } }
+</style>
+<div class="zoom" id="zoom" hidden role="dialog" aria-modal="true" aria-label="Снимок экрана">
+  <button type="button" id="zoom-close" aria-label="Закрыть">×</button>
+  <img id="zoom-img" alt="">
+  <p id="zoom-cap"></p>
+</div>
+<script>
+(function () {
+  var box = document.getElementById('zoom'), img = document.getElementById('zoom-img'),
+      cap = document.getElementById('zoom-cap'), last = null;
+  function open(src) {
+    last = src;
+    img.src = src.currentSrc || src.src;
+    img.alt = src.alt;
+    var fc = src.closest('figure') && src.closest('figure').querySelector('figcaption');
+    cap.textContent = fc ? fc.textContent : '';
+    box.hidden = false;
+    box.scrollTop = 0;
+    document.body.style.overflow = 'hidden';
+    document.getElementById('zoom-close').focus();
+  }
+  function close() {
+    box.hidden = true;
+    document.body.style.overflow = '';
+    if (last) last.focus();
+  }
+  document.querySelectorAll('.shot img').forEach(function (el) {
+    el.tabIndex = 0;
+    el.setAttribute('role', 'button');
+    el.title = 'Нажмите, чтобы увеличить';
+    el.addEventListener('click', function () { open(el); });
+    el.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(el); }
+    });
+  });
+  box.addEventListener('click', close);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !box.hidden) close(); });
+})();
+</script>
+</body>
+</html>

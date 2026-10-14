@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Установка DoПортала на Windows Server и IIS: PostgreSQL, сетевое хранилище, Active Directory, конфигуратор, резервное копирование, неполадки.">
+<link rel="canonical" href="https://dioniday.dev/doportal/admin-guide.html">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="DoПортал — руководство администратора">
+<meta property="og:description" content="Установка DoПортала на Windows Server и IIS: PostgreSQL, сетевое хранилище, Active Directory, конфигуратор, резервное копирование, неполадки.">
+<meta property="og:url" content="https://dioniday.dev/doportal/admin-guide.html">
+<meta property="og:image" content="https://dioniday.dev/doportal/img/cfg-overview.png">
+<meta name="twitter:card" content="summary_large_image">
+<title>DoПортал — руководство администратора</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800&family=PT+Mono&family=PT+Sans+Narrow:wght@400;700&display=swap">
+<style>
+/* Раскладка: техническое руководство — оглавление и пронумерованные разделы в одну колонку ~920px, команды в моноширинных блоках */
+:root {
+  --paper: #ffffff; --paper-2: #f4f6fa; --ink: #162033; --muted: #5a6478; --line: #d6dbe4;
+  --accent: #2457d6; --accent-soft: #eaf0fd;
+  --ok: #17803d; --ok-bg: #e5f5ea; --warn: #8a5a00; --warn-bg: #fdf1d3; --bad: #b42318; --bad-bg: #fde8e6;
+  --code-bg: #f1f3f8; --code-ink: #1d2740;
+  --shadow: 0 1px 2px rgba(22,32,51,.06), 0 8px 24px rgba(22,32,51,.08);
+  --f-body: "Golos Text", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "PT Mono", "Consolas", monospace;
+  --f-narrow: "PT Sans Narrow", "Arial Narrow", sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0f141d; --paper-2: #161d29; --ink: #e5e9f0; --muted: #9aa4b7; --line: #2a3344;
+    --accent: #7ea3ff; --accent-soft: #1a2442;
+    --ok: #6fd391; --ok-bg: #12301f; --warn: #f2c66b; --warn-bg: #3a2c0c; --bad: #ff8f84; --bad-bg: #3b1714;
+    --code-bg: #171f2c; --code-ink: #dbe3f2; --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0f141d; --paper-2: #161d29; --ink: #e5e9f0; --muted: #9aa4b7; --line: #2a3344;
+  --accent: #7ea3ff; --accent-soft: #1a2442;
+  --ok: #6fd391; --ok-bg: #12301f; --warn: #f2c66b; --warn-bg: #3a2c0c; --bad: #ff8f84; --bad-bg: #3b1714;
+  --code-bg: #171f2c; --code-ink: #dbe3f2; --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+.doc { max-width: 940px; margin: 0 auto; padding-inline: max(16px, 4vw); padding-block: 40px 64px; }
+h1, h2, h3 { line-height: 1.2; text-wrap: balance; margin: 0; }
+h2 { font-size: clamp(1.45rem, 3vw, 1.9rem); font-weight: 800; letter-spacing: -.02em; }
+h3 { font-size: 1.1rem; font-weight: 700; margin-top: 8px; }
+p { margin: 0; max-width: 72ch; }
+.muted { color: var(--muted); }
+a { color: var(--accent); }
+code, .mono { font-family: var(--f-mono); font-size: .9em; }
+:not(pre) > code { background: var(--code-bg); color: var(--code-ink); padding: .05em .35em; border-radius: 4px; overflow-wrap: anywhere; }
+pre { margin: 0; background: var(--code-bg); color: var(--code-ink); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; overflow-x: auto; font-family: var(--f-mono); font-size: .84rem; line-height: 1.5; white-space: pre; }
+pre .c { color: var(--muted); }
+.eyebrow { font-family: var(--f-narrow); text-transform: uppercase; letter-spacing: .12em; font-size: .85rem; color: var(--accent); font-weight: 700; }
+
+.cover { display: grid; gap: 22px; padding-bottom: 32px; border-bottom: 1px solid var(--line); }
+.cover-top { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.brand { font-weight: 800; font-size: 1.1rem; color: var(--accent); }
+.cover h1 { font-size: clamp(2rem, 5.4vw, 3.4rem); font-weight: 800; letter-spacing: -.03em; }
+.cover .lead { font-size: 1.1rem; color: var(--muted); max-width: 60ch; }
+.toc { columns: 2; column-gap: 32px; margin: 0; padding-left: 1.4em; font-size: .97rem; }
+.toc li { break-inside: avoid; padding: 2px 0; }
+.toc a { text-decoration: none; color: var(--ink); }
+.toc a:hover { color: var(--accent); }
+
+section.chapter { padding-block: 44px 4px; border-top: 1px solid var(--line); display: grid; gap: 16px; }
+section.chapter:first-of-type { border-top: 0; }
+.num { font-family: var(--f-mono); color: var(--muted); font-size: .9rem; }
+ol.steps, ul.list { margin: 0; padding-left: 1.9em; display: grid; gap: 8px; }
+section.chapter > *, ol.steps > li, ul.list > li { min-width: 0; }
+ol.steps > li::marker { font-family: var(--f-mono); color: var(--accent); }
+ul.list li::marker { color: var(--accent); }
+.steps li > pre, .steps li > .note { margin-top: 8px; }
+
+.note { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 10px 14px; border-radius: 0 8px 8px 0; font-size: .95rem; }
+.note.warn { border-color: var(--warn); background: var(--warn-bg); }
+.note.bad { border-color: var(--bad); background: var(--bad-bg); }
+.note b:first-child { display: block; margin-bottom: 2px; }
+
+.table-wrap { overflow-x: auto; }
+table.t { width: 100%; border-collapse: collapse; font-size: .93rem; }
+table.t th, table.t td { text-align: left; vertical-align: top; padding: 9px 12px; border-bottom: 1px solid var(--line); }
+table.t th { font-family: var(--f-narrow); text-transform: uppercase; letter-spacing: .08em; font-size: .8rem; color: var(--muted); }
+table.t td:first-child { font-weight: 600; }
+table.t.plain td:first-child { font-weight: 400; }
+
+/* Схема компонентов */
+.arch { display: grid; grid-template-columns: 1fr 1.25fr 1fr; gap: 14px; align-items: stretch; }
+.arch .col { display: grid; gap: 10px; align-content: center; }
+.box { border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; background: var(--paper); display: grid; gap: 2px; }
+.box b { font-size: .98rem; }
+.box span { font-size: .82rem; color: var(--muted); line-height: 1.4; }
+.box.core { border: 2px solid var(--accent); background: var(--accent-soft); }
+.box .port { font-family: var(--f-mono); font-size: .78rem; color: var(--accent); }
+
+.shot { margin: 0; display: grid; gap: 6px; min-width: 0; }
+.shot .frame { border: 1px solid var(--line); border-radius: 8px; overflow: hidden; box-shadow: var(--shadow); }
+.shot img { display: block; width: 100%; height: auto; }
+.shot figcaption { font-size: .86rem; color: var(--muted); }
+.grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+
+.check { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.check li { padding-left: 28px; position: relative; }
+.check li::before { content: ""; position: absolute; left: 2px; top: .3em; width: 14px; height: 14px; border: 1.5px solid var(--accent); border-radius: 3px; }
+
+footer.end { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--line); font-size: .85rem; color: var(--muted); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+@media screen and (max-width: 760px) {
+  .arch, .grid-2 { grid-template-columns: 1fr; }
+  .toc { columns: 1; }
+}
+
+@page { size: A4; margin: 14mm 14mm 16mm; }
+@media print {
+  :root, :root[data-theme="dark"] {
+    --paper: #fff; --paper-2: #f4f6fa; --ink: #162033; --muted: #5a6478; --line: #d6dbe4; --accent: #2457d6; --accent-soft: #eaf0fd;
+    --ok: #17803d; --ok-bg: #e5f5ea; --warn: #8a5a00; --warn-bg: #fdf1d3; --bad: #b42318; --bad-bg: #fde8e6;
+    --code-bg: #f1f3f8; --code-ink: #1d2740; --shadow: none; color-scheme: light;
+  }
+  body { font-size: 10pt; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .doc { max-width: none; padding: 0; }
+  pre { white-space: pre-wrap; font-size: 8pt; break-inside: avoid; }
+  section.chapter { padding-top: 22px; }
+  section.chapter.page { break-before: page; border-top: 0; padding-top: 0; }
+  .shot, .box, .note, table.t tr, .arch { break-inside: avoid; }
+  h2, h3, .num { break-after: avoid; }
+  .shot .frame { box-shadow: none; }
+  a { color: var(--ink); text-decoration: none; }
+}
+</style>
+</head>
+<body>
+<main class="doc">
+
+<header class="cover">
+  <div class="cover-top"><a class="brand" href="./" style="text-decoration:none">DoПортал</a><span class="muted">Редакция от <span class="mono">14.10.2026</span></span></div>
+  <div class="eyebrow">Руководство системного администратора</div>
+  <h1>Установка и сопровождение DoПортала</h1>
+  <p class="lead">Развёртывание на Windows Server 2019 и новее под IIS: база PostgreSQL, сетевое хранилище объектов, вход по доменной учётной записи и роли из групп Active Directory.</p>
+  <ol class="toc">
+    <li><a href="#arch">Как устроен портал</a></li>
+    <li><a href="#req">Требования</a></li>
+    <li><a href="#server">Подготовка сервера</a></li>
+    <li><a href="#db">База данных PostgreSQL</a></li>
+    <li><a href="#publish">Публикация файлов</a></li>
+    <li><a href="#iis">Сайт и пул приложений IIS</a></li>
+    <li><a href="#storage">Хранилище объектов</a></li>
+    <li><a href="#ad">Active Directory и вход без пароля</a></li>
+    <li><a href="#cfg">Настройка конфигуратором</a></li>
+    <li><a href="#acad">AutoCAD на сервере</a></li>
+    <li><a href="#clients">Рабочие места</a></li>
+    <li><a href="#check">Проверка после установки</a></li>
+    <li><a href="#backup">Резервное копирование</a></li>
+    <li><a href="#update">Обновление версии</a></li>
+    <li><a href="#test">Тестовый режим</a></li>
+    <li><a href="#monitor">Наблюдение за работой</a></li>
+    <li><a href="#trouble">Типовые неполадки</a></li>
+  </ol>
+</header>
+
+<!-- 1 -->
+<section class="chapter" id="arch">
+  <span class="num">01</span>
+  <h2>Как устроен портал</h2>
+  <p>DoПортал — веб-приложение ASP.NET Core (Blazor Server) на .NET 10. Браузер держит с сервером постоянное соединение WebSocket, поэтому протокол WebSocket в IIS обязателен. Фоновые задачи (напоминания о сроках, сборка пояснительной записки, операции AutoCAD) выполняются внутри процесса портала.</p>
+  <div class="arch" aria-label="Схема компонентов">
+    <div class="col">
+      <div class="box"><b>Рабочие места</b><span>Edge или Chrome, вход по учётной записи Windows</span><span class="port">HTTP 80 / HTTPS 443 → сервер</span></div>
+      <div class="box"><b>Модуль запуска</b><span>Открывает файлы из портала в AutoCAD, Word, проводнике (протокол doportal://)</span></div>
+    </div>
+    <div class="col">
+      <div class="box core"><b>Сервер портала</b><span>Windows Server 2019+, IIS, пул «DoPortal» без управляемого кода</span><span>Папка <code>C:\inetpub\DoPortal</code>: портал, конфигуратор, <code>AppData</code> (вложения, подписи)</span><span>Фоновые очереди, проверка сроков раз в час</span></div>
+      <div class="box"><b>AutoCAD (лицензия заказчика)</b><span>accoreconsole.exe для штампов, моделей и XREF</span></div>
+    </div>
+    <div class="col">
+      <div class="box"><b>PostgreSQL</b><span>Базы <code>doportal</code> и <code>doportal_test</code></span><span class="port">TCP 5432</span></div>
+      <div class="box"><b>Сетевое хранилище</b><span><code>\\fileserver\projects\01НГИ</code> — папки объектов</span><span class="port">SMB 445</span></div>
+      <div class="box"><b>Контроллер домена</b><span>Вход Kerberos/NTLM, группы ролей, данные сотрудников</span><span class="port">LDAP 389, Kerberos 88</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="chapter" id="req">
+  <span class="num">02</span>
+  <h2>Требования</h2>
+  <div class="table-wrap"><table class="t">
+    <thead><tr><th>Компонент</th><th>Требование</th></tr></thead>
+    <tbody>
+      <tr><td>Сервер портала</td><td>Windows Server 2019, 2022 или 2025 в домене; подходит виртуальная машина. Рекомендуется 4 vCPU, 8 ГБ ОЗУ, 40 ГБ на системном диске плюс место под вложения.</td></tr>
+      <tr><td>Роли IIS</td><td>Веб-сервер, проверка подлинности Windows, протокол WebSocket, инициализация приложений, консоль управления.</td></tr>
+      <tr><td>.NET</td><td>ASP.NET Core 10 Hosting Bundle. Конфигуратор публикуется автономным файлом и отдельного runtime не требует.</td></tr>
+      <tr><td>СУБД</td><td>PostgreSQL 14 или новее на этом или отдельном сервере.</td></tr>
+      <tr><td>Хранилище</td><td>Общая папка Windows (SMB), доступная серверу по UNC-пути.</td></tr>
+      <tr><td>AutoCAD</td><td>Лицензионный AutoCAD 2024, 2025 или 2026 на сервере портала. Необязателен: без него не работают штампы, модели и XREF.</td></tr>
+      <tr><td>Клиенты</td><td>Microsoft Edge или Google Chrome актуальной версии.</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Сетевые доступы</h3>
+  <div class="table-wrap"><table class="t plain">
+    <thead><tr><th>Откуда</th><th>Куда</th><th>Порт</th></tr></thead>
+    <tbody>
+      <tr><td>Рабочие места</td><td>Сервер портала</td><td><code>80</code> или <code>443</code></td></tr>
+      <tr><td>Сервер портала</td><td>PostgreSQL</td><td><code>5432</code></td></tr>
+      <tr><td>Сервер портала, рабочие места</td><td>Файловый сервер</td><td><code>445</code></td></tr>
+      <tr><td>Сервер портала</td><td>Контроллеры домена</td><td><code>88</code>, <code>389</code> (и <code>636</code> при LDAPS)</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- 3 -->
+<section class="chapter page" id="server">
+  <span class="num">03</span>
+  <h2>Подготовка сервера</h2>
+  <ol class="steps">
+    <li>Установите роли IIS (PowerShell от имени администратора):
+<pre>Install-WindowsFeature Web-Server, Web-Windows-Auth, Web-WebSockets, `
+    Web-AppInit, Web-Mgmt-Console</pre></li>
+    <li>Скачайте с сайта Microsoft <b>ASP.NET Core 10 Runtime — Windows Hosting Bundle</b>, установите и перезапустите IIS:
+<pre>iisreset</pre>
+      <div class="note warn"><b>Порядок важен</b>Hosting Bundle ставится после ролей IIS. Если IIS добавили позже, запустите установщик Hosting Bundle ещё раз и выберите «Исправить».</div></li>
+    <li>Создайте DNS-запись <code>doportal</code> (тип A или CNAME) на сервер портала. Сотрудники будут открывать <code>http://doportal</code>.</li>
+  </ol>
+</section>
+
+<!-- 4 -->
+<section class="chapter" id="db">
+  <span class="num">04</span>
+  <h2>База данных PostgreSQL</h2>
+  <p>Портал сам создаёт и обновляет структуру базы при запуске. Нужно только завести пользователя и пустые базы.</p>
+<pre><span class="c">-- psql от имени postgres</span>
+CREATE ROLE doportal LOGIN PASSWORD 'надёжный-пароль';
+CREATE DATABASE doportal      OWNER doportal ENCODING 'UTF8';
+CREATE DATABASE doportal_test OWNER doportal ENCODING 'UTF8';  <span class="c">-- для тестового режима</span></pre>
+  <p>Если PostgreSQL на отдельном сервере, разрешите подключение с сервера портала в <code>pg_hba.conf</code> и откройте порт 5432 в брандмауэре.</p>
+</section>
+
+<!-- 5 -->
+<section class="chapter" id="publish">
+  <span class="num">05</span>
+  <h2>Публикация файлов</h2>
+  <p>Сборка на машине разработчика или сборочном сервере:</p>
+<pre>dotnet publish src/DoPortal.Web -c Release -o publish/DoPortal
+dotnet publish src/DoPortal.Configurator -c Release -r win-x64 --self-contained `
+    -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true `
+    -o publish/DoPortal/Configurator
+dotnet publish src/DoPortal.Launcher -c Release -r win-x64 --self-contained `
+    -p:PublishSingleFile=true -o publish/Launcher</pre>
+  <p>Скопируйте <code>publish/DoPortal</code> на сервер в <code>C:\inetpub\DoPortal</code>. Должно получиться:</p>
+<pre>C:\inetpub\DoPortal\
+├─ DoPortal.Web.dll, web.config, wwwroot\ …   <span class="c">портал</span>
+├─ AutoCAD\DoStructure.XrefPlugin.dll        <span class="c">плагин вставки XREF</span>
+├─ Configurator\DoPortal.Configurator.exe    <span class="c">находит ..\appsettings.json сам</span>
+├─ !Шаблоны\                                 <span class="c">запасные шаблоны ПЗ (необязательно)</span>
+├─ AppData\                                  <span class="c">создаётся порталом: вложения, подписи</span>
+└─ appsettings.json                          <span class="c">настройки, правится конфигуратором</span></pre>
+  <div class="note bad"><b>Не копируйте на сервер</b><code>appsettings.Development.json</code> — в нём демонстрационные настройки разработчика. Папку <code>HeadlessCAD</code> из репозитория разработчика тоже не переносите: это модули AutoCAD, они распространяются только по лицензии Autodesk.</div>
+</section>
+
+<!-- 6 -->
+<section class="chapter page" id="iis">
+  <span class="num">06</span>
+  <h2>Сайт и пул приложений IIS</h2>
+  <ol class="steps">
+    <li>Пул приложений и сайт (PowerShell от имени администратора):
+<pre>Import-Module WebAdministration
+New-WebAppPool -Name DoPortal
+$p = 'IIS:\AppPools\DoPortal'
+Set-ItemProperty $p managedRuntimeVersion ''              <span class="c"># без управляемого кода</span>
+Set-ItemProperty $p processModel.loadUserProfile $true
+Set-ItemProperty $p processModel.idleTimeout '00:00:00'  <span class="c"># не засыпать: фоновые задачи</span>
+Set-ItemProperty $p startMode AlwaysRunning
+Set-ItemProperty $p recycling.periodicRestart.time '00:00:00'
+
+New-Website -Name DoPortal -PhysicalPath C:\inetpub\DoPortal `
+    -ApplicationPool DoPortal -Port 80 -HostHeader doportal
+Set-ItemProperty IIS:\Sites\DoPortal applicationDefaults.preloadEnabled $true</pre></li>
+    <li>Проверка подлинности: Windows — включить, анонимная — выключить.
+<pre>$f = 'system.webServer/security/authentication'
+Set-WebConfigurationProperty -PSPath IIS:\ -Location DoPortal `
+    -Filter "$f/windowsAuthentication" -Name enabled -Value $true
+Set-WebConfigurationProperty -PSPath IIS:\ -Location DoPortal `
+    -Filter "$f/anonymousAuthentication" -Name enabled -Value $false</pre></li>
+    <li>Удостоверение пула. Рекомендуется доменная служебная учётная запись, например <code>CORP\svc-doportal</code>: ей проще выдать права на хранилище и базу.
+<pre>Set-ItemProperty $p processModel -Value @{
+    identityType = 'SpecificUser'; userName = 'CORP\svc-doportal'; password = '…' }</pre>
+      <p class="muted">Если оставить <code>ApplicationPoolIdentity</code>, к сетевым ресурсам портал обращается от имени компьютера сервера <code>CORP\ИМЯСЕРВЕРА$</code>.</p></li>
+    <li>Права на данные портала:
+<pre>icacls C:\inetpub\DoPortal\AppData /grant "CORP\svc-doportal:(OI)(CI)M"
+icacls C:\inetpub\DoPortal\appsettings.json /grant "CORP\svc-doportal:R"</pre></li>
+    <li>Для HTTPS добавьте привязку 443 с сертификатом организации и при желании перенаправление с HTTP.</li>
+  </ol>
+  <div class="note"><b>Почему пул не должен засыпать</b>По умолчанию IIS останавливает пул после 20 минут без запросов. Тогда ночью не работают проверка сроков и фоновые очереди, а первый утренний вход ждёт запуска приложения.</div>
+</section>
+
+<!-- 7 -->
+<section class="chapter" id="storage">
+  <span class="num">07</span>
+  <h2>Хранилище объектов <code>\\fileserver\projects\01НГИ</code></h2>
+  <ul class="list">
+    <li>Портал в IIS работает как служба и <b>не видит буквы сетевых дисков</b> (Z:, X:). Указывайте только UNC-путь.</li>
+    <li>Удостоверению пула нужны права «Изменение» и на общий ресурс, и в NTFS. На файловом сервере:
+<pre>Grant-SmbShareAccess -Name projects -AccountName 'CORP\svc-doportal' -AccessRight Change -Force
+icacls "D:\Shares\projects\01НГИ" /grant "CORP\svc-doportal:(OI)(CI)M"   <span class="c"># локальный путь папки на файловом сервере</span></pre></li>
+    <li>Если выдать права учётной записи пула нельзя, в конфигураторе задаются логин и пароль для сетевой папки. Пароль хранится зашифрованным.</li>
+    <li>Сотрудники работают с файлами со своих компьютеров по тому же пути: права пользователей на 01НГИ остаются как есть.</li>
+  </ul>
+</section>
+
+<!-- 8 -->
+<section class="chapter page" id="ad">
+  <span class="num">08</span>
+  <h2>Active Directory и вход без пароля</h2>
+  <h3>Группы ролей</h3>
+<pre>$ou = 'OU=Groups,DC=corp,DC=local'
+'Администраторы','ГИП','Начальники','Делопроизводство','Офис','НК','ЭиВ' | ForEach-Object {
+    New-ADGroup -Name "DoPortal-$_" -GroupScope Global -GroupCategory Security -Path $ou }
+Add-ADGroupMember 'DoPortal-ГИП' -Members ivanov.ii, petrov.pp</pre>
+  <div class="table-wrap"><table class="t">
+    <thead><tr><th>Группа</th><th>Роль портала</th></tr></thead>
+    <tbody>
+      <tr><td><code>CORP\DoPortal-Администраторы</code></td><td>Администратор</td></tr>
+      <tr><td><code>CORP\DoPortal-ГИП</code></td><td>ГИП</td></tr>
+      <tr><td><code>CORP\DoPortal-Начальники</code></td><td>Начальник отдела</td></tr>
+      <tr><td><code>CORP\DoPortal-Делопроизводство</code></td><td>Делопроизводитель</td></tr>
+      <tr><td><code>CORP\DoPortal-Офис</code></td><td>Офис-менеджер</td></tr>
+      <tr><td><code>CORP\DoPortal-НК</code></td><td>Нормоконтролер</td></tr>
+      <tr><td><code>CORP\DoPortal-ЭиВ</code></td><td>Выпускающий</td></tr>
+    </tbody>
+  </table></div>
+  <ul class="list">
+    <li>Сотрудник получает роли всех своих групп. Если он не состоит ни в одной группе из таблицы, ему назначается роль «Сотрудник».</li>
+    <li>Учётная запись в портале создаётся при первом входе: ФИО и отдел берутся из AD.</li>
+    <li>Роли сверяются при входе и кешируются до 10 минут.</li>
+    <li>Если роли человека изменили вручную в конфигураторе, AD их больше не меняет, пока не снять отметку «Роли заданы вручную».</li>
+  </ul>
+  <h3>Чтобы браузер не спрашивал пароль</h3>
+  <ul class="list">
+    <li>Групповой политикой добавьте <code>http://doportal</code> в зону «Местная интрасеть» (Конфигурация компьютера → Административные шаблоны → Компоненты Windows → Internet Explorer → Панель управления браузером → Безопасность → Список назначений зон для веб-сайтов, значение <code>1</code>).</li>
+    <li>Для Edge и Chrome дополнительно задайте политику <code>AuthServerAllowlist</code> = <code>doportal,doportal.corp.local</code>.</li>
+    <li>Открывайте портал по имени, а не по IP-адресу: по IP вход по Kerberos невозможен.</li>
+    <li>Если пул работает от доменной учётной записи и нужен Kerberos по полному имени, зарегистрируйте SPN и включите <code>useAppPoolCredentials</code>:
+<pre>setspn -S HTTP/doportal CORP\svc-doportal
+setspn -S HTTP/doportal.corp.local CORP\svc-doportal
+Set-WebConfigurationProperty -PSPath IIS:\ -Location DoPortal `
+    -Filter "$f/windowsAuthentication" -Name useAppPoolCredentials -Value $true</pre></li>
+  </ul>
+</section>
+
+<!-- 9 -->
+<section class="chapter page" id="cfg">
+  <span class="num">09</span>
+  <h2>Настройка конфигуратором</h2>
+  <p>Запустите <code>C:\inetpub\DoPortal\Configurator\DoPortal.Configurator.exe</code> <b>на сервере портала от имени администратора</b>. Пароли в <code>appsettings.json</code> шифруются ключом этого сервера (DPAPI): сохранённый на другом компьютере файл здесь не расшифруется.</p>
+  <ol class="steps">
+    <li><b>База данных</b> — сервер, порт, база <code>doportal</code>, пользователь и пароль → «Проверить подключение».</li>
+    <li><b>Хранилище и AutoCAD</b> — корень <code>\\fileserver\projects\01НГИ</code> → «Проверить доступ». Путь к AutoCAD можно оставить пустым, если AutoCAD установлен в стандартную папку.</li>
+    <li><b>Active Directory</b> — корень домена <code>LDAP://DC=corp,DC=local</code>, таблица «Группа AD → роль» → «Проверить группы».</li>
+    <li><b>Сохранить настройки</b>, затем на вкладке «Обзор и диагностика» → «Проверить всё» → «Перезапустить портал».</li>
+    <li>По желанию — <b>Импорт из AD</b>: заводит всех активных сотрудников заранее, с отделами и ролями по группам. Роль «Администратор» при импорте не выдаётся.</li>
+    <li>В портале под администратором заполните справочники: отделы с руководителем и ВРИО, заказчики, месторождения, типы объектов с шаблонами папок, праздники, шаблоны документов.</li>
+  </ol>
+  <div class="grid-2">
+    <figure class="shot"><div class="frame"><img src="img/cfg-overview.png" alt="Конфигуратор: обзор и диагностика" width="1104" height="752"></div><figcaption>Обзор и диагностика: восемь проверок и перезапуск пула.</figcaption></figure>
+    <figure class="shot"><div class="frame"><img src="img/cfg-storage.png" alt="Конфигуратор: хранилище и AutoCAD" width="1104" height="752"></div><figcaption>Хранилище и AutoCAD.</figcaption></figure>
+    <figure class="shot"><div class="frame"><img src="img/cfg-ad.png" alt="Конфигуратор: сопоставление групп AD и ролей" width="1104" height="752"></div><figcaption>Active Directory: группы → роли.</figcaption></figure>
+    <figure class="shot"><div class="frame"><img src="img/cfg-users.png" alt="Конфигуратор: пользователи и роли" width="1104" height="752"></div><figcaption>Пользователи и роли: ручная настройка поверх AD.</figcaption></figure>
+  </div>
+</section>
+
+<!-- 10 -->
+<section class="chapter" id="acad">
+  <span class="num">10</span>
+  <h2>AutoCAD на сервере</h2>
+  <ul class="list">
+    <li>Обновление штампов, создание моделей и обвязка XREF выполняются консольным модулем <code>accoreconsole.exe</code> из установленного AutoCAD 2024–2026.</li>
+    <li>Портал ищет его в <code>C:\Program Files\Autodesk\AutoCAD 20xx</code>. Другой путь задаётся в конфигураторе, раздел «Хранилище и AutoCAD».</li>
+    <li>Плагин вставки XREF <code>AutoCAD\DoStructure.XrefPlugin.dll</code> входит в поставку портала и подключается автоматически.</li>
+    <li>Одновременно выполняется не больше двух операций AutoCAD, остальные ждут в очереди.</li>
+  </ul>
+</section>
+
+<!-- 11 -->
+<section class="chapter" id="clients">
+  <span class="num">11</span>
+  <h2>Рабочие места</h2>
+  <p>Кнопки «Открыть в AutoCAD / Word / проводнике» используют протокол <code>doportal://</code>. На каждый компьютер (удобно групповой политикой или SCCM):</p>
+  <ol class="steps">
+    <li>Скопируйте <code>DoPortal.Launcher.exe</code> из <code>publish/Launcher</code> в <code>C:\DoPortal\</code>.</li>
+    <li>Импортируйте <code>src\DoPortal.Launcher\install_protocol.reg</code>, или распространите ключ <code>HKEY_CLASSES_ROOT\doportal</code> политикой реестра.</li>
+  </ol>
+  <p>Если сотрудники обращаются к хранилищу по-разному (буква диска, старое имя сервера, IP-адрес), перечислите эти варианты в <code>C:\DoPortal\roots.txt</code>, по одному в строке. Модуль запуска будет подставлять их, если файл не открывается по основному пути. Для самого портала те же варианты задаются в <code>appsettings.json</code>: <code>"Portal": { "NgiRootAliases": [ "Z:\\01НГИ" ] }</code>.</p>
+  <p class="muted">Без модуля запуска портал работает полностью, недоступно только открытие файлов одной кнопкой.</p>
+</section>
+
+<!-- 12 -->
+<section class="chapter page" id="check">
+  <span class="num">12</span>
+  <h2>Проверка после установки</h2>
+  <ul class="check">
+    <li>Конфигуратор → «Проверить всё»: все пункты зелёные.</li>
+    <li><code>http://doportal</code> с рабочего места открывается без запроса пароля, в правом верхнем углу инициалы сотрудника.</li>
+    <li>Сотрудник из группы <code>DoPortal-ГИП</code> видит «Объекты» и «Задачи», сотрудник без групп — только свои разделы.</li>
+    <li>Создание тестового объекта: папки появляются в <code>\\fileserver\projects\01НГИ</code>.</li>
+    <li>Загрузка вложения к письму и его скачивание.</li>
+    <li>Кнопка «Обновить штампы AutoCAD» на объекте завершается без ошибки (при установленном AutoCAD).</li>
+    <li>Через 25 минут простоя портал отвечает сразу, без долгой первой загрузки.</li>
+  </ul>
+</section>
+
+<!-- 13 -->
+<section class="chapter" id="backup">
+  <span class="num">13</span>
+  <h2>Резервное копирование</h2>
+  <p>Сохраняйте три вещи: базу данных, папку <code>AppData</code> (вложения и сканы подписей) и <code>appsettings.json</code>. Каталог 01НГИ копируется вашими обычными средствами файлового сервера.</p>
+<pre><span class="c"># C:\Scripts\doportal-backup.ps1 — ежедневно через Планировщик заданий</span>
+$d   = Get-Date -Format 'yyyy-MM-dd'
+$dst = 'D:\Backup\DoPortal'
+$env:PGPASSFILE = 'C:\Scripts\pgpass.conf'   <span class="c"># localhost:5432:doportal:doportal:пароль</span>
+&amp; 'C:\Program Files\PostgreSQL\16\bin\pg_dump.exe' -h localhost -U doportal -F c `
+    -f "$dst\doportal-$d.dump" doportal
+robocopy C:\inetpub\DoPortal\AppData "$dst\AppData" /MIR /R:1 /W:1 | Out-Null
+Copy-Item C:\inetpub\DoPortal\appsettings.json "$dst\appsettings-$d.json"
+Get-ChildItem $dst -Filter 'doportal-*.dump' |
+    Where-Object LastWriteTime -lt (Get-Date).AddDays(-14) | Remove-Item</pre>
+  <p>Восстановление базы: <code>pg_restore -h localhost -U doportal -d doportal --clean doportal-ГГГГ-ММ-ДД.dump</code>.</p>
+  <div class="note warn"><b>Перенос на другой сервер</b>Пароли в <code>appsettings.json</code> зашифрованы ключом старого сервера. После переноса откройте конфигуратор на новом сервере, введите пароли базы и сетевой папки заново и сохраните.</div>
+</section>
+
+<!-- 14 -->
+<section class="chapter" id="update">
+  <span class="num">14</span>
+  <h2>Обновление версии</h2>
+  <ol class="steps">
+    <li>Сделайте резервную копию базы.</li>
+    <li>Положите файл <code>app_offline.htm</code> в <code>C:\inetpub\DoPortal</code>: портал покажет страницу обслуживания и освободит файлы.</li>
+    <li>Скопируйте новую публикацию поверх, <b>кроме</b> <code>appsettings.json</code> и папки <code>AppData</code>.</li>
+    <li>Удалите <code>app_offline.htm</code>. Изменения структуры базы применятся при первом запуске.</li>
+    <li>Конфигуратор → «Проверить всё».</li>
+  </ol>
+  <p class="muted">Обновление удобно сначала проверить в тестовом режиме на копии базы.</p>
+</section>
+
+<!-- 15 -->
+<section class="chapter" id="test">
+  <span class="num">15</span>
+  <h2>Тестовый режим</h2>
+  <p>Конфигуратор → «Режим работы» → «Тестовый режим». Портал переключается на отдельную базу (<code>doportal_test</code>) и отдельную папку хранилища, не обращается к AD и заводит пользователей локально. На каждой странице видна полоса «Тестовый режим». Используйте его для обучения и проверки обновлений; для возврата снимите флажок, сохраните и перезапустите портал.</p>
+  <figure class="shot" style="max-width:640px"><div class="frame"><img src="img/cfg-mode.png" alt="Конфигуратор: режим работы" width="1104" height="752"></div><figcaption>Режим работы.</figcaption></figure>
+</section>
+
+<!-- 16 -->
+<section class="chapter" id="monitor">
+  <span class="num">16</span>
+  <h2>Наблюдение за работой</h2>
+  <div class="table-wrap"><table class="t">
+    <thead><tr><th>Где смотреть</th><th>Что там</th></tr></thead>
+    <tbody>
+      <tr><td><code>/admin/audit</code></td><td>Журнал администрирования: изменения ролей, настроек, импорт из AD. Только для администраторов.</td></tr>
+      <tr><td><code>/hangfire</code></td><td>Фоновые задачи: сборка ПЗ, операции AutoCAD, ошибки и повторы. Только для администраторов.</td></tr>
+      <tr><td>Журнал Windows «Приложение»</td><td>Ошибки запуска модуля ASP.NET Core (источник «IIS AspNetCore Module V2»).</td></tr>
+      <tr><td><code>C:\inetpub\DoPortal\logs</code></td><td>Подробный вывод портала. Включается в <code>web.config</code>: <code>stdoutLogEnabled="true"</code>; после разбора проблемы выключите.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- 17 -->
+<section class="chapter page" id="trouble">
+  <span class="num">17</span>
+  <h2>Типовые неполадки</h2>
+  <div class="table-wrap"><table class="t">
+    <thead><tr><th>Признак</th><th>Причина и решение</th></tr></thead>
+    <tbody>
+      <tr><td>HTTP 500.19</td><td>Не установлен Hosting Bundle или он поставлен до IIS. Переустановите Hosting Bundle, выполните <code>iisreset</code>.</td></tr>
+      <tr><td>HTTP 500.30 при запуске</td><td>Портал не стартовал. Чаще всего недоступна база или неверный пароль, либо <code>appsettings.json</code> сохранён на другом сервере и пароль не расшифровывается. Проверьте журнал «Приложение», пересохраните настройки конфигуратором.</td></tr>
+      <tr><td>Браузер спрашивает логин и пароль</td><td>Сайт не в зоне «Местная интрасеть», включена анонимная проверка подлинности или портал открыт по IP. См. раздел 08.</td></tr>
+      <tr><td>HTTP 401</td><td>Выключена проверка подлинности Windows на сайте.</td></tr>
+      <tr><td>Страница постоянно переподключается</td><td>Не установлен протокол WebSocket в IIS или соединение режет прокси. Установите <code>Web-WebSockets</code>, добавьте портал в исключения прокси.</td></tr>
+      <tr><td>Папки объектов не создаются, «Доступ запрещён»</td><td>У удостоверения пула нет прав на <code>\\fileserver\projects\01НГИ</code>, либо в настройках указана буква диска вместо UNC-пути. Конфигуратор → «Проверить доступ».</td></tr>
+      <tr><td>Роли из AD не применились</td><td>Подождите до 10 минут или перезапустите пул; проверьте, что группа есть в сопоставлении и что у пользователя не стоит отметка «Роли заданы вручную». В тестовом режиме AD не используется.</td></tr>
+      <tr><td>Не обновляются штампы, не создаются модели</td><td>AutoCAD не найден или не активирована лицензия. Конфигуратор → «Проверить всё», пункт AutoCAD.</td></tr>
+      <tr><td>Нет утренних напоминаний, первый вход долгий</td><td>Пул засыпает. Проверьте <code>idleTimeout = 0</code>, <code>startMode = AlwaysRunning</code>, <code>preloadEnabled = true</code> (раздел 06).</td></tr>
+      <tr><td>Кнопка «Открыть в AutoCAD» ничего не делает</td><td>На рабочем месте не установлен модуль запуска или не импортирован <code>install_protocol.reg</code>.</td></tr>
+    </tbody>
+  </table></div>
+  <footer class="end"><span>DoПортал · руководство системного администратора</span><span>Вопросы по установке: <a href="mailto:dioniday@internet.ru">dioniday@internet.ru</a></span></footer>
+</section>
+
+</main>
+
+<!-- Просмотр снимков: клик по картинке — на весь экран -->
+<style>
+.shot img { cursor: zoom-in; }
+.shot img:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.zoom { position: fixed; inset: 0; z-index: 100; background: rgba(9, 12, 20, .9); overflow: auto; cursor: zoom-out;
+  padding: calc(env(safe-area-inset-top, 0px) + 56px) max(16px, 3vw) calc(env(safe-area-inset-bottom, 0px) + 24px);
+  display: grid; justify-items: center; align-content: start; gap: 12px; }
+.zoom[hidden] { display: none; }
+.zoom img { display: block; width: auto; max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 12px 48px rgba(0, 0, 0, .5); background: #fff; }
+.zoom p { margin: 0; color: #e5e9f0; font-size: .95rem; text-align: center; max-width: 80ch; }
+.zoom button { position: fixed; top: calc(env(safe-area-inset-top, 0px) + 12px); right: 16px; width: 40px; height: 40px; border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, .35); background: rgba(255, 255, 255, .12); color: #fff; font-size: 22px; line-height: 1; cursor: pointer; }
+.zoom button:hover, .zoom button:focus-visible { background: rgba(255, 255, 255, .25); outline: none; }
+@media (prefers-reduced-motion: no-preference) { .zoom:not([hidden]) { animation: zoom-in .15s ease-out; } }
+@keyframes zoom-in { from { opacity: 0; } to { opacity: 1; } }
+@media print { .zoom { display: none !important; } }
+</style>
+<div class="zoom" id="zoom" hidden role="dialog" aria-modal="true" aria-label="Снимок экрана">
+  <button type="button" id="zoom-close" aria-label="Закрыть">×</button>
+  <img id="zoom-img" alt="">
+  <p id="zoom-cap"></p>
+</div>
+<script>
+(function () {
+  var box = document.getElementById('zoom'), img = document.getElementById('zoom-img'),
+      cap = document.getElementById('zoom-cap'), last = null;
+  function open(src) {
+    last = src;
+    img.src = src.currentSrc || src.src;
+    img.alt = src.alt;
+    var fc = src.closest('figure') && src.closest('figure').querySelector('figcaption');
+    cap.textContent = fc ? fc.textContent : '';
+    box.hidden = false;
+    box.scrollTop = 0;
+    document.body.style.overflow = 'hidden';
+    document.getElementById('zoom-close').focus();
+  }
+  function close() {
+    box.hidden = true;
+    document.body.style.overflow = '';
+    if (last) last.focus();
+  }
+  document.querySelectorAll('.shot img').forEach(function (el) {
+    el.tabIndex = 0;
+    el.setAttribute('role', 'button');
+    el.title = 'Нажмите, чтобы увеличить';
+    el.addEventListener('click', function () { open(el); });
+    el.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(el); }
+    });
+  });
+  box.addEventListener('click', close);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !box.hidden) close(); });
+})();
+</script>
+</body>
+</html>
