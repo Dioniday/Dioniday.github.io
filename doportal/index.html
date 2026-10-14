@@ -60,12 +60,12 @@
 body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
 .doc { max-width: 1040px; margin: 0 auto; padding-inline: max(16px, 4vw); padding-block: 40px 64px; }
 h1, h2, h3 { line-height: 1.15; text-wrap: balance; margin: 0; }
-h2 { font-size: clamp(1.6rem, 3.2vw, 2.2rem); font-weight: 800; letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.6rem, 3.2vw, 2.2rem); font-weight: 700; letter-spacing: -.005em; }
 h3 { font-size: 1.15rem; font-weight: 700; }
 p { margin: 0; max-width: 68ch; }
 .muted { color: var(--muted); }
-.mono { font-family: var(--f-mono); font-size: .92em; }
-.eyebrow { font-family: var(--f-narrow); text-transform: uppercase; letter-spacing: .12em; font-size: .85rem; color: var(--accent); font-weight: 700; }
+.mono { font-variant-numeric: tabular-nums; font-weight: 500; white-space: nowrap; }  /* шифры в тексте — тем же шрифтом, моноширинный разрежал бы строку */
+.eyebrow { font-family: var(--f-narrow); text-transform: uppercase; letter-spacing: .08em; font-size: .85rem; color: var(--accent); font-weight: 700; }
 .fill { background: var(--fill); color: var(--fill-ink); padding: 0 .3em; border-radius: 3px; border-bottom: 1px dashed currentColor; white-space: nowrap; }
 a { color: var(--accent); }
 .btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 16px; border-radius: 8px; border: 1px solid var(--line); color: var(--ink); text-decoration: none; font-weight: 600; font-size: .95rem; background: var(--paper); }
@@ -84,9 +84,9 @@ section.chapter > * { min-width: 0; }
 /* ===== Обложка ===== */
 .cover { display: grid; gap: 28px; padding-bottom: 40px; }
 .cover-top { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; align-items: baseline; }
-.brand { font-weight: 800; font-size: 1.15rem; color: var(--accent); letter-spacing: -.01em; }
-.cover h1 { font-size: clamp(2.4rem, 6.4vw, 4.4rem); font-weight: 800; letter-spacing: -.035em; }
-.cover h1 span { color: var(--accent); }
+.brand { font-weight: 700; font-size: 1.15rem; color: var(--accent); letter-spacing: -.01em; }
+.cover h1 { font-size: clamp(2.4rem, 6.4vw, 4.4rem); font-weight: 700; letter-spacing: -.01em; line-height: 1.08; }
+.cover h1 span { color: var(--accent); display: block; }
 .cover .lead { font-size: clamp(1.05rem, 2vw, 1.3rem); color: var(--muted); max-width: 46ch; }
 .for-whom { display: flex; gap: 10px 28px; flex-wrap: wrap; font-size: .98rem; }
 .for-whom b { font-weight: 600; }
@@ -106,7 +106,7 @@ section.chapter > * { min-width: 0; }
   grid-template-areas: "dev exec title stage sheets" "cust cust title code code";
   border: 2px solid var(--ink); font-family: var(--f-narrow); font-size: .95rem; }
 .stamp > div { border-right: 1px solid var(--ink); border-bottom: 1px solid var(--ink); padding: 4px 8px; min-width: 0; }
-.stamp .lbl { color: var(--muted); font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; display: block; }
+.stamp .lbl { color: var(--muted); font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; display: block; }
 .s-dev { grid-area: dev; } .s-exec { grid-area: exec; } .s-stage { grid-area: stage; } .s-cust { grid-area: cust; }
 .stamp .s-sheets { grid-area: sheets; border-right: 0; }
 .stamp .title { grid-area: title; border-bottom: 0; display: flex; flex-direction: column; justify-content: center; font-family: var(--f-body); font-weight: 700; font-size: 1.05rem; }
@@ -124,7 +124,7 @@ section.chapter > * { min-width: 0; }
 .facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
 .facts > div { padding: 18px 18px 16px; border-right: 1px solid var(--line); display: grid; gap: 4px; align-content: start; }
 .facts > div:last-child { border-right: 0; }
-.facts b { font-size: 1.9rem; font-weight: 800; letter-spacing: -.02em; color: var(--accent); line-height: 1.1; }
+.facts b { font-size: 1.9rem; font-weight: 700; letter-spacing: 0; color: var(--accent); line-height: 1.1; }
 .facts span { font-size: .9rem; color: var(--muted); }
 
 /* ===== Сквозной процесс ===== */
@@ -239,7 +239,7 @@ footer.end { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--li
 
   <div style="display:grid;gap:18px">
     <div class="eyebrow">Портал для проектных институтов</div>
-    <h1>Проектный институт <span>в одном окне</span></h1>
+    <h1>Проектный институт <span>в&nbsp;одном окне</span></h1>
     <p class="lead">Корпоративный портал для проектного центра нефтегазовой отрасли: входящая корреспонденция, объекты, задания ГИП, нормоконтроль, выпуск документации и учёт удостоверений по охране труда. Работает в вашей сети, вход по доменной учётной записи.</p>
     <div class="for-whom">
       <a class="btn primary" href="admin-guide.html">Руководство администратора</a>
