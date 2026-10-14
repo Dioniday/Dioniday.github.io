@@ -93,9 +93,6 @@ section.chapter > * { min-width: 0; }
 
 .shot { margin: 0; display: grid; gap: 8px; min-width: 0; }
 .shot .frame { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--paper-2); box-shadow: var(--shadow); }
-.shot .frame::before { content: ""; display: block; height: 22px; border-bottom: 1px solid var(--line);
-  background: radial-gradient(circle at 12px 11px, #f26b5b 4px, transparent 4.5px), radial-gradient(circle at 26px 11px, #f2bd4b 4px, transparent 4.5px), radial-gradient(circle at 40px 11px, #4fc06a 4px, transparent 4.5px), var(--paper-2); }
-.shot.app .frame::before { display: none; }
 .shot img { display: block; width: 100%; height: auto; }
 .shot figcaption { font-size: .88rem; color: var(--muted); }
 .shot.crop .frame { max-height: 560px; }
