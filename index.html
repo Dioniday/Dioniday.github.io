@@ -53,46 +53,64 @@
 <body>
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:text-indigo-700">Перейти к содержимому</a>
 
-    <!-- Header -->
-    <header class="gradient-bg text-white">
-        <div class="container mx-auto px-4 pb-12 pt-6 md:pb-20">
-            <div class="no-print mb-6 flex justify-end gap-2">
-                <button type="button" data-print class="chip text-sm font-medium">
-                    <svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#download"></use></svg> Скачать PDF
-                </button>
-                <a href="/en/" data-lang="en" hreflang="en" lang="en" class="chip text-sm font-medium" aria-label="English version">EN</a>
-            </div>
-            <div class="flex flex-col items-center md:flex-row">
-                <div class="mb-8 flex w-full justify-center md:mb-0 md:w-1/3">
-                    <img src="/assets/img/profile.webp" srcset="/assets/img/profile-320.webp 320w, /assets/img/profile.webp 640w" sizes="(min-width: 768px) 256px, 192px" width="256" height="256" alt="Денис Газутдинов" fetchpriority="high" class="animate-float h-48 w-48 rounded-full border-4 border-white object-cover shadow-xl md:h-64 md:w-64">
-                </div>
-                <div class="w-full text-center md:w-2/3 md:text-left">
-                    <h1 class="mb-2 text-3xl font-bold md:text-5xl">Денис Газутдинов</h1>
-                    <p class="mb-4 text-xl font-semibold md:text-2xl">Middle Designer</p>
-                    <p class="mb-6 max-w-2xl text-lg text-indigo-50">Графический дизайн, моушн-дизайн, видеопродакшн</p>
+    <!-- Navigation -->
+    <nav class="site-nav no-print" aria-label="Разделы">
+        <div class="container mx-auto max-w-6xl flex items-center gap-2 px-4 py-2.5">
+            <a href="#top" class="mr-auto font-bold text-slate-900 dark:text-white">Денис Газутдинов</a>
+            <ul class="hidden items-center gap-1 lg:flex">
+                <li><a href="#works" class="nav-link">Работы</a></li>
+                <li><a href="#experience" class="nav-link">Опыт</a></li>
+                <li><a href="#skills" class="nav-link">Навыки</a></li>
+                <li><a href="#education" class="nav-link">Образование</a></li>
+                <li><a href="#contacts" class="nav-link">Контакты</a></li>
+            </ul>
+            <button type="button" data-print class="nav-button">
+                <svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#download"></use></svg><span class="hidden sm:inline">Скачать PDF</span><span class="sm:hidden">PDF</span>
+            </button>
+            <a href="/en/" data-lang="en" hreflang="en" lang="en" class="nav-button" aria-label="English version">EN</a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header id="top" class="gradient-bg text-white">
+        <div class="container mx-auto max-w-6xl px-4 py-14 md:py-20">
+            <div class="flex flex-col items-center gap-10 md:flex-row md:items-start">
+                <img src="/assets/img/profile.webp" srcset="/assets/img/profile-320.webp 320w, /assets/img/profile.webp 640w" sizes="(min-width: 768px) 256px, 192px" width="256" height="256" alt="Денис Газутдинов" fetchpriority="high" class="animate-float h-48 w-48 shrink-0 rounded-full border-4 border-white object-cover shadow-xl md:h-64 md:w-64">
+                <div class="w-full text-center md:text-left">
+                    <p class="mb-2 text-lg font-semibold text-indigo-100">Middle Designer</p>
+                    <h1 class="mb-5 text-4xl font-bold md:text-6xl">Денис Газутдинов</h1>
+                    <p class="mx-auto mb-3 max-w-2xl text-lg leading-relaxed text-indigo-50 md:mx-0">Дизайнер и контент-мейкер с 10-летним опытом в визуальном творчестве и цифровых проектах. Люблю превращать идеи во впечатляющие визуальные решения: от динамичных видео до интуитивных интерфейсов.</p>
+                    <p class="mx-auto mb-8 max-w-2xl text-lg leading-relaxed text-indigo-50 md:mx-0">Ищу позицию <strong class="text-white">Middle Designer</strong>: графический и моушн-дизайн, дизайн презентаций, видеопродакшн.</p>
+                    <div class="no-print mb-8 flex flex-wrap justify-center gap-3 md:justify-start">
+                        <a href="#works" class="btn-light">Смотреть работы <svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#arrow-right"></use></svg></a>
+                        <a href="https://t.me/Dioniday" target="_blank" rel="noopener" class="btn-ghost"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#telegram"></use></svg> Написать в Telegram</a>
+                    </div>
                     <ul class="flex flex-wrap justify-center gap-2 md:justify-start">
                         <li><a href="tel:+79964035664" class="chip"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#phone"></use></svg> +7 (996) 403-56-64</a></li>
                         <li><a href="mailto:dioniday@internet.ru" class="chip"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#envelope"></use></svg> dioniday@internet.ru</a></li>
                         <li><a href="https://t.me/Dioniday" target="_blank" rel="noopener" class="chip"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#telegram"></use></svg> @Dioniday</a></li>
-                        <li><span class="chip hover:bg-white/20"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#location"></use></svg> Уфа, Россия</span></li>
+                        <li><span class="chip hover:bg-white/15"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#location"></use></svg> Уфа, Россия</span></li>
                     </ul>
                 </div>
             </div>
+            <dl class="mt-12 grid gap-4 sm:grid-cols-3">
+                <div class="fact"><dt class="fact-value">10+ лет</dt><dd class="fact-label">в дизайне, видео и контенте</dd></div>
+                <div class="fact"><dt class="fact-value">Магистр</dt><dd class="fact-label">дизайна, диплом с отличием (2026)</dd></div>
+                <div class="fact"><dt class="fact-value">+65%</dt><dd class="fact-label">производительности отделов ГИП после моей автоматизации</dd></div>
+            </dl>
         </div>
     </header>
 
-    <main id="main" class="container mx-auto space-y-8 px-4 py-12">
+    <main id="main" class="container mx-auto max-w-6xl px-4">
         <!-- Works -->
-        <section id="works" class="no-print" aria-labelledby="works-title">
-            <div class="mb-6 flex flex-wrap items-end justify-between gap-4">
-                <h2 id="works-title" class="card-title mb-0">
-                    <svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#palette"></use></svg> Избранные работы
-                </h2>
+        <section id="works" class="section no-print" aria-labelledby="works-title">
+            <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
+                <h2 id="works-title" class="section-title mb-0">Избранные работы</h2>
                 <a href="https://www.behance.net/dioniday" target="_blank" rel="noopener" class="inline-flex items-center gap-2 font-semibold text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300">
                     Все работы на Behance <svg class="icon text-sm" aria-hidden="true"><use href="/assets/icons.svg#external"></use></svg>
                 </a>
             </div>
-            <h3 class="mb-4 text-lg font-semibold text-slate-700 dark:text-slate-300">Дизайн и видео</h3>
+            <h3 class="subsection-title">Дизайн и видео</h3>
             <div class="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
                 <article class="work-card">
                     <a href="https://www.behance.net/dioniday" target="_blank" rel="noopener" aria-label="Фирменный стиль для психолога — смотреть на Behance">
@@ -136,7 +154,7 @@
                 </article>
             </div>
 
-            <h3 class="mb-4 mt-10 text-lg font-semibold text-slate-700 dark:text-slate-300">Разработка</h3>
+            <h3 class="subsection-title mt-12">Разработка</h3>
             <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 <article class="work-card">
                     <a href="/doportal/" aria-label="DoПортал — страница проекта">
@@ -170,239 +188,224 @@
             </div>
         </section>
 
-        <div class="flex flex-col gap-8 lg:flex-row">
-            <!-- Left Column -->
-            <div class="w-full space-y-8 lg:w-1/3">
-                <!-- About -->
-                <section class="card">
-                    <h2 class="card-title"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#user"></use></svg> Обо мне</h2>
-                    <p class="mb-4">Я Денис – дизайнер и контент-мейкер с 10-летним опытом в визуальном творчестве и цифровых проектах.</p>
-                    <p class="mb-4">Люблю превращать идеи во впечатляющие визуальные решения: от динамичных видео до интуитивных интерфейсов.</p>
-                    <p class="mb-4">Постоянно изучаю новые технологии и тренды в дизайне, включая инструменты ИИ.</p>
-                    <p>В январе 2026 года с отличием окончил магистратуру УГНТУ (Институт экономики и сервиса) по направлению «Дизайн».</p>
-                </section>
+        <!-- Experience -->
+        <section id="experience" class="section" aria-labelledby="experience-title">
+            <h2 id="experience-title" class="section-title">Опыт работы</h2>
 
-                <!-- Portfolio links -->
-                <section class="card no-print">
-                    <h2 class="card-title"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#briefcase"></use></svg> Портфолио</h2>
-                    <div class="space-y-3">
-                        <a href="https://www.behance.net/dioniday" target="_blank" rel="noopener" class="flex w-full items-center gap-2 rounded-lg bg-indigo-600 px-6 py-3 font-medium text-white transition hover:bg-indigo-700">
-                            <svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#behance"></use></svg> Посмотреть на Behance
-                        </a>
-                        <a href="/dioniday_site_card/" class="group flex items-center gap-4 rounded-xl border border-slate-200 p-4 transition hover:-translate-y-0.5 hover:border-indigo-300 hover:shadow-md dark:border-slate-700 dark:hover:border-indigo-500">
-                            <span class="grid h-12 w-12 place-items-center rounded-lg bg-indigo-600 text-2xl text-white"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#globe"></use></svg></span>
-                            <span>
-                                <span class="block text-lg font-semibold">Социальные сети</span>
-                                <span class="block text-sm text-slate-500 dark:text-slate-400">Все мои площадки</span>
-                            </span>
-                            <svg class="icon ml-auto text-slate-400 transition group-hover:translate-x-1 group-hover:text-indigo-500" aria-hidden="true"><use href="/assets/icons.svg#arrow-right"></use></svg>
-                        </a>
+            <div>
+                <article class="job">
+                    <div>
+                        <p class="job-period">2016 — настоящее время</p>
+                        <p class="job-duration">более 10 лет</p>
                     </div>
-                </section>
-
-                <!-- Skills -->
-                <section class="card">
-                    <h2 class="card-title"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#gears"></use></svg> Навыки</h2>
-                    <h3 class="mb-2 text-lg font-semibold">Профессиональные программы:</h3>
-                    <ul class="mb-4 flex flex-wrap gap-2">
-                        <li class="pill pill-indigo">Adobe Premiere Pro</li>
-                        <li class="pill pill-indigo">After Effects</li>
-                        <li class="pill pill-indigo">Photoshop</li>
-                        <li class="pill pill-indigo">Illustrator</li>
-                        <li class="pill pill-indigo">InDesign</li>
-                        <li class="pill pill-indigo">Figma</li>
-                        <li class="pill pill-indigo">Tilda</li>
-                        <li class="pill pill-indigo">AutoCAD</li>
-                        <li class="pill pill-indigo">Visual Studio</li>
-                        <li class="pill pill-indigo">VS Code</li>
-                    </ul>
-
-                    <h3 class="mb-2 text-lg font-semibold">ИИ-инструменты:</h3>
-                    <ul class="mb-4 flex flex-wrap gap-2">
-                        <li class="pill pill-purple">ChatGPT</li>
-                        <li class="pill pill-purple">Gemini</li>
-                        <li class="pill pill-purple">Perplexity</li>
-                        <li class="pill pill-purple">Midjourney</li>
-                        <li class="pill pill-purple">Llama.cpp</li>
-                        <li class="pill pill-purple">Qwen</li>
-                        <li class="pill pill-purple">Deepseek</li>
-                        <li class="pill pill-purple">LM Studio</li>
-                        <li class="pill pill-purple">OpenCode</li>
-                        <li class="pill pill-purple">Развертывание локальных моделей</li>
-                    </ul>
-
-                    <h3 class="mb-2 text-lg font-semibold">Программирование:</h3>
-                    <ul class="flex flex-wrap gap-2">
-                        <li class="pill pill-blue">Visual Lisp</li>
-                        <li class="pill pill-blue">Vibecoding</li>
-                        <li class="pill pill-blue">Beginner C#</li>
-                        <li class="pill pill-blue">HTML</li>
-                        <li class="pill pill-blue">CSS</li>
-                        <li class="pill pill-blue">JavaScript</li>
-                        <li class="pill pill-blue">.NET</li>
-                    </ul>
-                </section>
-            </div>
-
-            <!-- Right Column -->
-            <div class="w-full space-y-8 lg:w-2/3">
-                <!-- Objective -->
-                <section class="card">
-                    <h2 class="card-title"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#bullseye"></use></svg> Цель</h2>
-                    <p class="text-lg">Получение позиции <span class="font-bold">Middle Designer</span> (графический дизайн, моушн-дизайн, дизайн презентаций, видеопродакшн) с уровнем заработной платы <span class="font-bold">от 100 000 рублей</span>, где я смогу применить свой многолетний опыт, креативный подход и технические навыки для создания впечатляющих визуальных продуктов и решения сложных дизайнерских задач.</p>
-                </section>
-
-                <!-- Experience -->
-                <section id="experience" class="card">
-                    <h2 class="card-title mb-6"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#briefcase"></use></svg> Опыт работы</h2>
-
-                    <div class="relative space-y-8 border-l-2 border-slate-200 pl-6 dark:border-slate-700">
-                        <!-- Freelance -->
-                        <article class="job">
-                            <h3 class="mb-1 text-xl font-bold">Фриланс | Графический дизайнер, Видеомонтажер, Моушн-дизайнер, Контент-мейкер</h3>
-                            <p class="job-meta">2016 — настоящее время (более 10 лет)</p>
-
-                            <div class="mb-4">
-                                <h4 class="mb-2 font-semibold">Разработка фирменного стиля и визуальных концепций:</h4>
-                                <p class="mb-2"><span class="font-medium">Проект:</span> Создание концепции фирменного стиля и презентации для психолога Анны Лебедевой.</p>
+                    <div>
+                        <h3 class="job-role">Графический дизайнер, Видеомонтажер, Моушн-дизайнер, Контент-мейкер</h3>
+                        <p class="job-company">Фриланс</p>
+                        <div class="job-body">
+                            <div>
+                                <h4>Разработка фирменного стиля и визуальных концепций</h4>
+                                <p><span class="font-medium">Проект:</span> Создание концепции фирменного стиля и презентации для психолога Анны Лебедевой.</p>
                                 <p class="result">Результат: Клиент получил целостный и профессиональный фирменный стиль, который помог повысить узнаваемость и доверие аудитории.</p>
                             </div>
-
-                            <div class="mb-4">
-                                <h4 class="mb-2 font-semibold">Создание видеоконтента и моушн-дизайна:</h4>
-                                <p class="mb-2"><span class="font-medium">Проект:</span> Разработка рекламного ролика для концертного тура музыкальной группы «Руки Вверх».</p>
+                            <div>
+                                <h4>Создание видеоконтента и моушн-дизайна</h4>
+                                <p><span class="font-medium">Проект:</span> Разработка рекламного ролика для концертного тура музыкальной группы «Руки Вверх».</p>
                                 <p class="result">Результат: Энергичный и стильный рекламный ролик, способствовавший привлечению внимания к туру.</p>
                             </div>
-
                             <div>
-                                <p class="mb-2"><span class="font-medium">Проект:</span> Создание анимационных роликов и видео с субтитрами для образовательной платформы Skillbox.</p>
+                                <p><span class="font-medium">Проект:</span> Создание анимационных роликов и видео с субтитрами для образовательной платформы Skillbox.</p>
                                 <p class="result">Результат: Качественные обучающие видеоматериалы, получившие положительные отзывы за наглядность.</p>
                             </div>
-                        </article>
+                        </div>
+                    </div>
+                </article>
 
-                        <!-- CAD Specialist -->
-                        <article class="job">
-                            <h3 class="mb-1 text-xl font-bold">Специалист САПР | ООО ПЦ УГНТУ «НЕФТЕГАЗИНЖИНИРИНГ»</h3>
-                            <p class="job-meta">Июль 2025 — Июль 2026 (1 год)</p>
-
-                            <div class="space-y-3">
-                                <p><span class="font-medium">Отдел:</span> Информационные технологии</p>
-
-                                <div>
-                                    <h4 class="mb-1 font-semibold">Основные обязанности:</h4>
-                                    <ul class="list-disc space-y-1 pl-5">
-                                        <li>Администрирование и настройка САПР-систем (AutoCAD, SmartLep)</li>
-                                        <li>Техническая поддержка пользователей САПР</li>
-                                        <li>Разработка стандартов и шаблонов для проектирования</li>
-                                        <li>Поддержка системы параллельного проектирования</li>
-                                        <li>Разработка программного обеспечения для BIM-проектирования</li>
-                                        <li>Обучение сотрудников работе с AutoCAD и другими САПР-инструментами</li>
-                                    </ul>
-                                </div>
-                                <div>
-                                    <p class="mb-2"><span class="font-medium">Проект:</span> Создание программы для автоматизации запуска проектов в работу для главных инженеров проектов.</p>
-                                    <p class="result">Результат: Программа создана на языках .NET и C# с дизайном в WindowsForms. Имеет функционал обвязки чертежей внешними ссылками, создание директорий, обновление реестра объектов, отслеживание авторства. Повышение производительности отделов ГИП на 65%.</p>
-                                </div>
-                                <div>
-                                    <p class="mb-2"><span class="font-medium">Проект:</span> Создание скрипта для автоматической раздачи ключей КриптоПро CSP.</p>
-                                    <p class="result">Результат: Скрипт создан на языке C#, обращается к ПК пользователей через подсеть, проверяет через .csv лицензионные ключи и переустанавливает пакеты .msi с привязкой лицензий.</p>
-                                </div>
+                <article class="job">
+                    <div>
+                        <p class="job-period">Июль 2025 — Июль 2026</p>
+                        <p class="job-duration">1 год</p>
+                    </div>
+                    <div>
+                        <h3 class="job-role">Специалист САПР</h3>
+                        <p class="job-company">ООО ПЦ УГНТУ «НЕФТЕГАЗИНЖИНИРИНГ» · Информационные технологии</p>
+                        <div class="job-body">
+                            <div>
+                                <h4>Основные обязанности</h4>
+                                <ul class="list-disc space-y-1 pl-5">
+                                    <li>Администрирование и настройка САПР-систем (AutoCAD, SmartLep)</li>
+                                    <li>Техническая поддержка пользователей САПР</li>
+                                    <li>Разработка стандартов и шаблонов для проектирования</li>
+                                    <li>Поддержка системы параллельного проектирования</li>
+                                    <li>Разработка программного обеспечения для BIM-проектирования</li>
+                                    <li>Обучение сотрудников работе с AutoCAD и другими САПР-инструментами</li>
+                                </ul>
                             </div>
-                        </article>
-
-                        <!-- Engineer, Designer -->
-                        <article class="job">
-                            <h3 class="mb-1 text-xl font-bold">Инженер, дизайнер (по совместительству) | ООО ПЦ УГНТУ «НЕФТЕГАЗИНЖИНИРИНГ»</h3>
-                            <p class="job-meta">Сентябрь 2022 — Июль 2025 (2 года 10 месяцев)</p>
-
-                            <div class="space-y-3">
-                                <p><span class="font-medium">Основные обязанности:</span> Разработка рабочей и проектной документации воздушных линий.</p>
-
-                                <div>
-                                    <h4 class="mb-1 font-semibold">Дополнительные проекты:</h4>
-                                    <ul class="list-disc space-y-1 pl-5">
-                                        <li>Участие в создании планов и разработке дизайна для внутреннего портала компании</li>
-                                        <li>Создание пользовательского интерфейса для AutoCAD с использованием Visual Lisp</li>
-                                        <li>Активное участие в проектах по BIM-автоматизации</li>
-                                    </ul>
-                                </div>
+                            <div>
+                                <p><span class="font-medium">Проект:</span> Создание программы для автоматизации запуска проектов в работу для главных инженеров проектов.</p>
+                                <p class="result">Результат: Программа создана на языках .NET и C# с дизайном в WindowsForms. Имеет функционал обвязки чертежей внешними ссылками, создание директорий, обновление реестра объектов, отслеживание авторства. Повышение производительности отделов ГИП на 65%.</p>
                             </div>
-                        </article>
+                            <div>
+                                <p><span class="font-medium">Проект:</span> Создание скрипта для автоматической раздачи ключей КриптоПро CSP.</p>
+                                <p class="result">Результат: Скрипт создан на языке C#, обращается к ПК пользователей через подсеть, проверяет через .csv лицензионные ключи и переустанавливает пакеты .msi с привязкой лицензий.</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
 
-                        <!-- Previous Jobs -->
-                        <article class="job">
-                            <h3 class="mb-1 text-xl font-bold">Инженер-проектировщик | ООО «РН-БАШНИПИНЕФТЬ»</h3>
-                            <p class="job-meta mb-3">Февраль 2022 — Июнь 2022 (5 месяцев)</p>
+                <article class="job">
+                    <div>
+                        <p class="job-period">Сентябрь 2022 — Июль 2025</p>
+                        <p class="job-duration">2 года 10 месяцев</p>
+                    </div>
+                    <div>
+                        <h3 class="job-role">Инженер, дизайнер (по совместительству)</h3>
+                        <p class="job-company">ООО ПЦ УГНТУ «НЕФТЕГАЗИНЖИНИРИНГ»</p>
+                        <div class="job-body">
+                            <p><span class="font-medium">Основные обязанности:</span> Разработка рабочей и проектной документации воздушных линий.</p>
+                            <div>
+                                <h4>Дополнительные проекты</h4>
+                                <ul class="list-disc space-y-1 pl-5">
+                                    <li>Участие в создании планов и разработке дизайна для внутреннего портала компании</li>
+                                    <li>Создание пользовательского интерфейса для AutoCAD с использованием Visual Lisp</li>
+                                    <li>Активное участие в проектах по BIM-автоматизации</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="job">
+                    <div>
+                        <p class="job-period">Февраль 2022 — Июнь 2022</p>
+                        <p class="job-duration">5 месяцев</p>
+                    </div>
+                    <div>
+                        <h3 class="job-role">Инженер-проектировщик</h3>
+                        <p class="job-company">ООО «РН-БАШНИПИНЕФТЬ»</p>
+                        <div class="job-body">
                             <p>Разработка рабочей и проектной документации БКРУ.</p>
-                        </article>
+                        </div>
+                    </div>
+                </article>
 
-                        <article class="job">
-                            <h3 class="mb-1 text-xl font-bold">Монтажёр | Magic World Cinema</h3>
-                            <p class="job-meta mb-3">Июнь 2018 — Август 2019 (1 год 3 месяца)</p>
+                <article class="job">
+                    <div>
+                        <p class="job-period">Июнь 2018 — Август 2019</p>
+                        <p class="job-duration">1 год 3 месяца</p>
+                    </div>
+                    <div>
+                        <h3 class="job-role">Монтажёр</h3>
+                        <p class="job-company">Magic World Cinema</p>
+                        <div class="job-body">
                             <p>Выполнение чистового монтажа (склейка сцен, переходов, создание ритма повествования), базовая цветокоррекция и работа со звуком.</p>
-                        </article>
-                    </div>
-                </section>
-
-                <!-- Education -->
-                <section class="card">
-                    <h2 class="card-title mb-6"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#graduation"></use></svg> Образование</h2>
-
-                    <div class="space-y-6">
-                        <div class="flex items-start gap-4">
-                            <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-indigo-100 text-indigo-600 dark:bg-indigo-500/20 dark:text-indigo-300"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#university"></use></svg></span>
-                            <div>
-                                <h3 class="text-lg font-bold">Уфимский государственный нефтяной технический университет</h3>
-                                <p class="mb-1 text-slate-600 dark:text-slate-400">Институт экономики и сервиса, <span class="font-medium">Дизайн</span> (магистратура, диплом с отличием)</p>
-                                <p class="text-sm text-slate-500">2023 – 2026</p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start gap-4">
-                            <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-indigo-100 text-indigo-600 dark:bg-indigo-500/20 dark:text-indigo-300"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#university"></use></svg></span>
-                            <div>
-                                <h3 class="text-lg font-bold">Уфимский государственный авиационный технический университет</h3>
-                                <p class="mb-1 text-slate-600 dark:text-slate-400">Факультет авионики, электроэнергетики и инфокоммуникаций, <span class="font-medium">Электроэнергетика и электротехника</span> (бакалавриат)</p>
-                                <p class="text-sm text-slate-500">2017 – 2021</p>
-                            </div>
                         </div>
                     </div>
-                </section>
-
-                <!-- Courses -->
-                <section class="card">
-                    <h2 class="card-title"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#certificate"></use></svg> Повышение квалификации</h2>
-
-                    <div class="space-y-4">
-                        <div>
-                            <h3 class="font-semibold">ФГБОУ ВО «УГАТУ», Кафедра электромеханики</h3>
-                            <p class="text-slate-600 dark:text-slate-400">Электротехнический персонал (Повышение квалификации)</p>
-                            <p class="text-sm text-slate-500">2021</p>
-                        </div>
-
-                        <div>
-                            <h3 class="font-semibold">Курс обучения по ПО СмартЛэп</h3>
-                            <p class="text-slate-600 dark:text-slate-400">Прохождение курса от АО «Русский САПР» (Повышение квалификации)</p>
-                            <p class="text-sm text-slate-500">2025</p>
-                        </div>
-                    </div>
-                </section>
+                </article>
             </div>
-        </div>
+        </section>
+
+        <!-- Skills -->
+        <section id="skills" class="section" aria-labelledby="skills-title">
+            <h2 id="skills-title" class="section-title">Навыки</h2>
+            <p class="-mt-2 mb-8 max-w-2xl text-slate-600 dark:text-slate-400">Постоянно изучаю новые технологии и тренды в дизайне, включая инструменты ИИ.</p>
+            <div class="grid gap-10 md:grid-cols-3">
+                <div>
+                    <h3 class="subsection-title">Профессиональные программы</h3>
+                    <ul class="flex flex-wrap gap-2">
+                        <li class="pill">Adobe Premiere Pro</li>
+                        <li class="pill">After Effects</li>
+                        <li class="pill">Photoshop</li>
+                        <li class="pill">Illustrator</li>
+                        <li class="pill">InDesign</li>
+                        <li class="pill">Figma</li>
+                        <li class="pill">Tilda</li>
+                        <li class="pill">AutoCAD</li>
+                        <li class="pill">Visual Studio</li>
+                        <li class="pill">VS Code</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="subsection-title">ИИ-инструменты</h3>
+                    <ul class="flex flex-wrap gap-2">
+                        <li class="pill">ChatGPT</li>
+                        <li class="pill">Gemini</li>
+                        <li class="pill">Perplexity</li>
+                        <li class="pill">Midjourney</li>
+                        <li class="pill">Llama.cpp</li>
+                        <li class="pill">Qwen</li>
+                        <li class="pill">Deepseek</li>
+                        <li class="pill">LM Studio</li>
+                        <li class="pill">OpenCode</li>
+                        <li class="pill">Развертывание локальных моделей</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="subsection-title">Программирование</h3>
+                    <ul class="flex flex-wrap gap-2">
+                        <li class="pill">Visual Lisp</li>
+                        <li class="pill">Vibecoding</li>
+                        <li class="pill">Beginner C#</li>
+                        <li class="pill">HTML</li>
+                        <li class="pill">CSS</li>
+                        <li class="pill">JavaScript</li>
+                        <li class="pill">.NET</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education & courses -->
+        <section id="education" class="section" aria-labelledby="education-title">
+            <h2 id="education-title" class="section-title">Образование</h2>
+            <div class="grid gap-10 md:grid-cols-2">
+                <div class="space-y-6">
+                    <div>
+                        <p class="text-sm font-semibold text-indigo-600 dark:text-indigo-400">2023 – 2026 · магистратура, диплом с отличием</p>
+                        <h3 class="mt-1 text-lg font-bold text-slate-900 dark:text-white">Уфимский государственный нефтяной технический университет</h3>
+                        <p class="text-slate-600 dark:text-slate-400">Институт экономики и сервиса, направление «Дизайн». Окончил в январе 2026 года.</p>
+                    </div>
+                    <div>
+                        <p class="text-sm font-semibold text-indigo-600 dark:text-indigo-400">2017 – 2021 · бакалавриат</p>
+                        <h3 class="mt-1 text-lg font-bold text-slate-900 dark:text-white">Уфимский государственный авиационный технический университет</h3>
+                        <p class="text-slate-600 dark:text-slate-400">Факультет авионики, электроэнергетики и инфокоммуникаций, «Электроэнергетика и электротехника».</p>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="subsection-title">Повышение квалификации</h3>
+                    <div class="space-y-5">
+                        <div>
+                            <p class="text-sm font-semibold text-indigo-600 dark:text-indigo-400">2025</p>
+                            <h4 class="font-semibold text-slate-900 dark:text-white">Курс обучения по ПО СмартЛэп</h4>
+                            <p class="text-slate-600 dark:text-slate-400">Прохождение курса от АО «Русский САПР»</p>
+                        </div>
+                        <div>
+                            <p class="text-sm font-semibold text-indigo-600 dark:text-indigo-400">2021</p>
+                            <h4 class="font-semibold text-slate-900 dark:text-white">ФГБОУ ВО «УГАТУ», Кафедра электромеханики</h4>
+                            <p class="text-slate-600 dark:text-slate-400">Электротехнический персонал</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <!-- Footer -->
-    <footer id="contacts" class="gradient-bg no-print py-8 text-white">
-        <div class="container mx-auto px-4 text-center">
-            <ul class="no-print mb-6 flex flex-wrap justify-center gap-2">
+    <!-- Contacts -->
+    <footer id="contacts" class="gradient-bg no-print scroll-mt-16 text-white">
+        <div class="container mx-auto max-w-6xl px-4 py-16 text-center">
+            <h2 class="mb-3 text-3xl font-bold md:text-4xl">Давайте работать вместе</h2>
+            <p class="mx-auto mb-8 max-w-xl text-lg text-indigo-100">Открыт к предложениям о работе и интересным проектам. Быстрее всего отвечаю в Telegram.</p>
+            <div class="mb-10 flex flex-wrap justify-center gap-3">
+                <a href="https://t.me/Dioniday" target="_blank" rel="noopener" class="btn-light"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#telegram"></use></svg> Telegram</a>
+                <a href="mailto:dioniday@internet.ru" class="btn-ghost"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#envelope"></use></svg> dioniday@internet.ru</a>
+                <a href="tel:+79964035664" class="btn-ghost"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#phone"></use></svg> +7 (996) 403-56-64</a>
+            </div>
+            <ul class="mb-6 flex flex-wrap justify-center gap-2">
                 <li><a href="https://www.behance.net/dioniday" target="_blank" rel="noopener" class="social-link" aria-label="Behance"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#behance"></use></svg></a></li>
-                <li><a href="https://t.me/Dioniday" target="_blank" rel="noopener" class="social-link" aria-label="Telegram"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#telegram"></use></svg></a></li>
                 <li><a href="https://github.com/Dioniday" target="_blank" rel="noopener" class="social-link" aria-label="GitHub"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#github"></use></svg></a></li>
                 <li><a href="https://stopgame.ru/user/DisokJenkins/games" target="_blank" rel="noopener" class="social-link" aria-label="StopGame"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#gamepad"></use></svg></a></li>
-                <li><a href="mailto:dioniday@internet.ru" class="social-link" aria-label="Email"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#envelope"></use></svg></a></li>
-                <li><a href="tel:+79964035664" class="social-link" aria-label="Позвонить"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#phone"></use></svg></a></li>
+                <li><a href="/dioniday_site_card/" class="social-link" aria-label="Все соцсети"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#globe"></use></svg></a></li>
             </ul>
-            <p>© 2026 Денис Газутдинов. Все права защищены.</p>
+            <p class="text-sm text-indigo-100">© 2026 Денис Газутдинов. Все права защищены.</p>
         </div>
     </footer>
 
