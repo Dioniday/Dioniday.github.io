@@ -1,7 +1,7 @@
-name: Build CSS
+name: Build CSS and PDF
 
-# Rebuilds assets/css/site.css whenever pages or styles change, so Tailwind
-# classes added while editing HTML on GitHub keep working on the live site.
+# Rebuilds assets/css/site.css and the resume PDFs whenever pages or styles
+# change, so edits made directly on GitHub keep the live site consistent.
 on:
   push:
     branches: [main]
@@ -9,8 +9,10 @@ on:
       - '**.html'
       - 'js/**'
       - 'assets/css/tailwind.input.css'
+      - 'assets/img/**'
       - 'tailwind.config.js'
       - 'package.json'
+      - 'scripts/build-pdf.js'
   workflow_dispatch:
 
 permissions:
@@ -26,14 +28,16 @@ jobs:
           node-version: 20
       - run: npm ci --no-audit --no-fund
       - run: npm run build:css
-      - name: Commit updated CSS
+      - run: npx playwright install --with-deps chromium
+      - run: npm run build:pdf
+      - name: Commit rebuilt files
         run: |
-          if git diff --quiet -- assets/css/site.css; then
-            echo "site.css is up to date"
+          if git diff --quiet -- assets/css/site.css assets/resume; then
+            echo "Nothing to commit"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets/css/site.css
-          git commit -m "Rebuild site.css"
+          git add assets/css/site.css assets/resume
+          git commit -m "Rebuild site.css and resume PDFs"
           git push

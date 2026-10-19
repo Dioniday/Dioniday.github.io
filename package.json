@@ -4,9 +4,11 @@
   "description": "Static personal site for dioniday.dev (GitHub Pages)",
   "scripts": {
     "build:css": "tailwindcss -i assets/css/tailwind.input.css -o assets/css/site.css --minify",
-    "watch:css": "tailwindcss -i assets/css/tailwind.input.css -o assets/css/site.css --watch"
+    "watch:css": "tailwindcss -i assets/css/tailwind.input.css -o assets/css/site.css --watch",
+    "build:pdf": "node scripts/build-pdf.js"
   },
   "devDependencies": {
-    "tailwindcss": "3.4.17"
+    "tailwindcss": "3.4.17",
+    "playwright": "1.48.2"
   }
 }

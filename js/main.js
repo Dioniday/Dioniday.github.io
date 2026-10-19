@@ -7,10 +7,18 @@ document.querySelectorAll('[data-lang]').forEach(function (link) {
   });
 });
 
-// "Download PDF" opens the print dialog; the print stylesheet lays the resume out for A4.
-document.querySelectorAll('[data-print]').forEach(function (button) {
+// Light/dark toggle: flips whatever is showing now (saved choice or system) and remembers it.
+document.querySelectorAll('[data-theme-toggle]').forEach(function (button) {
   button.addEventListener('click', function () {
-    window.print();
+    var root = document.documentElement;
+    var dark = root.classList.contains('dark') ||
+      (!root.classList.contains('light') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    var next = dark ? 'light' : 'dark';
+    root.classList.remove('light', 'dark');
+    root.classList.add(next);
+    try {
+      localStorage.setItem('site_theme', next);
+    } catch (_) {}
   });
 });
 
