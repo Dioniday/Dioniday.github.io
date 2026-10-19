@@ -24,6 +24,8 @@
 Статический сайт на GitHub Pages: резюме (`/`, `/en/`) и страница со ссылками (`/dioniday_site_card/`).
 
 - Стили — Tailwind CSS, собранный в `assets/css/site.css` (исходник: `assets/css/tailwind.input.css`).
-  После правок HTML GitHub Action **Build CSS** сам пересобирает стили. Локально: `npm ci && npm run build:css`.
+- PDF резюме — `assets/resume/Gazutdinov-resume-{ru,en}.pdf`, генерируются из страниц `scripts/build-pdf.js`.
+- После правок HTML GitHub Action **Build CSS and PDF** сам пересобирает стили и PDF.
+  Локально: `npm ci && npm run build:css && npx playwright install chromium && npm run build:pdf`.
 - Иконки — SVG-спрайт `assets/icons.svg` (Font Awesome Free, CC BY 4.0), шрифт Montserrat лежит в `assets/fonts/`.
 - Картинки и видео работ — `assets/img/works/` и `assets/video/`.

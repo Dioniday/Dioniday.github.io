@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dioniday — все ссылки</title>
     <meta name="description" content="Dioniday: игры, дизайн и стихи. Telegram, YouTube, Twitch, Behance, GitHub и другие площадки в одном месте.">
-    <meta name="theme-color" content="#1a1a2e">
+    <meta name="theme-color" content="#6366f1">
     <link rel="canonical" href="https://dioniday.dev/dioniday_site_card/">
 
     <meta property="og:type" content="profile">
@@ -22,164 +22,120 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="preload" href="/assets/fonts/montserrat-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="/assets/css/site.css">
-    <style>
-        body {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            min-height: 100vh;
-        }
-
-        .profile-img {
-            border: 4px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-            animation: pulse 2s infinite;
-        }
-
-        .profile-img:hover {
-            transform: scale(1.05);
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .link-card {
-            transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .link-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(255, 255, 255, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
-        }
-    </style>
+    <script src="/js/head.js"></script>
 </head>
-<body class="text-white">
-    <main class="container mx-auto max-w-4xl px-4 py-12">
-        <!-- Back to resume -->
-        <div class="mb-8">
-            <a href="/" class="inline-flex items-center gap-2 text-slate-300 transition hover:text-white">
-                <svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#arrow-left"></use></svg>
-                <span>Назад на главную</span>
+<body class="bg-slate-50 dark:bg-slate-900">
+    <div class="h-48 gradient-bg md:h-56"></div>
+    <main class="container mx-auto -mt-36 max-w-3xl px-4 pb-12 md:-mt-40">
+        <div class="mb-6 flex items-center justify-between text-white">
+            <a href="/" class="inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-medium transition hover:bg-white/15">
+                <svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#arrow-left"></use></svg> На главную
             </a>
+            <button type="button" data-theme-toggle class="grid h-9 w-9 place-items-center rounded-full transition hover:bg-white/15" aria-label="Светлая или тёмная тема" title="Светлая или тёмная тема">
+                <svg class="icon dark:hidden" aria-hidden="true"><use href="/assets/icons.svg#moon"></use></svg><svg class="icon hidden dark:inline-block" aria-hidden="true"><use href="/assets/icons.svg#sun"></use></svg>
+            </button>
         </div>
 
-        <!-- Profile -->
-        <div class="mb-12 flex flex-col items-center text-center">
-            <img src="/assets/img/profile-320.webp" width="160" height="160" alt="Dioniday" class="profile-img mb-6 h-40 w-40 rounded-full object-cover">
-
-            <h1 class="mb-2 bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-4xl font-bold text-transparent">Dioniday</h1>
-
-            <p class="max-w-md text-lg text-slate-300">
-                Привет! Я Dioniday. Погружаюсь в миры игр, творю в дизайне и делюсь строками стихотворений. Подключайся ко всем моим площадкам!
-            </p>
+        <div class="mb-10 flex flex-col items-center text-center">
+            <img src="/assets/img/profile-320.webp" width="160" height="160" alt="Dioniday" class="mb-5 h-36 w-36 rounded-full border-4 border-white object-cover shadow-xl dark:border-slate-900 md:h-40 md:w-40">
+            <h1 class="mb-3 bg-gradient-to-r from-indigo-500 to-violet-500 bg-clip-text text-4xl font-bold text-transparent">Dioniday</h1>
+            <p class="max-w-md text-lg text-slate-600 dark:text-slate-300">Привет! Я Dioniday. Погружаюсь в миры игр, творю в дизайне и делюсь строками стихотворений. Подключайся ко всем моим площадкам!</p>
         </div>
 
-        <!-- Links -->
         <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <li>
-                <a href="https://github.com/Dioniday" class="link-card group flex items-center rounded-xl p-6">
-                    <span class="mr-4 grid h-12 w-12 place-items-center rounded-lg bg-gray-800 text-2xl"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#github"></use></svg></span>
+                <a href="https://github.com/Dioniday" class="link-tile group">
+                    <span class="link-tile-icon bg-gray-800"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#github"></use></svg></span>
                     <span>
-                        <span class="block text-lg font-bold">GitHub</span>
-                        <span class="block text-sm text-slate-400 group-hover:text-slate-300">Код и проекты</span>
+                        <span class="block text-lg font-bold text-slate-900 dark:text-white">GitHub</span>
+                        <span class="block text-sm text-slate-500 dark:text-slate-400">Код и проекты</span>
                     </span>
-                    <svg class="icon ml-auto opacity-0 transition group-hover:opacity-100" aria-hidden="true"><use href="/assets/icons.svg#arrow-right"></use></svg>
+                    <svg class="icon ml-auto text-slate-400 transition group-hover:translate-x-1 group-hover:text-indigo-500" aria-hidden="true"><use href="/assets/icons.svg#arrow-right"></use></svg>
                 </a>
             </li>
             <li>
-                <a href="https://t.me/Dioniday" class="link-card group flex items-center rounded-xl p-6">
-                    <span class="mr-4 grid h-12 w-12 place-items-center rounded-lg bg-blue-500 text-2xl"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#telegram"></use></svg></span>
+                <a href="https://t.me/Dioniday" class="link-tile group">
+                    <span class="link-tile-icon bg-sky-500"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#telegram"></use></svg></span>
                     <span>
-                        <span class="block text-lg font-bold">Telegram</span>
-                        <span class="block text-sm text-slate-400 group-hover:text-slate-300">Чат и обновления</span>
+                        <span class="block text-lg font-bold text-slate-900 dark:text-white">Telegram</span>
+                        <span class="block text-sm text-slate-500 dark:text-slate-400">Чат и обновления</span>
                     </span>
-                    <svg class="icon ml-auto opacity-0 transition group-hover:opacity-100" aria-hidden="true"><use href="/assets/icons.svg#arrow-right"></use></svg>
+                    <svg class="icon ml-auto text-slate-400 transition group-hover:translate-x-1 group-hover:text-indigo-500" aria-hidden="true"><use href="/assets/icons.svg#arrow-right"></use></svg>
                 </a>
             </li>
             <li>
-                <a href="https://www.instagram.com/dioniday" class="link-card group flex items-center rounded-xl p-6">
-                    <span class="mr-4 grid h-12 w-12 place-items-center rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 text-2xl"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#instagram"></use></svg></span>
+                <a href="https://www.instagram.com/dioniday" class="link-tile group">
+                    <span class="link-tile-icon bg-gradient-to-br from-purple-600 to-pink-500"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#instagram"></use></svg></span>
                     <span>
-                        <span class="block text-lg font-bold">Instagram</span>
-                        <span class="block text-sm text-slate-400 group-hover:text-slate-300">Фото и сторис</span>
+                        <span class="block text-lg font-bold text-slate-900 dark:text-white">Instagram</span>
+                        <span class="block text-sm text-slate-500 dark:text-slate-400">Фото и сторис</span>
                     </span>
-                    <svg class="icon ml-auto opacity-0 transition group-hover:opacity-100" aria-hidden="true"><use href="/assets/icons.svg#arrow-right"></use></svg>
+                    <svg class="icon ml-auto text-slate-400 transition group-hover:translate-x-1 group-hover:text-indigo-500" aria-hidden="true"><use href="/assets/icons.svg#arrow-right"></use></svg>
                 </a>
             </li>
             <li>
-                <a href="https://www.youtube.com/@dioniday" class="link-card group flex items-center rounded-xl p-6">
-                    <span class="mr-4 grid h-12 w-12 place-items-center rounded-lg bg-red-600 text-2xl"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#youtube"></use></svg></span>
+                <a href="https://www.youtube.com/@dioniday" class="link-tile group">
+                    <span class="link-tile-icon bg-red-600"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#youtube"></use></svg></span>
                     <span>
-                        <span class="block text-lg font-bold">YouTube</span>
-                        <span class="block text-sm text-slate-400 group-hover:text-slate-300">Видео и стримы</span>
+                        <span class="block text-lg font-bold text-slate-900 dark:text-white">YouTube</span>
+                        <span class="block text-sm text-slate-500 dark:text-slate-400">Видео и стримы</span>
                     </span>
-                    <svg class="icon ml-auto opacity-0 transition group-hover:opacity-100" aria-hidden="true"><use href="/assets/icons.svg#arrow-right"></use></svg>
+                    <svg class="icon ml-auto text-slate-400 transition group-hover:translate-x-1 group-hover:text-indigo-500" aria-hidden="true"><use href="/assets/icons.svg#arrow-right"></use></svg>
                 </a>
             </li>
             <li>
-                <a href="https://www.behance.net/dioniday" class="link-card group flex items-center rounded-xl p-6">
-                    <span class="mr-4 grid h-12 w-12 place-items-center rounded-lg bg-blue-600 text-2xl"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#behance"></use></svg></span>
+                <a href="https://www.behance.net/dioniday" class="link-tile group">
+                    <span class="link-tile-icon bg-blue-600"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#behance"></use></svg></span>
                     <span>
-                        <span class="block text-lg font-bold">Behance</span>
-                        <span class="block text-sm text-slate-400 group-hover:text-slate-300">Дизайн проекты</span>
+                        <span class="block text-lg font-bold text-slate-900 dark:text-white">Behance</span>
+                        <span class="block text-sm text-slate-500 dark:text-slate-400">Дизайн проекты</span>
                     </span>
-                    <svg class="icon ml-auto opacity-0 transition group-hover:opacity-100" aria-hidden="true"><use href="/assets/icons.svg#arrow-right"></use></svg>
+                    <svg class="icon ml-auto text-slate-400 transition group-hover:translate-x-1 group-hover:text-indigo-500" aria-hidden="true"><use href="/assets/icons.svg#arrow-right"></use></svg>
                 </a>
             </li>
             <li>
-                <a href="https://www.twitch.tv/dioniday" class="link-card group flex items-center rounded-xl p-6">
-                    <span class="mr-4 grid h-12 w-12 place-items-center rounded-lg bg-purple-600 text-2xl"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#twitch"></use></svg></span>
+                <a href="https://www.twitch.tv/dioniday" class="link-tile group">
+                    <span class="link-tile-icon bg-purple-600"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#twitch"></use></svg></span>
                     <span>
-                        <span class="block text-lg font-bold">Twitch</span>
-                        <span class="block text-sm text-slate-400 group-hover:text-slate-300">Игровые стримы</span>
+                        <span class="block text-lg font-bold text-slate-900 dark:text-white">Twitch</span>
+                        <span class="block text-sm text-slate-500 dark:text-slate-400">Игровые стримы</span>
                     </span>
-                    <svg class="icon ml-auto opacity-0 transition group-hover:opacity-100" aria-hidden="true"><use href="/assets/icons.svg#arrow-right"></use></svg>
+                    <svg class="icon ml-auto text-slate-400 transition group-hover:translate-x-1 group-hover:text-indigo-500" aria-hidden="true"><use href="/assets/icons.svg#arrow-right"></use></svg>
                 </a>
             </li>
             <li>
-                <a href="https://boosty.to/dioniday" class="link-card group flex items-center rounded-xl p-6">
-                    <span class="mr-4 grid h-12 w-12 place-items-center rounded-lg bg-orange-500 text-2xl"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#rocket"></use></svg></span>
+                <a href="https://boosty.to/dioniday" class="link-tile group">
+                    <span class="link-tile-icon bg-orange-500"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#rocket"></use></svg></span>
                     <span>
-                        <span class="block text-lg font-bold">Boosty</span>
-                        <span class="block text-sm text-slate-400 group-hover:text-slate-300">Поддержка</span>
+                        <span class="block text-lg font-bold text-slate-900 dark:text-white">Boosty</span>
+                        <span class="block text-sm text-slate-500 dark:text-slate-400">Поддержка</span>
                     </span>
-                    <svg class="icon ml-auto opacity-0 transition group-hover:opacity-100" aria-hidden="true"><use href="/assets/icons.svg#arrow-right"></use></svg>
+                    <svg class="icon ml-auto text-slate-400 transition group-hover:translate-x-1 group-hover:text-indigo-500" aria-hidden="true"><use href="/assets/icons.svg#arrow-right"></use></svg>
                 </a>
             </li>
             <li>
-                <a href="https://www.donationalerts.com/r/dioniday" class="link-card group flex items-center rounded-xl p-6">
-                    <span class="mr-4 grid h-12 w-12 place-items-center rounded-lg bg-green-600 text-2xl"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#heart"></use></svg></span>
+                <a href="https://www.donationalerts.com/r/dioniday" class="link-tile group">
+                    <span class="link-tile-icon bg-green-600"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#heart"></use></svg></span>
                     <span>
-                        <span class="block text-lg font-bold">DonationAlerts</span>
-                        <span class="block text-sm text-slate-400 group-hover:text-slate-300">Донаты</span>
+                        <span class="block text-lg font-bold text-slate-900 dark:text-white">DonationAlerts</span>
+                        <span class="block text-sm text-slate-500 dark:text-slate-400">Донаты</span>
                     </span>
-                    <svg class="icon ml-auto opacity-0 transition group-hover:opacity-100" aria-hidden="true"><use href="/assets/icons.svg#arrow-right"></use></svg>
+                    <svg class="icon ml-auto text-slate-400 transition group-hover:translate-x-1 group-hover:text-indigo-500" aria-hidden="true"><use href="/assets/icons.svg#arrow-right"></use></svg>
                 </a>
             </li>
         </ul>
 
-        <!-- Back to resume -->
-        <div class="mt-8 flex justify-center">
-            <a href="/" class="link-card group flex w-full max-w-sm items-center rounded-xl p-6">
-                <span class="mr-4 grid h-12 w-12 place-items-center rounded-lg bg-gray-600 text-2xl"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#home"></use></svg></span>
-                <span>
-                    <span class="block text-lg font-bold">На главную</span>
-                    <span class="block text-sm text-slate-400 group-hover:text-slate-300">Вернуться на сайт</span>
-                </span>
-                <svg class="icon ml-auto opacity-0 transition group-hover:opacity-100" aria-hidden="true"><use href="/assets/icons.svg#arrow-right"></use></svg>
+        <div class="mt-10 text-center">
+            <a href="/" class="btn-light bg-indigo-600 text-white shadow-indigo-500/30 hover:bg-indigo-700">
+                <svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#home"></use></svg> Резюме и портфолио
             </a>
         </div>
 
-        <footer class="mt-16 text-center text-sm text-slate-500">
+        <footer class="mt-14 text-center text-sm text-slate-500 dark:text-slate-400">
             <p>© 2026 Dioniday. Все права защищены.</p>
         </footer>
     </main>
+
+    <script src="/js/main.js" defer></script>
 </body>
 </html>
