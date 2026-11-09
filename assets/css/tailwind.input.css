@@ -173,18 +173,38 @@
     @apply text-white;
   }
   .shot {
-    @apply overflow-hidden rounded-xl bg-slate-900 shadow-2xl shadow-indigo-900/20 ring-1 ring-slate-900/10 dark:ring-white/10;
-  }
-  .shot::before {
-    content: '';
-    @apply block h-7 bg-slate-800;
-    background-image: radial-gradient(circle at 14px 50%, #f87171 4px, transparent 5px),
-      radial-gradient(circle at 30px 50%, #fbbf24 4px, transparent 5px),
-      radial-gradient(circle at 46px 50%, #34d399 4px, transparent 5px);
+    @apply overflow-hidden rounded-xl bg-slate-900 shadow-xl shadow-indigo-900/10 ring-1 ring-slate-900/10 dark:ring-white/10;
   }
   .shot img {
     @apply block w-full;
   }
+  [data-zoomable] {
+    @apply cursor-zoom-in;
+  }
+
+  /* Image lightbox (js/main.js) */
+  .lightbox {
+    @apply m-0 h-full max-h-none w-full max-w-none bg-transparent p-0 backdrop:bg-slate-950/90 backdrop:backdrop-blur-sm;
+  }
+  .lightbox-stage {
+    @apply flex h-full w-full items-center justify-center overflow-auto p-4 md:p-10;
+  }
+  .lightbox-stage img {
+    @apply max-h-full max-w-full cursor-zoom-in rounded-lg object-contain shadow-2xl;
+  }
+  .lightbox-stage.is-zoomed {
+    @apply block p-0;
+  }
+  .lightbox-stage.is-zoomed img {
+    @apply max-h-none max-w-none cursor-zoom-out rounded-none;
+  }
+  .lightbox-btn {
+    @apply fixed grid h-11 w-11 place-items-center rounded-full bg-white/15 text-lg font-semibold text-white backdrop-blur transition hover:bg-white/30;
+  }
+  .lightbox-caption {
+    @apply pointer-events-none fixed inset-x-0 bottom-4 mx-auto w-fit max-w-[90vw] rounded-full bg-slate-950/70 px-4 py-2 text-center text-sm text-white;
+  }
+
   .stat {
     @apply border-l-2 border-indigo-500 pl-4;
   }
