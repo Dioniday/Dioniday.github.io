@@ -28,4 +28,6 @@
 - После правок HTML GitHub Action **Build CSS and PDF** сам пересобирает стили и PDF.
   Локально: `npm ci && npm run build:css && npx playwright install chromium && npm run build:pdf`.
 - Иконки — SVG-спрайт `assets/icons.svg` (Font Awesome Free, CC BY 4.0), шрифт Montserrat лежит в `assets/fonts/`.
-- Картинки и видео работ — `assets/img/works/` и `assets/video/`.
+- Картинки и видео работ — `assets/img/works/` и `assets/video/` (включая шоурил `showreel.mp4` и фоновую петлю `showreel-loop.mp4`).
+- Кейсы: `/doportal/case/` (DoПортал; коммерческое предложение — `/doportal/`) и `/helpdesk/` (IT Help Desk).
+- Живое демо Help Desk — `/helpdesk/demo/`: настоящий фронтенд приложения, а `demo-api.js` подменяет сервер на вымышленные данные в браузере.

@@ -1,6 +1,7 @@
 // Runs in <head> before the page paints.
 (function () {
   var root = document.documentElement;
+  root.classList.add('js');
   try {
     // Saved theme choice; without one the site follows the system setting.
     var theme = localStorage.getItem('site_theme');

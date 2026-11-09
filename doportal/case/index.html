@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DoПортал — кейс | Денис Газутдинов</title>
+    <meta name="description" content="Корпоративный портал для проектного института: письма, объекты, задания ГИП, нормоконтроль, выпуск и экспертиза в одном окне. Аналитика, UX и разработка — одним человеком, который сам работал в институте.">
+    <meta name="theme-color" content="#6366f1">
+    <link rel="canonical" href="https://dioniday.dev/doportal/case/">
+
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Dioniday">
+    <meta property="og:title" content="DoПортал — кейс Дениса Газутдинова">
+    <meta property="og:description" content="Проектный институт в одном окне: от анализа процессов до интерфейса, сервера и интеграции с AutoCAD.">
+    <meta property="og:url" content="https://dioniday.dev/doportal/case/">
+    <meta property="og:image" content="https://dioniday.dev/doportal/img/home.jpg">
+    <meta property="og:locale" content="ru_RU">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="preload" href="/assets/fonts/montserrat-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/assets/css/site.css">
+    <script src="/js/head.js"></script>
+</head>
+<body>
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:text-indigo-700">Перейти к содержимому</a>
+
+    <nav class="site-nav" aria-label="Навигация">
+        <div class="container mx-auto flex max-w-6xl items-center gap-2 px-4 py-2.5">
+            <a href="/#works" class="mr-auto inline-flex items-center gap-2 font-bold text-slate-900 dark:text-white">
+                <svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#arrow-left"></use></svg> Денис Газутдинов
+            </a>
+            <a href="/doportal/" class="nav-button"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#file"></use></svg><span class="hidden sm:inline">Коммерческое предложение</span><span class="sm:hidden">КП</span></a>
+            <button type="button" data-theme-toggle class="nav-button px-2.5" aria-label="Светлая или тёмная тема" title="Светлая или тёмная тема">
+                <svg class="icon dark:hidden" aria-hidden="true"><use href="/assets/icons.svg#moon"></use></svg><svg class="icon hidden dark:inline-block" aria-hidden="true"><use href="/assets/icons.svg#sun"></use></svg>
+            </button>
+        </div>
+    </nav>
+
+    <header class="gradient-bg relative overflow-hidden text-white">
+        <div class="blueprint absolute inset-0" aria-hidden="true"></div>
+        <div class="container relative mx-auto max-w-6xl px-4 pb-12 pt-14 md:pb-16 md:pt-20">
+            <p class="eyebrow-light mb-4">Кейс · Продукт · 2026</p>
+            <h1 class="mb-5 max-w-4xl text-4xl font-bold leading-tight md:text-6xl">DoПортал: проектный институт в одном окне</h1>
+            <p class="mb-8 max-w-2xl text-lg leading-relaxed text-indigo-50">Корпоративный портал для проектного института нефтегазовой отрасли. Я сам работал инженером и специалистом САПР в таком институте, поэтому прошёл весь путь: от разбора процессов и техзадания до интерфейса, сервера и интеграции с AutoCAD.</p>
+            <div class="mb-12 flex flex-wrap gap-3">
+                <a href="/doportal/" class="btn-light"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#file"></use></svg> Коммерческое предложение</a>
+                <a href="#solution" class="btn-ghost">Как устроено <svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#arrow-right"></use></svg></a>
+            </div>
+            <dl class="case-meta">
+                <div><dt>Роль</dt><dd>Аналитика, UX/UI, разработка, документация</dd></div>
+                <div><dt>Стек</dt><dd>.NET 10, Blazor Server, EF Core, AutoCAD API</dd></div>
+                <div><dt>Масштаб</dt><dd>6 модулей, 8 ролей, 50+ экранов</dd></div>
+                <div><dt>Статус</dt><dd>Готов к внедрению, ищу пилотный институт</dd></div>
+            </dl>
+        </div>
+    </header>
+
+    <main id="main" class="container mx-auto max-w-6xl px-4">
+        <div class="pt-10 md:pt-14">
+            <figure class="shot">
+                <img src="/doportal/img/home.jpg" width="1600" height="1000" alt="Главная DoПортала: объекты в работе, задания, письма и удостоверения, которые требуют внимания" fetchpriority="high">
+            </figure>
+        </div>
+
+        <section class="section" aria-labelledby="task-title">
+            <div class="grid gap-10 md:grid-cols-[14rem_1fr]">
+                <p class="eyebrow pt-2">01 / Проблема</p>
+                <div class="prose-case max-w-3xl">
+                    <h2 id="task-title" class="section-title">Работа института разбросана по десятку мест</h2>
+                    <p>Входящие письма живут в почте и журналах Excel. Задания ГИП пишутся в Word и уходят по почте, сроки считают по календарю. Папки объектов на диске каждый создаёт по-своему. Нормоконтроль идёт на бумажных листах, а сроки удостоверений по охране труда ведут в таблице и узнают о просрочке постфактум.</p>
+                    <p>Я видел это изнутри, когда работал в проектном институте. Готовые СЭД либо не знают специфики проектирования (стадии, тома, нормоконтроль, ГОСТ), либо стоят как отдельный проект внедрения.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" aria-labelledby="numbers-title">
+            <h2 id="numbers-title" class="sr-only">Цифры</h2>
+            <dl class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+                <div class="stat"><dt class="stat-value">6 модулей</dt><dd class="stat-label">от входящего письма до выпуска тома и экспертизы</dd></div>
+                <div class="stat"><dt class="stat-value">8 ролей</dt><dd class="stat-label">от делопроизводителя и ГИПа до нормоконтролёра и выпускающего</dd></div>
+                <div class="stat"><dt class="stat-value">0 паролей</dt><dd class="stat-label">вход по доменной учётной записи, роли из групп AD</dd></div>
+                <div class="stat"><dt class="stat-value">100%</dt><dd class="stat-label">действий в истории: записи только добавляются</dd></div>
+            </dl>
+        </section>
+
+        <section id="solution" class="section scroll-mt-20" aria-labelledby="solution-title">
+            <div class="mb-12 grid gap-10 md:grid-cols-[14rem_1fr]">
+                <p class="eyebrow pt-2">02 / Решение</p>
+                <div class="max-w-3xl">
+                    <h2 id="solution-title" class="section-title">Сквозной процесс по объекту</h2>
+                    <p class="text-lg leading-relaxed text-slate-700 dark:text-slate-300">Всё крутится вокруг объекта проектирования. Письмо регистрируется и привязывается к объекту, ГИП выдаёт задания отделам, нормоконтроль проверяет листы, выпуск собирает комплект, а для экспертизы готовятся XML пояснительной записки и подписи. Каждый видит только своё и то, что ждёт его действия.</p>
+                </div>
+            </div>
+
+            <div class="space-y-16">
+                <div class="grid items-center gap-8 lg:grid-cols-5">
+                    <figure class="shot lg:col-span-3"><img src="/doportal/img/object.jpg" width="1600" height="1333" loading="lazy" alt="Карточка объекта: задания, файлы проекта по папкам отделов, статус и ответственные"></figure>
+                    <div class="lg:col-span-2">
+                        <p class="eyebrow mb-3">Объекты и AutoCAD</p>
+                        <h3 class="mb-3 text-2xl font-bold text-slate-900 dark:text-white">Папки и чертежи создаются сами</h3>
+                        <p class="text-slate-600 dark:text-slate-400">Новый объект получает структуру папок по шаблону своего типа. Портал создаёт DWG-модели отделов и чертежи с внешними ссылками (XREF) на модели: механику я перенёс из своей программы DoStructure для ГИПов.</p>
+                    </div>
+                </div>
+
+                <div class="grid items-center gap-8 lg:grid-cols-5">
+                    <div class="lg:order-2 lg:col-span-3">
+                        <figure class="shot"><img src="/doportal/img/tasks.jpg" width="1600" height="1000" loading="lazy" alt="Список заданий ГИП с отделами, исполнителями, статусами и сроками"></figure>
+                    </div>
+                    <div class="lg:order-1 lg:col-span-2">
+                        <p class="eyebrow mb-3">Задания ГИП</p>
+                        <h3 class="mb-3 text-2xl font-bold text-slate-900 dark:text-white">Сроки в рабочих днях, документ одной кнопкой</h3>
+                        <p class="text-slate-600 dark:text-slate-400">Задание отделу или подрядчику идёт по маршруту последовательно или параллельно. Контрольный срок считается с учётом выходных и праздников, документ Word формируется по шаблону. Замечания нумеруются, и задание само возвращается ГИПу, когда всё устранено.</p>
+                    </div>
+                </div>
+
+                <div class="grid items-center gap-8 lg:grid-cols-5">
+                    <figure class="shot lg:col-span-3"><img src="/doportal/img/normcontrol.jpg" width="1600" height="904" loading="lazy" alt="Нормоконтроль: очередь проверки и замечания по итерациям с привязкой к листам"></figure>
+                    <div class="lg:col-span-2">
+                        <p class="eyebrow mb-3">Нормоконтроль</p>
+                        <h3 class="mb-3 text-2xl font-bold text-slate-900 dark:text-white">Без бумажных листов замечаний</h3>
+                        <p class="text-slate-600 dark:text-slate-400">У нормоконтролёра своя очередь. Замечания привязаны к листу и итерации проверки, а согласование блокируется, пока остаются открытые замечания.</p>
+                    </div>
+                </div>
+
+                <div class="grid items-center gap-8 lg:grid-cols-5">
+                    <div class="lg:order-2 lg:col-span-3">
+                        <figure class="shot"><img src="/doportal/img/release-card-open.jpg" width="1600" height="1410" loading="lazy" alt="Карточка выпуска: состав комплекта, проверки перед печатью и история"></figure>
+                    </div>
+                    <div class="lg:order-1 lg:col-span-2">
+                        <p class="eyebrow mb-3">Выпуск и экспертиза</p>
+                        <h3 class="mb-3 text-2xl font-bold text-slate-900 dark:text-white">Понятно, какой том готов и что ушло заказчику</h3>
+                        <p class="text-slate-600 dark:text-slate-400">Карточка выпуска собирает комплект с файлами, ведомость и архив одной кнопкой. Для экспертизы портал формирует XML пояснительной записки по схеме Минстроя и собирает подписи УКЭП участников по каждому файлу.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" aria-labelledby="design-title">
+            <div class="grid gap-10 md:grid-cols-[14rem_1fr]">
+                <p class="eyebrow pt-2">03 / Дизайн</p>
+                <div class="max-w-3xl">
+                    <h2 id="design-title" class="section-title">Язык, понятный проектировщику</h2>
+                    <div class="prose-case">
+                        <p>Интерфейс спокойный и плотный: ГИП и инженеры работают с таблицами весь день, им важнее скорость и порядок, чем декор. Статусы различаются цветом и словом, всё, что требует действия, вынесено на главную.</p>
+                        <p>Коммерческое предложение я свёрстал как лист проектной документации, с основной надписью по ГОСТ 2.104. Для главного инженера проекта это знакомая форма: документ сразу читается как «свой».</p>
+                    </div>
+                    <figure class="mt-6 overflow-hidden rounded-lg ring-1 ring-slate-200 dark:ring-white/10">
+                        <img src="/doportal/img/case-stamp.webp" width="1852" height="214" loading="lazy" alt="Основная надпись по ГОСТ на обложке коммерческого предложения DoПортала" class="w-full bg-white">
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" aria-labelledby="status-title">
+            <div class="grid gap-10 md:grid-cols-[14rem_1fr]">
+                <p class="eyebrow pt-2">04 / Статус</p>
+                <div class="prose-case max-w-3xl">
+                    <h2 id="status-title" class="section-title">Готов к пилоту</h2>
+                    <p>Портал собран и проходит доработку. Он ставится в сеть заказчика, данные остаются у него, вход через домен. Ищу первый проектный институт для пилотного внедрения.</p>
+                    <p>Подробности для заказчика: состав модулей, безопасность, этапы внедрения и стоимость — в коммерческом предложении.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section class="gradient-bg relative overflow-hidden text-white">
+        <div class="blueprint absolute inset-0" aria-hidden="true"></div>
+        <div class="container relative mx-auto max-w-6xl px-4 py-16 text-center">
+            <p class="eyebrow-light mb-3">Для проектных институтов</p>
+            <h2 class="mb-4 text-3xl font-bold md:text-4xl">Хотите так же у себя?</h2>
+            <p class="mx-auto mb-8 max-w-xl text-indigo-100">Покажу портал вживую и расскажу, как он ляжет на процессы вашего института.</p>
+            <div class="flex flex-wrap justify-center gap-3">
+                <a href="/doportal/" class="btn-light"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#file"></use></svg> Коммерческое предложение</a>
+                <a href="https://t.me/Dioniday" target="_blank" rel="noopener" class="btn-ghost"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#telegram"></use></svg> Обсудить</a>
+            </div>
+            <p class="mt-10"><a href="/#works" class="text-sm text-indigo-100 underline-offset-4 hover:underline">← Все работы</a></p>
+        </div>
+    </section>
+
+    <script src="/js/main.js" defer></script>
+</body>
+</html>

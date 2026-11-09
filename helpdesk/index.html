@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Help Desk — кейс | Денис Газутдинов</title>
+    <meta name="description" content="Система заявок IT-отдела проектной организации: от интерфейса до сервера. Вход без паролей через Active Directory, роли, отчёты, Telegram-уведомления, перенос архива из 5 000+ заявок. Есть живое демо.">
+    <meta name="theme-color" content="#6366f1">
+    <link rel="canonical" href="https://dioniday.dev/helpdesk/">
+
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Dioniday">
+    <meta property="og:title" content="IT Help Desk — кейс Дениса Газутдинова">
+    <meta property="og:description" content="Система заявок IT-отдела: дизайн, фронтенд, сервер и внедрение. Живое демо прямо в браузере.">
+    <meta property="og:url" content="https://dioniday.dev/helpdesk/">
+    <meta property="og:image" content="https://dioniday.dev/helpdesk/img/admin-dark.webp">
+    <meta property="og:locale" content="ru_RU">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="preload" href="/assets/fonts/montserrat-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/assets/css/site.css">
+    <script src="/js/head.js"></script>
+</head>
+<body>
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:text-indigo-700">Перейти к содержимому</a>
+
+    <nav class="site-nav" aria-label="Навигация">
+        <div class="container mx-auto flex max-w-6xl items-center gap-2 px-4 py-2.5">
+            <a href="/#works" class="mr-auto inline-flex items-center gap-2 font-bold text-slate-900 dark:text-white">
+                <svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#arrow-left"></use></svg> Денис Газутдинов
+            </a>
+            <a href="/helpdesk/demo/" class="nav-button"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#play"></use></svg><span>Демо</span></a>
+            <button type="button" data-theme-toggle class="nav-button px-2.5" aria-label="Светлая или тёмная тема" title="Светлая или тёмная тема">
+                <svg class="icon dark:hidden" aria-hidden="true"><use href="/assets/icons.svg#moon"></use></svg><svg class="icon hidden dark:inline-block" aria-hidden="true"><use href="/assets/icons.svg#sun"></use></svg>
+            </button>
+        </div>
+    </nav>
+
+    <header class="gradient-bg relative overflow-hidden text-white">
+        <div class="blueprint absolute inset-0" aria-hidden="true"></div>
+        <div class="container relative mx-auto max-w-6xl px-4 pb-12 pt-14 md:pb-16 md:pt-20">
+            <p class="eyebrow-light mb-4">Кейс · Веб-сервис · 2026</p>
+            <h1 class="mb-5 max-w-4xl text-4xl font-bold leading-tight md:text-6xl">IT Help Desk: система заявок, которой пользуется весь институт</h1>
+            <p class="mb-8 max-w-2xl text-lg leading-relaxed text-indigo-50">Спроектировал и разработал в одиночку: от интерфейса и ролей пользователей до сервера, интеграции с корпоративным порталом и переноса архива. Внедрена в проектной организации и работает каждый день.</p>
+            <div class="mb-12 flex flex-wrap gap-3">
+                <a href="/helpdesk/demo/" class="btn-light"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#play"></use></svg> Открыть живое демо</a>
+                <a href="#solution" class="btn-ghost">Что внутри <svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#arrow-right"></use></svg></a>
+            </div>
+            <dl class="case-meta">
+                <div><dt>Роль</dt><dd>Дизайн, фронтенд, сервер, внедрение</dd></div>
+                <div><dt>Стек</dt><dd>Node.js, Express, SQLite + MariaDB, JavaScript</dd></div>
+                <div><dt>Пользователи</dt><dd>≈160 сотрудников и IT-отдел</dd></div>
+                <div><dt>Статус</dt><dd>В работе с июля 2026</dd></div>
+            </dl>
+        </div>
+    </header>
+
+    <main id="main" class="container mx-auto max-w-6xl px-4">
+        <div class="relative z-10 -mt-2 pt-10 md:pt-14">
+            <figure class="shot">
+                <img src="/helpdesk/img/admin-dark.webp" width="1440" height="900" alt="Панель IT-отдела: очередь заявок с фильтрами по категории, приоритету и исполнителю" fetchpriority="high">
+            </figure>
+        </div>
+
+        <section class="section" aria-labelledby="task-title">
+            <div class="grid gap-10 md:grid-cols-[14rem_1fr]">
+                <p class="eyebrow pt-2">01 / Задача</p>
+                <div class="prose-case max-w-3xl">
+                    <h2 id="task-title" class="section-title">Заявки жили в старом портале</h2>
+                    <p>IT-отдел принимал обращения через модуль устаревшего корпоративного портала. Руководству не хватало прозрачности: сколько заявок, по каким темам, кто их закрывает и как быстро.</p>
+                    <p>Нужна была отдельная современная система: простая для сотрудника, у которого «не работает AutoCAD», удобная для специалиста, разбирающего очередь, и понятная руководителю. И всё это без потери двухлетнего архива обращений.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" aria-labelledby="numbers-title">
+            <h2 id="numbers-title" class="sr-only">Цифры</h2>
+            <dl class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+                <div class="stat"><dt class="stat-value">5 000+</dt><dd class="stat-label">заявок архива перенесено из старого портала за 2 года</dd></div>
+                <div class="stat"><dt class="stat-value">≈160</dt><dd class="stat-label">сотрудников входят без паролей через Active Directory</dd></div>
+                <div class="stat"><dt class="stat-value">3 роли</dt><dd class="stat-label">сотрудник, IT-специалист, руководитель</dd></div>
+                <div class="stat"><dt class="stat-value">1 человек</dt><dd class="stat-label">дизайн, разработка и внедрение</dd></div>
+            </dl>
+        </section>
+
+        <section id="solution" class="section scroll-mt-20" aria-labelledby="solution-title">
+            <div class="mb-10 grid gap-10 md:grid-cols-[14rem_1fr]">
+                <p class="eyebrow pt-2">02 / Решение</p>
+                <div class="max-w-3xl">
+                    <h2 id="solution-title" class="section-title">Три интерфейса под три роли</h2>
+                    <p class="text-lg leading-relaxed text-slate-700 dark:text-slate-300">Сотрудник видит только свои заявки и пишет в чат по ним. IT-специалист работает с общей очередью, фильтрами и назначением исполнителей. Руководитель смотрит статистику и выгружает отчёты, не вмешиваясь в работу.</p>
+                </div>
+            </div>
+
+            <div class="mb-14 grid gap-6 lg:grid-cols-2">
+                <figure>
+                    <div class="shot"><img src="/helpdesk/img/employee.webp" width="1440" height="900" loading="lazy" alt="Кабинет сотрудника: активные и закрытые заявки со статусами"></div>
+                    <figcaption class="mt-3 text-sm text-slate-500 dark:text-slate-400">Сотрудник: свои заявки, статусы и переписка со специалистом.</figcaption>
+                </figure>
+                <figure>
+                    <div class="shot"><img src="/helpdesk/img/detail.webp" width="1440" height="900" loading="lazy" alt="Карточка заявки: описание, данные инициатора из портала, диалог и жизненный цикл"></div>
+                    <figcaption class="mt-3 text-sm text-slate-500 dark:text-slate-400">Карточка заявки: контакты и кабинет инициатора подтягиваются из портала, история неизменяема.</figcaption>
+                </figure>
+                <figure>
+                    <div class="shot"><img src="/helpdesk/img/reports.webp" width="1440" height="900" loading="lazy" alt="Отчёты: сводка по статусам и распределение заявок по категориям"></div>
+                    <figcaption class="mt-3 text-sm text-slate-500 dark:text-slate-400">Руководитель: сводка, темы обращений и выгрузка отчётов в Excel.</figcaption>
+                </figure>
+                <figure>
+                    <div class="shot"><img src="/helpdesk/img/admin-light.webp" width="1440" height="900" loading="lazy" alt="Панель IT-отдела в светлой теме"></div>
+                    <figcaption class="mt-3 text-sm text-slate-500 dark:text-slate-400">Светлая и тёмная темы: в IT-отделе работают с утра до ночи.</figcaption>
+                </figure>
+            </div>
+
+            <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div class="feature">
+                    <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#key"></use></svg></div>
+                    <h3>Вход без паролей</h3>
+                    <p>Сквозная авторизация Kerberos через Active Directory: сотрудник просто открывает страницу.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#users"></use></svg></div>
+                    <h3>Данные из портала</h3>
+                    <p>ФИО, должность, отдел, кабинет, телефон и фото подтягиваются из базы корпоративного портала. Специалист сразу знает, куда идти.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#history"></use></svg></div>
+                    <h3>Полная история</h3>
+                    <p>Каждое действие фиксируется в жизненном цикле заявки: кто взял, кто сменил приоритет, чем закончилось.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#bell"></use></svg></div>
+                    <h3>Уведомления в Telegram</h3>
+                    <p>Бот сообщает специалистам о новых заявках, а сотруднику о том, что его заявку взяли в работу или решили.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#archive"></use></svg></div>
+                    <h3>Перенос архива</h3>
+                    <p>Больше 5 000 заявок из старого портала перенесены и автоматически разложены по категориям по ключевым словам.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#chart"></use></svg></div>
+                    <h3>Отчёты в Excel</h3>
+                    <p>Готовые отформатированные отчёты XLSX и CSV за любой период: по категориям, исполнителям и срокам.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#shield"></use></svg></div>
+                    <h3>Надёжность</h3>
+                    <p>Защита от дублей при повторной отправке, ежедневные резервные копии базы, работа при недоступности портала.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#comments"></use></svg></div>
+                    <h3>Диалог и вложения</h3>
+                    <p>Переписка внутри заявки и до 5 файлов: скриншоты ошибок, фото принтера, документы.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#database"></use></svg></div>
+                    <h3>Две базы данных</h3>
+                    <p>Заявки хранятся в своей базе SQLite, сотрудники читаются из MariaDB портала с локальным кэшем.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" aria-labelledby="result-title">
+            <div class="grid gap-10 md:grid-cols-[14rem_1fr]">
+                <p class="eyebrow pt-2">03 / Результат</p>
+                <div class="prose-case max-w-3xl">
+                    <h2 id="result-title" class="section-title">Работает каждый день</h2>
+                    <p>С июля 2026 года заявки IT-отдела проходят через Help Desk. Система работает стабильно, а у руководства появилась статистика по обращениям: темы, сроки и нагрузка на специалистов.</p>
+                    <p>Для портфолио я сделал демо-версию: тот же интерфейс, но на вымышленных данных и без сервера. Можно переключаться между ролями и пройти путь заявки от создания до решения.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section class="gradient-bg relative overflow-hidden text-white">
+        <div class="blueprint absolute inset-0" aria-hidden="true"></div>
+        <div class="container relative mx-auto max-w-6xl px-4 py-16 text-center">
+            <p class="eyebrow-light mb-3">Попробуйте сами</p>
+            <h2 class="mb-4 text-3xl font-bold md:text-4xl">Создайте заявку и закройте её за IT-отдел</h2>
+            <p class="mx-auto mb-8 max-w-xl text-indigo-100">Демо работает прямо в браузере. Удобнее смотреть с компьютера: интерфейс рассчитан на рабочее место.</p>
+            <div class="flex flex-wrap justify-center gap-3">
+                <a href="/helpdesk/demo/" class="btn-light"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#play"></use></svg> Открыть демо</a>
+                <a href="https://t.me/Dioniday" target="_blank" rel="noopener" class="btn-ghost"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#telegram"></use></svg> Обсудить проект</a>
+            </div>
+            <p class="mt-10"><a href="/#works" class="text-sm text-indigo-100 underline-offset-4 hover:underline">← Все работы</a></p>
+        </div>
+    </section>
+
+    <script src="/js/main.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IT Help Desk — демо-версия</title>
+  <meta name="robots" content="noindex">
+  <meta name="description" content="Живое демо системы заявок IT-отдела. Вымышленные данные, всё работает прямо в браузере.">
+  <meta name="description" content="Централизованная система приема, обработки и контроля заявок сотрудников организации, связанных с IT-услугами и технической поддержкой.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="index.css">
+  <style>
+    .demo-ribbon{position:sticky;top:0;z-index:1000;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px 16px;padding:8px 16px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;font:500 13px/1.4 "Plus Jakarta Sans",system-ui,sans-serif;text-align:center}
+    .demo-ribbon button,.demo-ribbon a{color:#fff;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:4px 12px;font:inherit;cursor:pointer;text-decoration:none}
+    .demo-ribbon button:hover,.demo-ribbon a:hover{background:rgba(255,255,255,.3)}
+  </style>
+</head>
+<body class="dark-mode">
+  <div class="demo-ribbon" role="note">
+    <span>Демо-версия: вымышленные данные, всё работает в вашем браузере. Смените пользователя в шапке, чтобы увидеть роли сотрудника, IT-специалиста и руководителя.</span>
+    <button type="button" onclick="hdDemoReset()">Сбросить демо</button>
+    <a href="../">О проекте</a>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Main Container -->
+  <div class="app-container">
+
+    <!-- Top Navigation Header -->
+    <header class="app-header">
+      <div class="header-left">
+        <a href="../" class="btn-return-portal">
+          <svg class="return-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          О проекте
+        </a>
+        <div class="logo-container">
+          <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+          </svg>
+          <span class="logo-text">IT <span class="logo-accent">Help Desk</span></span>
+        </div>
+      </div>
+
+      <!-- Dev Kerberos Portal Simulator -->
+      <div class="dev-simulator-bar">
+        <div class="simulator-label">
+          <span class="pulse-indicator"></span>
+          Войти как:
+        </div>
+        <select id="userSelector" class="user-select-dropdown">
+          <!-- Populated dynamically -->
+        </select>
+        <span class="user-role-tag" id="currentUserRole">Загрузка...</span>
+      </div>
+
+      <div class="header-right">
+        <button id="btnThemeToggle" class="theme-toggle-btn" title="Переключить тему оформления">
+          <!-- Sun Icon (visible when switching to light mode) -->
+          <svg class="theme-icon sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <!-- Moon Icon (visible when switching to dark mode) -->
+          <svg class="theme-icon moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- App Shell Body -->
+    <div class="app-shell-body">
+
+      <!-- Navigation Sidebar -->
+      <aside class="app-sidebar">
+        <nav class="sidebar-nav">
+          <button id="navDashboard" class="nav-item active" data-target="sectionDashboard">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
+            Панель управления
+          </button>
+          <button id="navMyTickets" class="nav-item" data-target="sectionMyTickets">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            Мои заявки
+          </button>
+          <button id="navCategories" class="nav-item" data-target="sectionCategories">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+            Справочник категорий
+          </button>
+          <button id="navReports" class="nav-item" data-target="sectionReports">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+            Отчеты и Аналитика
+          </button>
+          <button id="navGuide" class="nav-item" data-target="sectionGuide">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+            Инструкции и Справка
+          </button>
+          <button id="navNotifications" class="nav-item" data-target="sectionNotifications">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+            Центр уведомлений
+            <span id="badgeNotifications" class="badge-red" style="display: none; margin-left: auto; padding: 2px 6px; font-size: 10px; font-weight: bold; border-radius: 10px;">0</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-footer">
+          <div class="notification-request-card" id="notifCard">
+            <!-- Состояние 1: Запрос разрешения (по умолчанию) -->
+            <div id="notifStatePrompt" class="notif-state-block">
+              <p>Включить браузерные уведомления?</p>
+              <button id="btnEnableNotifications" class="btn btn-xs btn-outline">Включить</button>
+            </div>
+            <!-- Состояние 2: Уведомления активны -->
+            <div id="notifStateActive" class="notif-state-block" style="display: none;">
+              <div class="notif-status-row">
+                <span class="status-indicator active"></span>
+                <p>Уведомления: Активны ✅</p>
+              </div>
+              <button id="btnTestNotification" class="btn btn-xs btn-outline-success">Проверить</button>
+            </div>
+            <!-- Состояние 3: Уведомления заблокированы -->
+            <div id="notifStateBlocked" class="notif-state-block" style="display: none;">
+              <div class="notif-status-row">
+                <span class="status-indicator blocked"></span>
+                <p>Уведомления: Отключены 🛑</p>
+              </div>
+              <span class="notif-hint">Разрешите их в настройках вашего браузера.</span>
+              <button id="btnShowNotifGuide" class="btn btn-xs btn-outline-warning" style="margin-top: 8px; width: 100%;">Как разрешить?</button>
+              
+              <div id="notifGuideSteps" class="notif-guide-steps" style="display: none; margin-top: 8px; font-size: 11px; text-align: left; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 8px; border-radius: var(--radius-sm);">
+                <ol style="padding-left: 16px; margin: 0; line-height: 1.4; color: var(--text-secondary);">
+                  <li style="margin-bottom: 6px;">Нажмите на значок «настройки сайта» (🔒 или ⚙️/🛡️) слева от адреса сайта в самом верху браузера.</li>
+                  <li style="margin-bottom: 6px;">Найдите параметр <strong>«Уведомления»</strong>.</li>
+                  <li style="margin-bottom: 6px;">Переведите переключатель в положение <strong>«Разрешить»</strong>.</li>
+                  <li>Обновите страницу клавишей <strong>F5</strong>.</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+          <button id="btnFeedback" class="btn btn-feedback">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="btn-icon"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            Предложения и замечания
+          </button>
+          <div class="user-badge" id="sidebarUserBadge">
+            <div class="avatar-fallback" id="userAvatarChar">?</div>
+            <div class="user-meta">
+              <div class="user-name" id="userFullName">Загрузка...</div>
+              <div class="user-email" id="userEmail">...</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content Area -->
+      <main class="app-main-content">
+
+        <!-- ================= SECTION: SPECIALIST DASHBOARD ================= -->
+        <section id="sectionDashboard" class="content-section active">
+          <div class="section-title-row">
+            <div class="section-header-block">
+              <h1>Панель управления IT-отдела</h1>
+              <p class="section-desc">Управление входящими обращениями, распределение задач и контроль исполнения регламентов.</p>
+            </div>
+            <button id="btnNewTicketDashboard" class="btn btn-primary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="btn-icon"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              Создать заявку
+            </button>
+          </div>
+
+          <!-- Advanced Search and Filters Panel (ТЗ 4.7) -->
+          <div class="glass-card filter-panel">
+            <div class="search-box-row">
+              <div class="search-input-wrapper">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" id="dashboardSearch" placeholder="Поиск по номеру, теме, описанию или автору...">
+              </div>
+              <button id="btnClearFilters" class="btn btn-outline btn-sm">Сбросить фильтры</button>
+            </div>
+            
+            <div class="filters-grid">
+              <div class="filter-group">
+                <label for="filterCategory">Категория</label>
+                <select id="filterCategory" class="filter-select">
+                  <option value="">Все категории</option>
+                  <!-- Populated dynamically -->
+                </select>
+              </div>
+              <div class="filter-group">
+                <label for="filterPriority">Приоритет</label>
+                <select id="filterPriority" class="filter-select">
+                  <option value="">Все приоритеты</option>
+                  <option value="low">Низкий</option>
+                  <option value="medium">Средний</option>
+                  <option value="high">Высокий</option>
+                  <option value="urgent">Критический</option>
+                </select>
+              </div>
+              <div class="filter-group">
+                <label for="filterAssignee">Исполнитель</label>
+                <select id="filterAssignee" class="filter-select">
+                  <option value="">Все исполнители</option>
+                  <!-- Populated dynamically -->
+                </select>
+              </div>
+              <div class="filter-group">
+                <label for="dashboardSortBy">Сортировка</label>
+                <select id="dashboardSortBy" class="filter-select">
+                  <option value="created_at">По дате создания</option>
+                  <option value="priority">По приоритету</option>
+                  <option value="status">По статусу</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Queues Tabs (ТЗ 4.6) -->
+          <div class="tabs-container">
+            <div class="tab-headers">
+              <button class="tab-header active" data-tab="tabMyWork">
+                В работе у меня
+                <span class="badge" id="badgeMyWork">0</span>
+              </button>
+              <button class="tab-header" data-tab="tabAllWork">
+                В работе (Общее)
+                <span class="badge" id="badgeAllWork">0</span>
+              </button>
+              <button class="tab-header" data-tab="tabToWork">
+                В работу (Новые)
+                <span class="badge" id="badgeToWork">0</span>
+              </button>
+              <button class="tab-header" data-tab="tabPending">
+                В ожидании
+                <span class="badge" id="badgePending">0</span>
+              </button>
+              <button class="tab-header" data-tab="tabClosed">
+                Закрытые заявки
+                <span class="badge" id="badgeClosed">0</span>
+              </button>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="tab-contents">
+              <div class="tab-pane active" id="tabMyWork">
+                <div class="table-container glass-card">
+                  <table class="tickets-table">
+                    <thead>
+                      <tr>
+                        <th class="ticket-row-number">№ Заявки</th>
+                        <th class="ticket-row-title">Описание проблемы</th>
+                        <th class="ticket-row-initiator">Инициатор</th>
+                        <th class="ticket-row-category">Категория</th>
+                        <th class="ticket-row-status">Приоритет</th>
+                        <th class="ticket-row-date">Дата создания</th>
+                        <th class="ticket-row-actions">Действия</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tableMyWorkBody">
+                      <!-- Populated dynamically -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="tab-pane" id="tabAllWork">
+                <div class="table-container glass-card">
+                  <table class="tickets-table">
+                    <thead>
+                      <tr>
+                        <th class="ticket-row-number">№ Заявки</th>
+                        <th class="ticket-row-title">Описание проблемы</th>
+                        <th class="ticket-row-initiator">Инициатор</th>
+                        <th class="ticket-row-category">Категория</th>
+                        <th class="ticket-row-status">Приоритет</th>
+                        <th class="ticket-row-assignee">Исполнитель</th>
+                        <th class="ticket-row-date">Дата создания</th>
+                        <th class="ticket-row-actions">Действия</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tableAllWorkBody">
+                      <!-- Populated dynamically -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="tab-pane" id="tabToWork">
+                <div class="table-container glass-card">
+                  <table class="tickets-table">
+                    <thead>
+                      <tr>
+                        <th class="ticket-row-number">№ Заявки</th>
+                        <th class="ticket-row-title">Описание проблемы</th>
+                        <th class="ticket-row-initiator">Инициатор</th>
+                        <th class="ticket-row-category">Категория</th>
+                        <th class="ticket-row-status">Приоритет</th>
+                        <th class="ticket-row-date">Дата создания</th>
+                        <th class="ticket-row-actions">Действия</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tableToWorkBody">
+                      <!-- Populated dynamically -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="tab-pane" id="tabPending">
+                <div class="table-container glass-card">
+                  <table class="tickets-table">
+                    <thead>
+                      <tr>
+                        <th class="ticket-row-number">№ Заявки</th>
+                        <th class="ticket-row-title">Описание проблемы</th>
+                        <th class="ticket-row-initiator">Инициатор</th>
+                        <th class="ticket-row-category">Категория</th>
+                        <th class="ticket-row-status">Приоритет</th>
+                        <th class="ticket-row-assignee">Исполнитель</th>
+                        <th class="ticket-row-date">Дата приостановки</th>
+                        <th class="ticket-row-actions">Действия</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tablePendingBody">
+                      <!-- Populated dynamically -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="tab-pane" id="tabClosed">
+                <div class="table-container glass-card">
+                  <table class="tickets-table">
+                    <thead>
+                      <tr>
+                        <th class="ticket-row-number">№ Заявки</th>
+                        <th class="ticket-row-title">Описание проблемы</th>
+                        <th class="ticket-row-initiator">Инициатор</th>
+                        <th class="ticket-row-category">Категория</th>
+                        <th class="ticket-row-status">Статус</th>
+                        <th class="ticket-row-assignee">Исполнитель</th>
+                        <th class="ticket-row-date">Закрыта</th>
+                        <th class="ticket-row-actions">Действия</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tableClosedBody">
+                      <!-- Populated dynamically -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ================= SECTION: EMPLOYEE TICKETS ================= -->
+        <section id="sectionMyTickets" class="content-section">
+          <div class="section-title-row">
+            <div class="section-header-block">
+              <h1>Мои заявки</h1>
+              <p class="section-desc">Список поданных вами обращений в техническую поддержку, отслеживание их статусов и переписка со специалистами.</p>
+            </div>
+            <button id="btnNewTicketSection" class="btn btn-primary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="btn-icon"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              Создать заявку
+            </button>
+          </div>
+
+          <div class="employee-grids">
+            <!-- Active Tickets -->
+            <div class="glass-card employee-tickets-card">
+              <h2 class="card-title">Активные заявки</h2>
+              <div class="employee-tickets-list" id="activeTicketsList">
+                <!-- Dynamically populated card-items -->
+              </div>
+            </div>
+
+            <!-- Closed Tickets -->
+            <div class="glass-card employee-tickets-card">
+              <h2 class="card-title">Закрытые обращения</h2>
+              <div class="employee-tickets-list" id="closedTicketsList">
+                <!-- Dynamically populated card-items -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ================= SECTION: CATEGORIES DIRECTORY ================= -->
+        <section id="sectionCategories" class="content-section">
+          <div class="section-header-block">
+            <h1>Справочник категорий заявок</h1>
+            <p class="section-desc">Управление категориями обращений. Добавленные здесь категории будут доступны сотрудникам при создании заявок.</p>
+          </div>
+
+          <div class="categories-layout">
+            <!-- Category Add Form -->
+            <div class="glass-card category-form-card">
+              <h2 class="card-title" id="categoryFormTitle">Добавить категорию</h2>
+              <form id="formCategory">
+                <input type="hidden" id="editCategoryId">
+                <div class="form-group">
+                  <label for="categoryInputName">Название категории *</label>
+                  <input type="text" id="categoryInputName" required placeholder="Например: Почта, CRM, Оборудование...">
+                </div>
+                <div class="form-group row-checkbox" id="catActiveGroup" style="display: none;">
+                  <input type="checkbox" id="categoryInputActive" checked>
+                  <label for="categoryInputActive">Активна (доступна для выбора)</label>
+                </div>
+                <div class="category-form-actions">
+                  <button type="submit" id="btnSaveCategory" class="btn btn-primary w-full">Добавить</button>
+                  <button type="button" id="btnCancelCategoryEdit" class="btn btn-outline w-full" style="display: none;">Отмена</button>
+                </div>
+              </form>
+            </div>
+
+            <!-- Categories List Table -->
+            <div class="glass-card category-table-card">
+              <h2 class="card-title">Список зарегистрированных категорий</h2>
+              <div class="table-container">
+                <table class="tickets-table">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Название категории</th>
+                      <th>Статус</th>
+                      <th>Действия</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tableCategoriesBody">
+                    <!-- Populated dynamically -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ================= SECTION: ANALYTICS & REPORTS ================= -->
+        <section id="sectionReports" class="content-section">
+          <div class="section-header-block">
+            <h1>Отчеты и Статистика</h1>
+            <p class="section-desc">Контроль производительности IT-отдела, загрузки специалистов и выгрузка отчетов в Excel.</p>
+          </div>
+
+          <!-- Quick Metrics Row -->
+          <div class="metrics-grid">
+            <div class="metric-card glass-card">
+              <span class="metric-title">Всего поступило заявок</span>
+              <span class="metric-value text-accent" id="metricTotal">0</span>
+            </div>
+            <div class="metric-card glass-card">
+              <span class="metric-title">Заявок в работе</span>
+              <span class="metric-value text-blue" id="metricInProgress">0</span>
+            </div>
+            <div class="metric-card glass-card">
+              <span class="metric-title">Ожидают решения</span>
+              <span class="metric-value text-yellow" id="metricPending">0</span>
+            </div>
+            <div class="metric-card glass-card">
+              <span class="metric-title">Успешно закрыто</span>
+              <span class="metric-value text-green" id="metricResolved">0</span>
+            </div>
+          </div>
+
+          <div class="reports-main-layout">
+            <!-- Analytics CSS Graphs Card -->
+            <div class="glass-card charts-card">
+              <h2 class="card-title">Распределение по категориям обращений</h2>
+              <div class="custom-chart-wrapper">
+                <div id="chartCategoryContainer" class="custom-chart-container">
+                  <!-- Generated dynamically using modern CSS heights/bars -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Export Form Card -->
+            <div class="glass-card export-card">
+              <h2 class="card-title">Выгрузка детализированного отчета</h2>
+              <p class="card-desc">Задайте фильтры для формирования выгрузки по закрытым заявкам. Вы можете экспортировать отчет как в виде красиво форматированной XLSX-таблицы (с автошириной колонок, автовысотой строк, переносом текста и выравниванием по верхнему краю), так и в простом формате CSV.</p>
+              
+              <div class="report-presets-row" style="display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap;">
+                <button type="button" id="btnPresetPrevWeek" class="btn btn-xs btn-outline" style="border-color: rgba(255,255,255,0.08); font-size: 11px; padding: 4px 10px; border-radius: 6px;">📅 Прошлая неделя</button>
+                <button type="button" id="btnPresetWorkWeek" class="btn btn-xs btn-outline" style="border-color: rgba(255,255,255,0.08); font-size: 11px; padding: 4px 10px; border-radius: 6px; color: #10b981; font-weight: 600;">📅 Рабочая неделя (Пн 8:00 - Пт 20:00)</button>
+                <button type="button" id="btnPresetCurrentMonth" class="btn btn-xs btn-outline" style="border-color: rgba(255,255,255,0.08); font-size: 11px; padding: 4px 10px; border-radius: 6px;">📅 Этот месяц</button>
+                <button type="button" id="btnPresetClearDates" class="btn btn-xs btn-outline" style="border-color: rgba(255,255,255,0.08); font-size: 11px; padding: 4px 10px; border-radius: 6px; color: var(--text-muted);">Очистить даты</button>
+              </div>
+
+              <form id="formExport">
+                <div class="form-grid-2">
+                  <div class="form-group">
+                    <label for="exportStartDate">Дата начала</label>
+                    <input type="datetime-local" id="exportStartDate">
+                  </div>
+                  <div class="form-group">
+                    <label for="exportEndDate">Дата окончания</label>
+                    <input type="datetime-local" id="exportEndDate">
+                  </div>
+                </div>
+                
+                <div class="form-group" style="margin-bottom: 20px;">
+                  <label for="exportCategory">Фильтр по категории</label>
+                  <select id="exportCategory">
+                    <option value="">Все категории</option>
+                    <!-- Populated dynamically -->
+                  </select>
+                </div>
+
+
+
+                <div class="export-actions-grid" style="display: flex; flex-direction: column; gap: 10px;">
+                  <button type="button" id="btnExportXLSXCustom" class="btn btn-primary w-full btn-lg" style="background: linear-gradient(135deg, #10b981, #059669); color: #ffffff; border: none; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2); transition: all 0.3s ease;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="btn-icon" style="width: 18px; height: 18px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                    Сформировать XLSX-отчет (с форматированием)
+                  </button>
+                  
+                  <button type="submit" class="btn btn-outline w-full btn-lg" style="border-color: rgba(255,255,255,0.08); display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 13px; color: var(--text-secondary);">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon" style="width: 16px; height: 16px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    Выгрузить в CSV (простой формат)
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ================= SECTION: KNOWLEDGE BASE & MANUAL ================= -->
+        <section id="sectionGuide" class="content-section">
+          <div class="section-header-block">
+            <h1>База знаний и Справка</h1>
+            <p class="section-desc">Обучающие руководства, полезные советы и справочная информация по работе с системой IT-поддержки.</p>
+          </div>
+
+          <div class="guide-tabs" style="display: flex; gap: 12px; margin-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 12px; flex-wrap: wrap;">
+            <button class="btn btn-xs btn-outline btn-guide-tab active-guide-tab" id="btnGuideUsr" style="border-radius: 20px; padding: 8px 16px; font-weight: 600; border-color: #10b981; color: #10b981; background: rgba(16, 185, 129, 0.05);">👨‍💼 Для сотрудников (USR)</button>
+            <button class="btn btn-xs btn-outline btn-guide-tab" id="btnGuideWtch" style="border-radius: 20px; padding: 8px 16px; font-weight: 600; border-color: rgba(255,255,255,0.08);">👁️ Для наблюдателей (WTCH)</button>
+            <button class="btn btn-xs btn-outline btn-guide-tab" id="btnGuideAdm" style="border-radius: 20px; padding: 8px 16px; font-weight: 600; border-color: rgba(255,255,255,0.08);">💻 Для IT-специалистов (ADM)</button>
+          </div>
+
+          <!-- USR Content -->
+          <div id="guideUsrContent" class="glass-card guide-content-block" style="padding: 24px; line-height: 1.6;">
+            <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px;">
+              <div style="background: rgba(16, 185, 129, 0.1); color: #10b981; border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0;">👨‍💼</div>
+              <div>
+                <h2 style="margin: 0; font-size: 20px;">Руководство сотрудника (Роль: USR)</h2>
+                <p style="margin: 0; color: var(--text-muted); font-size: 13px;">Как правильно подавать заявки в IT-отдел, отслеживать выполнение и вести диалог</p>
+              </div>
+            </div>
+
+            <div class="guide-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+              <div class="guide-step-card" style="background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.05); padding: 20px; border-radius: 12px;">
+                <h3 style="color: #10b981; margin-top: 0; font-size: 16px; display: flex; align-items: center; gap: 8px;">
+                  <span style="background: #10b981; color: white; border-radius: 50%; width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold;">1</span>
+                  Регистрация обращения
+                </h3>
+                <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 0;">
+                  Нажмите на кнопку <strong>«+ Создать заявку»</strong> в правом верхнем углу панели управления.<br><br>
+                  Заполните форму:
+                  <ul style="padding-left: 16px; margin: 8px 0; font-size: 13px; color: var(--text-secondary);">
+                    <li><strong>Категория проблемы:</strong> выберите наиболее подходящий вариант из справочника.</li>
+                    <li><strong>Описание:</strong> опишите проблему подробно (укажите коды ошибок, после чего произошло зависание и т.д.).</li>
+                    <li><strong>Скриншоты и файлы:</strong> перетащите скриншоты прямо в форму (до 5 файлов, до 50 МБ на каждый).</li>
+                  </ul>
+                </p>
+              </div>
+
+              <div class="guide-step-card" style="background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.05); padding: 20px; border-radius: 12px;">
+                <h3 style="color: #3b82f6; margin-top: 0; font-size: 16px; display: flex; align-items: center; gap: 8px;">
+                  <span style="background: #3b82f6; color: white; border-radius: 50%; width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold;">2</span>
+                  Отслеживание статусов
+                </h3>
+                <div style="font-size: 13px; color: var(--text-secondary); margin-bottom: 0;">
+                  В разделе <strong>«Мои заявки»</strong> отображаются все созданные вами обращения и их текущие состояния:<br><br>
+                  <div style="margin-bottom: 8px;"><span class="status-tag created" style="font-size: 10px; padding: 2px 6px; display: inline-block;">Создана</span> — поступила в систему и ждет назначения инженера.</div>
+                  <div style="margin-bottom: 8px;"><span class="status-tag in_progress" style="font-size: 10px; padding: 2px 6px; display: inline-block;">В работе</span> — за вашей заявкой закреплен специалист техподдержки.</div>
+                  <div style="margin-bottom: 8px;"><span class="status-tag pending" style="font-size: 10px; padding: 2px 6px; display: inline-block;">В ожидании</span> — требуются ваши действия, уточнения или запуск тестов.</div>
+                  <div style="margin-bottom: 8px;"><span class="status-tag resolved" style="font-size: 10px; padding: 2px 6px; display: inline-block;">Решено</span> — проблема успешно устранена, ознакомьтесь с решением.</div>
+                  <div><span class="status-tag rejected" style="font-size: 10px; padding: 2px 6px; display: inline-block;">Отклонен</span> — обращение отклонено специалистом с указанием причины.</div>
+                </div>
+              </div>
+
+              <div class="guide-step-card" style="background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.05); padding: 20px; border-radius: 12px;">
+                <h3 style="color: #f59e0b; margin-top: 0; font-size: 16px; display: flex; align-items: center; gap: 8px;">
+                  <span style="background: #f59e0b; color: white; border-radius: 50%; width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold;">3</span>
+                  Интерактивный чат в заявке
+                </h3>
+                <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 0;">
+                  Кликните по любой вашей заявке в таблице, чтобы открыть её подробное описание с чатом.<br><br>
+                  Вы можете общаться со специалистом техподдержки в реальном времени: писать сообщения, отвечать на вопросы и координировать ход решения. Вся история переписки и системные события изменений сохраняются в хронологическом порядке.
+                </p>
+              </div>
+
+              <div class="guide-step-card" style="background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.05); padding: 20px; border-radius: 12px;">
+                <h3 style="color: #10b981; margin-top: 0; font-size: 16px; display: flex; align-items: center; gap: 8px;">
+                  <span style="background: #10b981; color: white; border-radius: 50%; width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold;">4</span>
+                  ✏️ Редактирование заявки
+                </h3>
+                <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 0;">
+                  Забыли указать важную деталь или прикрепить файл?<br><br>
+                  Если ваша заявка находится в статусе <strong>«Создана»</strong> и за ней еще не закрепили специалиста, откройте её описание и нажмите кнопку <strong>«Редактировать»</strong> в правом верхнем углу.<br>
+                  Вы сможете прямо «на лету» поменять категорию, дополнить текст проблемы, а также загрузить новые или удалить ошибочно прикрепленные файлы!
+                </p>
+              </div>
+
+              <div class="guide-step-card" style="background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.05); padding: 20px; border-radius: 12px;">
+                <h3 style="color: #ec4899; margin-top: 0; font-size: 16px; display: flex; align-items: center; gap: 8px;">
+                  🔔 Браузерные уведомления
+                </h3>
+                <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 0;">
+                  Чтобы мгновенно узнавать о решении проблем, обязательно включите браузерные уведомления в нижнем левом углу боковой панели!<br><br>
+                  Система мгновенно пришлет пуш-уведомление прямо на ваш рабочий стол, как только специалист возьмет вашу заявку в работу, переведет в ожидание или успешно закроет её.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- WTCH Content -->
+          <div id="guideWtchContent" class="glass-card guide-content-block" style="padding: 24px; line-height: 1.6; display: none;">
+            <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px;">
+              <div style="background: rgba(59, 130, 246, 0.1); color: #3b82f6; border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0;">👁️</div>
+              <div>
+                <h2 style="margin: 0; font-size: 20px;">Руководство наблюдателя (Роль: WTCH)</h2>
+                <p style="margin: 0; color: var(--text-muted); font-size: 13px;">Контроль исполнения регламентов, мониторинг показателей и выгрузка отчетов</p>
+              </div>
+            </div>
+
+            <div class="guide-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+              <div class="guide-step-card" style="background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.05); padding: 20px; border-radius: 12px;">
+                <h3 style="color: #3b82f6; margin-top: 0; font-size: 16px; display: flex; align-items: center; gap: 8px;">
+                  📈 Живой аналитический дашборд
+                </h3>
+                <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 0;">
+                  В разделе <strong>«Отчеты и Аналитика»</strong> вам доступен живой интерактивный дашборд.<br><br>
+                  Метрики и диаграмма категорий мгновенно пересчитываются, если вы указываете даты начала и окончания. Нажмите кнопку <strong>«Рабочая неделя»</strong>, чтобы мгновенно увидеть показатели за прошлую завершенную рабочую неделю!
+                </p>
+              </div>
+
+              <div class="guide-step-card" style="background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.05); padding: 20px; border-radius: 12px;">
+                <h3 style="color: #10b981; margin-top: 0; font-size: 16px; display: flex; align-items: center; gap: 8px;">
+                  📥 Премиальная выгрузка Excel (XLSX)
+                </h3>
+                <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 0;">
+                  Вы можете скачать красиво оформленный Excel-отчет за любой период.<br><br>
+                  <strong>Особенности нашего формата XLSX:</strong>
+                  <ul style="padding-left: 16px; margin: 8px 0; font-size: 13px; color: var(--text-secondary);">
+                    <li>Грифельно-темная шапка таблицы с центрированным текстом.</li>
+                    <li>Автоматический подбор ширины колонок и высоты строк.</li>
+                    <li>Цветовая подсветка срочности заявок (красный/желтый/зеленый) и статусов.</li>
+                  </ul>
+                </p>
+              </div>
+
+              <div class="guide-step-card" style="background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.05); padding: 20px; border-radius: 12px;">
+                <h3 style="color: #a855f7; margin-top: 0; font-size: 16px; display: flex; align-items: center; gap: 8px;">
+                  🔐 Ограничения роли
+                </h3>
+                <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 0;">
+                  Роль <strong>Наблюдателя (wtch)</strong> является контролирующей и информационной.<br><br>
+                  Наблюдатель имеет доступ к сводной статистике всей IT-службы и выгрузке Excel-отчетов. Однако вы не можете редактировать заявки, назначать исполнителей, добавлять новые категории или отвечать в чатах чужих заявок.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ADM Content -->
+          <div id="guideAdmContent" class="glass-card guide-content-block" style="padding: 24px; line-height: 1.6; display: none;">
+            <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px;">
+              <div style="background: rgba(168, 85, 247, 0.1); color: #a855f7; border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0;">💻</div>
+              <div>
+                <h2 style="margin: 0; font-size: 20px;">Руководство IT-специалиста (Роль: ADM)</h2>
+                <p style="margin: 0; color: var(--text-muted); font-size: 13px;">Управление жизненным циклом инцидентов, диспетчеризация очереди, изменение SLA и ведение категорий</p>
+              </div>
+            </div>
+
+            <div class="guide-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+              <div class="guide-step-card" style="background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.05); padding: 20px; border-radius: 12px;">
+                <h3 style="color: #a855f7; margin-top: 0; font-size: 16px; display: flex; align-items: center; gap: 8px;">
+                  🚀 Диспетчеризация и очередь задач
+                </h3>
+                <div style="font-size: 13px; color: var(--text-secondary); margin-bottom: 0;">
+                  Вам доступен раздел <strong>«Панель управления IT-отдела»</strong> с пятью специализированными вкладками для управления потоком инцидентов:<br><br>
+                  <div style="margin-bottom: 8px;">💼 <strong>В работе у меня</strong> — ваши персональные активные задачи, которые вы закрепили за собой.</div>
+                  <div style="margin-bottom: 8px;">👥 <strong>В работе (Общее)</strong> — сквозной список всех инцидентов, которые в данный момент решаются кем-либо из инженеров IT-отдела.</div>
+                  <div style="margin-bottom: 8px;">📥 <strong>В работе (Новые)</strong> — вновь поступившие в систему заявки от сотрудников компании, у которых еще нет исполнителя. Кнопка <strong>«В работу»</strong> мгновенно закрепит заявку за вами.</div>
+                  <div style="margin-bottom: 8px;">⏳ <strong>В ожидании</strong> — заявки, временно приостановленные из-за ожидания действий со стороны пользователя.</div>
+                  <div>✅ <strong>Закрытые заявки</strong> — архив решенных или отклоненных обращений с результатами работ.</div>
+                </div>
+              </div>
+
+              <div class="guide-step-card" style="background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.05); padding: 20px; border-radius: 12px;">
+                <h3 style="color: #3b82f6; margin-top: 0; font-size: 16px; display: flex; align-items: center; gap: 8px;">
+                  ⏱️ Действия в заявке и пауза SLA
+                </h3>
+                <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 0;">
+                  В детальном виде заявки вам доступны регламентные действия:<br><br>
+                  <strong>Принять решение:</strong> открывает форму ввода отчета решения и переводит заявку в статус «Решено».<br>
+                  <strong>Ожидает ответа (В паузу SLA):</strong> переводит заявку в статус <strong>«В ожидании»</strong>. Обязательно укажите причину (запрос параметров, запуск тестов пользователем). На время нахождения в этом статусе <strong>таймер SLA ставится на паузу</strong>, защищая показатели IT-отдела от просрочек!<br>
+                  <strong>Отклонить заявку:</strong> перевод в «Отклонен» при нецелевом обращении (требуется обоснование).<br>
+                  <strong>Вернуть в очередь:</strong> сбрасывает исполнителя и возвращает её в общий пул в работу.
+                </p>
+              </div>
+
+              <div class="guide-step-card" style="background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.05); padding: 20px; border-radius: 12px;">
+                <h3 style="color: #10b981; margin-top: 0; font-size: 16px; display: flex; align-items: center; gap: 8px;">
+                  ✏️ Быстрое редактирование «на лету»
+                </h3>
+                <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 0;">
+                  Вы можете менять параметры заявки прямо внутри её детальной карточки без перезагрузки:<br><br>
+                  Напротив полей <strong>«Категория»</strong> и <strong>«Приоритет»</strong> расположены иконки карандаша ✏️. Кликнув по ним, вы откроете быстрый inline-редактор, сможете перевыбрать приоритет (Критический, Высокий, Средний, Низкий) или изменить категорию и мгновенно сохранить изменения.
+                </p>
+              </div>
+
+              <div class="guide-step-card" style="background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.05); padding: 20px; border-radius: 12px;">
+                <h3 style="color: #ec4899; margin-top: 0; font-size: 16px; display: flex; align-items: center; gap: 8px;">
+                  💬 Чат и системные события (Аудит)
+                </h3>
+                <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 0;">
+                  Вся история инцидента полностью прозрачна:<br><br>
+                  <strong>Общение с пользователем:</strong> пишите комментарии и ведите диалог непосредственно в чате карточки заявки.<br>
+                  <strong>Системный аудит-лог:</strong> под чатом автоматически формируется хронологическая лента событий. Там фиксируется точное время каждого действия: кто и когда создал заявку, взял в работу, переназначил исполнителя, изменил приоритет или приостановил SLA.
+                </p>
+              </div>
+
+              <div class="guide-step-card" style="background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.05); padding: 20px; border-radius: 12px;">
+                <h3 style="color: #f59e0b; margin-top: 0; font-size: 16px; display: flex; align-items: center; gap: 8px;">
+                  📁 Справочник категорий
+                </h3>
+                <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 0;">
+                  В боковом меню вам доступен раздел <strong>«Справочник категорий»</strong>:<br><br>
+                  Вы можете добавлять новые категории инцидентов, редактировать их названия или архивировать. Если категория уже использовалась в существующих заявках, физически удалить её нельзя (чтобы сохранить целостность базы данных), но её можно сделать неактивной — тогда пользователи больше не увидят её при создании новых обращений.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ================= SECTION: NOTIFICATION CENTER ================= -->
+        <section id="sectionNotifications" class="content-section">
+          <div class="section-header-block" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 24px;">
+            <div>
+              <h1>Центр уведомлений</h1>
+              <p class="section-desc" style="margin-bottom: 0;">История системных событий, оповещений по вашим заявкам и новых обращений в очереди.</p>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button id="btnMarkAllNotifsRead" class="btn btn-xs btn-outline" style="border-radius: 20px; font-weight: 600;">✔️ Прочитать все</button>
+              <button id="btnClearNotifsHistory" class="btn btn-xs btn-outline" style="border-radius: 20px; font-weight: 600; border-color: rgba(239, 68, 68, 0.2); color: #f87171;">🗑️ Очистить</button>
+            </div>
+          </div>
+
+          <div class="notif-center-tabs" style="display: flex; gap: 12px; margin-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 12px; flex-wrap: wrap;">
+            <button class="btn btn-xs btn-outline btn-notif-tab active-notif-tab" data-filter="all" style="border-radius: 20px; padding: 8px 16px; font-weight: 600; border-color: var(--primary); color: var(--primary); background: rgba(0, 242, 254, 0.05); cursor: pointer;">Все события</button>
+            <button class="btn btn-xs btn-outline btn-notif-tab" data-filter="new_ticket" style="border-radius: 20px; padding: 8px 16px; font-weight: 600; border-color: rgba(255,255,255,0.08); cursor: pointer;">📥 Новые заявки</button>
+            <button class="btn btn-xs btn-outline btn-notif-tab" data-filter="comment" style="border-radius: 20px; padding: 8px 16px; font-weight: 600; border-color: rgba(255,255,255,0.08); cursor: pointer;">💬 Комментарии</button>
+            <button class="btn btn-xs btn-outline btn-notif-tab" data-filter="status_change" style="border-radius: 20px; padding: 8px 16px; font-weight: 600; border-color: rgba(255,255,255,0.08); cursor: pointer;">🔄 Изменения статусов</button>
+          </div>
+
+          <div id="notifHistoryList" class="notif-history-feed" style="display: flex; flex-direction: column; gap: 12px;">
+            <!-- Rendered dynamically by index.js -->
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+
+  <!-- ================= DIALOG MODAL: CREATE TICKET ================= -->
+  <div id="modalNewTicket" class="modal-overlay">
+    <div class="modal-window glass-card">
+      <div class="modal-header">
+        <h2>Регистрация новой заявки в IT</h2>
+        <button class="btn-close" id="btnCloseNewTicketModal">&times;</button>
+      </div>
+      <form id="formNewTicket" enctype="multipart/form-data">
+        <input type="hidden" id="ticketIdempotencyKey">
+        
+        <!-- Только для Администраторов (adm): Выбор Инициатора -->
+        <div class="form-group" id="formGroupAdminInitiator" style="display: none; margin-bottom: var(--spacing-md);">
+          <label for="ticketInitiator">Создать от имени (Инициатор) *</label>
+          <select id="ticketInitiator">
+            <!-- Populated dynamically -->
+          </select>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="ticketCategory">Категория проблемы *</label>
+            <select id="ticketCategory" required>
+              <option value="">-- Выберите из справочника --</option>
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+          <div class="form-group" id="formGroupPriority">
+            <label for="ticketPriority">Срочность / Приоритет</label>
+            <select id="ticketPriority">
+              <option value="low">Низкий (не влияет на текущую работу)</option>
+              <option value="medium" selected>Средний (стандартная задача)</option>
+              <option value="high">Высокий (серьезное затруднение работы)</option>
+              <option value="urgent">Критический (полная остановка работы отдела)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="ticketDescription">Подробное описание проблемы *</label>
+          <textarea id="ticketDescription" required placeholder="Пожалуйста, опишите проблему подробно. Если есть коды ошибок, укажите их. Что произошло и какие действия предпринимались?"></textarea>
+        </div>
+
+        <div class="form-group" id="ticketFileGroup">
+          <div id="existingAttachmentsContainer" style="display: none; margin-bottom: 15px;">
+            <label>Уже прикреплённые файлы (нажмите на крестик для удаления):</label>
+            <div class="file-preview-list" id="existingAttachmentsList" style="margin-top: 5px;"></div>
+          </div>
+          <label id="ticketFileLabel">Прикрепить новые файлы (скриншоты, документы - до 5 шт.)</label>
+          <div class="file-drag-drop-zone" id="fileDragZone">
+            <svg class="upload-cloud-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+            <p>Перетащите файлы сюда или <span class="browse-link">выберите на диске</span></p>
+            <input type="file" id="ticketFileInput" multiple style="display: none;" accept="image/*,.pdf,.doc,.docx,.xls,.xlsx">
+          </div>
+          <div class="file-preview-list" id="selectedFilesList"></div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-outline" id="btnCancelNewTicket">Отмена</button>
+          <button type="submit" class="btn btn-primary" id="btnSubmitNewTicket">Отправить заявку</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- ================= DIALOG MODAL: TICKET DETAILS & ACTION BOARD ================= -->
+  <div id="modalTicketDetail" class="modal-overlay">
+    <div class="modal-window glass-card modal-window-lg">
+      <div class="modal-header">
+        <div class="detail-header-meta">
+          <span class="status-tag" id="detailTicketStatus">Cоздана</span>
+          <h2 id="detailTicketNumber">HD-2026-XXXX</h2>
+        </div>
+        <button class="btn-close" id="btnCloseTicketDetailModal">&times;</button>
+      </div>
+
+      <div class="ticket-detail-content-grid">
+        <!-- Description Block -->
+        <div class="detail-card detail-desc-card">
+          <div class="detail-block-header">
+            <h3 class="detail-block-title" id="detailTicketTitle">Описание проблемы</h3>
+            <button id="btnEditTicketUser" class="btn btn-xs btn-outline" style="display: none;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px;margin-right:4px;"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+              Редактировать
+            </button>
+          </div>
+          <p class="ticket-full-description" id="detailTicketDesc">Описание проблемы...</p>
+          
+          <div class="detail-attachments-box" id="detailAttachmentsBox" style="display: none;">
+            <h4 class="sub-title">Прикрепленные файлы:</h4>
+            <div class="attachments-list" id="detailAttachmentsList"></div>
+          </div>
+        </div>
+
+        <!-- Ticket Information Card -->
+        <div class="detail-card meta-info-card">
+          <h3 class="detail-block-title">Детали заявки</h3>
+          
+          <div class="meta-item-row">
+            <span class="meta-lbl">Инициатор:</span>
+            <div class="meta-val" id="detailInitiatorBlock">
+              <div class="detail-initiator-avatar-wrapper">
+                <span id="detailInitiatorAvatar"></span>
+                <div class="detail-initiator-text">
+                  <strong id="detailInitiatorName">Иванова Е.А.</strong>
+                  <div class="meta-sub" id="detailInitiatorContacts">Тел: 1041 | Email: mail@demo-proekt.ru</div>
+                  <!-- Inline initiator editor for admins -->
+                  <button id="btnEditInitiatorInline" class="btn-edit-inline" style="display: none; margin-left: 0; margin-top: 6px;">Изменить</button>
+                  <div id="inlineInitiatorEditBox" style="display: none; margin-top: 5px;">
+                    <select id="selectInlineInitiator" class="filter-select select-sm"></select>
+                    <div class="btn-row-sm">
+                      <button id="btnSaveInlineInitiator" class="btn btn-xs btn-primary">ОК</button>
+                      <button id="btnCancelInlineInitiator" class="btn btn-xs btn-outline">Отмена</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="meta-item-row">
+            <span class="meta-lbl">Дата создания:</span>
+            <span class="meta-val" id="detailCreatedAt">07.07.2026 12:00</span>
+          </div>
+
+          <div class="meta-item-row" id="detailPriorityRow">
+            <span class="meta-lbl">Приоритет:</span>
+            <div class="meta-val">
+              <span id="detailPriorityTag">Средний</span>
+              <!-- Priority editor for specialists -->
+              <button id="btnEditPriorityInline" class="btn-edit-inline" style="display: none;">Изменить</button>
+              <div id="inlinePriorityEditBox" style="display: none; margin-top: 5px;">
+                <select id="selectInlinePriority" class="filter-select select-sm">
+                  <option value="low">Низкий</option>
+                  <option value="medium">Средний</option>
+                  <option value="high">Высокий</option>
+                  <option value="urgent">Критический</option>
+                </select>
+                <div class="btn-row-sm">
+                  <button id="btnSaveInlinePriority" class="btn btn-xs btn-primary">ОК</button>
+                  <button id="btnCancelInlinePriority" class="btn btn-xs btn-outline">Отмена</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="meta-item-row">
+            <span class="meta-lbl">Категория:</span>
+            <div class="meta-val">
+              <span id="detailCategoryName">Сеть и интернет</span>
+              <!-- Category editor for specialists (ТЗ 4.5.1) -->
+              <button id="btnEditCategoryInline" class="btn-edit-inline" style="display: none;">Изменить</button>
+              <div id="inlineCategoryEditBox" style="display: none; margin-top: 5px;">
+                <select id="selectInlineCategory" class="filter-select select-sm"></select>
+                <div class="btn-row-sm">
+                  <button id="btnSaveInlineCategory" class="btn btn-xs btn-primary">ОК</button>
+                  <button id="btnCancelInlineCategory" class="btn btn-xs btn-outline">Отмена</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="meta-item-row">
+            <span class="meta-lbl">Исполнитель:</span>
+            <div class="meta-val">
+              <select id="selectAssignee" class="filter-select select-sm" style="display: none;">
+                <option value="">Не назначен</option>
+                <!-- Populated dynamically -->
+              </select>
+              <span id="labelAssigneeText">Орлов Д.В.</span>
+              <button id="btnTakeToMe" class="btn btn-xs btn-outline" style="display: none; margin-top: 5px;">Взять себе</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- History Timeline Card -->
+        <div class="detail-card timeline-card">
+          <h3 class="detail-block-title">Жизненный цикл заявки</h3>
+          <div class="timeline-feed" id="detailHistoryTimeline">
+            <!-- Dynamically populated timeline elements -->
+          </div>
+        </div>
+
+        <!-- Chat/Comments Feed Block -->
+        <div class="detail-card chat-card" style="position: relative;">
+          <h3 class="detail-block-title">Диалог по заявке</h3>
+          <div class="comments-feed" id="detailCommentsFeed">
+            <!-- Dynamically populated comments -->
+          </div>
+          
+          <form id="formAddComment" class="comment-input-row">
+            <div id="commentFilesList" class="comment-files-list" style="display: none;"></div>
+            <div class="comment-input-container" style="display: flex; align-items: flex-end; gap: 8px; width: 100%;">
+              <label for="commentFileInput" class="btn-attach-file" title="Прикрепить файлы" style="cursor: pointer; display: flex; align-items: center; justify-content: center; height: 38px; width: 38px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-hover); color: var(--text-muted); transition: all 0.2s;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
+              </label>
+              <input type="file" id="commentFileInput" multiple style="display: none;">
+              <textarea id="commentText" placeholder="Введите ваше сообщение..." rows="1" style="flex: 1; resize: none; overflow-y: auto; height: 38px; max-height: 120px; box-sizing: border-box;"></textarea>
+              <button type="submit" class="btn btn-primary btn-sm" style="height: 38px;">Отправить</button>
+            </div>
+          </form>
+          <div class="chat-drag-overlay" id="chatDragOverlay" style="display: none;">
+            <div class="chat-drag-overlay-content" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: var(--primary); font-size: 14px; font-weight: 600;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:48px;height:48px;margin-bottom:12px;color:var(--primary);"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+              Перетащите файлы сюда, чтобы прикрепить к сообщению
+            </div>
+          </div>
+        </div>
+
+        <!-- Specialist Controls Panel (В работу, В ожидание, Решено, Отклонено) -->
+        <div class="detail-card specialist-actions-card" id="specialistControlsBox" style="display: none;">
+          <h3 class="detail-block-title">Управление решением</h3>
+          
+          <!-- Quick Actions Buttons -->
+          <div class="specialist-action-buttons">
+            <button class="btn btn-sm btn-outline text-blue" id="btnActionWork" style="display: none;">Взять в работу</button>
+            <button class="btn btn-sm btn-outline text-yellow" id="btnActionPending" style="display: none;">Приостановить</button>
+            <button class="btn btn-sm btn-outline text-green" id="btnActionResolve">Успешное выполнение</button>
+            <button class="btn btn-sm btn-outline text-red" id="btnActionReject">Отказ в выполнении</button>
+          </div>
+
+          <!-- Justification input box (visible when rejecting, pending or completing) -->
+          <div id="actionJustificationBox" class="justification-input-container" style="display: none;">
+            <label id="justificationLabel" for="actionJustificationText">Комментарий к действию *</label>
+            <textarea id="actionJustificationText" placeholder="Напишите причину отклонения, приостановки или результат выполнения..."></textarea>
+            <div class="justification-actions">
+              <button class="btn btn-xs btn-primary" id="btnSubmitStatusAction">Подтвердить статус</button>
+              <button class="btn btn-xs btn-outline" id="btnCancelStatusAction">Отмена</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Initiator Controls Panel (Отменить заявку для USR) -->
+        <div class="detail-card specialist-actions-card" id="initiatorControlsBox" style="display: none;">
+          <h3 class="detail-block-title">Управление заявкой</h3>
+          
+          <div class="specialist-action-buttons">
+            <button class="btn btn-sm btn-outline text-red" id="btnActionCancelTicket">Отменить заявку</button>
+          </div>
+
+          <div id="cancelJustificationBox" class="justification-input-container" style="display: none;">
+            <label id="cancelJustificationLabel" for="cancelJustificationText">Укажите причину отмены заявки *</label>
+            <textarea id="cancelJustificationText" placeholder="Пожалуйста, подробно напишите причину отмены заявки..."></textarea>
+            <div class="justification-actions">
+              <button class="btn btn-xs btn-danger" id="btnSubmitCancelTicket">Подтвердить отмену</button>
+              <button class="btn btn-xs btn-outline" id="btnCancelCancelTicket">Назад</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================= FEEDBACK MODAL ================= -->
+  <div id="modalFeedback" class="modal-overlay">
+    <div class="modal-window glass-card">
+      <div class="modal-header">
+        <h2>Предложения и замечания по Help Desk</h2>
+        <button class="btn-close" id="btnCloseFeedbackModal">&times;</button>
+      </div>
+      <form id="formFeedback">
+        <div class="form-group">
+          <label for="feedbackType">Тип обращения *</label>
+          <select id="feedbackType" required>
+            <option value="suggestion">Предложение (идея по улучшению)</option>
+            <option value="remark">Замечание (обнаруженная ошибка или недоработка)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="feedbackDescription">Текст вашего предложения или замечания *</label>
+          <textarea id="feedbackDescription" required placeholder="Пожалуйста, опишите ваше предложение или замеченную ошибку максимально подробно..." style="min-height: 150px;"></textarea>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-outline" id="btnCancelFeedback">Отмена</button>
+          <button type="submit" class="btn btn-primary" id="btnSubmitFeedback" style="background: linear-gradient(135deg, #d32f2f, #b71c1c); border-color: #d32f2f;">Отправить</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- ================= LIGHTBOX IMAGE VIEWER MODAL ================= -->
+  <div id="lightboxModal" class="lightbox-overlay">
+    <button class="lightbox-close" id="btnLightboxClose">&times;</button>
+    <div class="lightbox-content">
+      <img id="lightboxImage" src="" alt="Zoomed view">
+      <div class="lightbox-caption">
+        <span id="lightboxFilename">file.png</span>
+        <span id="lightboxFilesize" class="caption-size">(0 KB)</span>
+        <a id="lightboxDownloadBtn" href="" download class="btn btn-xs btn-primary" style="margin-left: 12px; gap: 4px; display: inline-flex;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:12px;height:12px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          Скачать
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js"></script>
+  <script src="demo-api.js"></script>
+  <script src="index.js"></script>
+</body>
+</html>
