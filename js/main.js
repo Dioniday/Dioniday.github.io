@@ -112,3 +112,88 @@ document.querySelectorAll('[data-hover-play]').forEach(function (tile) {
   var closeButton = dialog.querySelector('[data-close]');
   if (closeButton) closeButton.addEventListener('click', function () { dialog.close(); });
 })();
+
+// Image lightbox for case-study screenshots: click to open, click again for full size,
+// arrows to move between images, Esc or a click outside to close.
+(function () {
+  var images = Array.prototype.slice.call(document.querySelectorAll('.shot img, img[data-zoomable]'));
+  if (!images.length) return;
+  var ru = document.documentElement.lang === 'ru';
+
+  var dialog = document.createElement('dialog');
+  dialog.className = 'lightbox';
+  dialog.setAttribute('aria-label', ru ? 'Просмотр изображения' : 'Image viewer');
+  dialog.innerHTML =
+    '<div class="lightbox-stage"><img alt=""></div>' +
+    '<p class="lightbox-caption"></p>' +
+    '<button type="button" class="lightbox-btn right-4 top-4" data-act="close" aria-label="' + (ru ? 'Закрыть' : 'Close') + '">✕</button>' +
+    '<button type="button" class="lightbox-btn left-4 top-1/2 -translate-y-1/2" data-act="prev" aria-label="' + (ru ? 'Предыдущее' : 'Previous') + '">←</button>' +
+    '<button type="button" class="lightbox-btn right-4 top-1/2 -translate-y-1/2" data-act="next" aria-label="' + (ru ? 'Следующее' : 'Next') + '">→</button>';
+  document.body.appendChild(dialog);
+
+  var stage = dialog.querySelector('.lightbox-stage');
+  var big = stage.querySelector('img');
+  var caption = dialog.querySelector('.lightbox-caption');
+  var current = 0;
+
+  function show(index) {
+    current = (index + images.length) % images.length;
+    var source = images[current];
+    var figure = source.closest('figure');
+    var figcaption = figure && (figure.querySelector('figcaption') || (figure.parentElement && figure.parentElement.querySelector('figcaption')));
+    stage.classList.remove('is-zoomed');
+    big.src = source.currentSrc || source.src;
+    big.alt = source.alt;
+    caption.textContent = figcaption ? figcaption.textContent : source.alt;
+    dialog.querySelectorAll('[data-act="prev"], [data-act="next"]').forEach(function (b) {
+      b.hidden = images.length < 2;
+    });
+  }
+
+  images.forEach(function (img, index) {
+    img.setAttribute('data-zoomable', '');
+    img.setAttribute('tabindex', '0');
+    img.setAttribute('role', 'button');
+    function open() {
+      show(index);
+      if (typeof dialog.showModal === 'function') dialog.showModal();
+    }
+    img.addEventListener('click', open);
+    img.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+    });
+  });
+
+  // Click on the picture toggles fit-to-screen / actual size, keeping the clicked point in view.
+  big.addEventListener('click', function (e) {
+    e.stopPropagation();
+    var rect = big.getBoundingClientRect();
+    var fx = (e.clientX - rect.left) / rect.width;
+    var fy = (e.clientY - rect.top) / rect.height;
+    var zoomed = stage.classList.toggle('is-zoomed');
+    if (zoomed) {
+      stage.scrollLeft = fx * big.naturalWidth - stage.clientWidth / 2;
+      stage.scrollTop = fy * big.naturalHeight - stage.clientHeight / 2;
+    }
+  });
+
+  stage.addEventListener('click', function (e) {
+    if (e.target === stage) dialog.close();
+  });
+  dialog.addEventListener('click', function (e) {
+    var act = e.target.closest && e.target.closest('[data-act]');
+    if (!act) return;
+    var name = act.getAttribute('data-act');
+    if (name === 'close') dialog.close();
+    if (name === 'prev') show(current - 1);
+    if (name === 'next') show(current + 1);
+  });
+  dialog.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft') show(current - 1);
+    if (e.key === 'ArrowRight') show(current + 1);
+  });
+  dialog.addEventListener('close', function () {
+    big.removeAttribute('src');
+    if (images[current]) images[current].focus({ preventScroll: true });
+  });
+})();
