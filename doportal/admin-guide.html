@@ -249,14 +249,14 @@ CREATE DATABASE doportal_test OWNER doportal ENCODING 'UTF8';  <span class="c">-
 <section class="chapter" id="publish">
   <span class="num">05</span>
   <h2>Публикация файлов</h2>
-  <p>Сборка на машине разработчика или сборочном сервере:</p>
-<pre>dotnet publish src/DoPortal.Web -c Release -o publish/DoPortal
-dotnet publish src/DoPortal.Configurator -c Release -r win-x64 --self-contained `
-    -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true `
-    -o publish/DoPortal/Configurator
-dotnet publish src/DoPortal.Launcher -c Release -r win-x64 --self-contained `
-    -p:PublishSingleFile=true -o publish/Launcher</pre>
-  <p>Скопируйте <code>publish/DoPortal</code> на сервер в <code>C:\inetpub\DoPortal</code>. Должно получиться:</p>
+  <p>Исполнитель передаёт готовый комплект — папку или архив <code>DoPortal-Release-ГГГГ-ММ-ДД</code>. Комплект собран и проверен автоматически: все тесты пройдены, в нём нет настроек и учётных данных разработчика, нет модулей AutoCAD.</p>
+<pre>DoPortal-Release-ГГГГ-ММ-ДД\
+├─ DoPortal\        <span class="c">портал, внутри Configurator\ — конфигуратор</span>
+├─ Launcher\        <span class="c">модуль запуска для рабочих мест (+ roots.example.txt, install_protocol.reg)</span>
+├─ !Шаблоны\        <span class="c">шаблоны документов</span>
+├─ DEPLOY.md        <span class="c">краткая инструкция</span>
+└─ version.txt      <span class="c">номер версии и дата сборки — сообщайте его при обращениях</span></pre>
+  <p>Скопируйте содержимое папки <code>DoPortal</code> на сервер в <code>C:\inetpub\DoPortal</code>. Должно получиться:</p>
 <pre>C:\inetpub\DoPortal\
 ├─ DoPortal.Web.dll, web.config, wwwroot\ …   <span class="c">портал</span>
 ├─ AutoCAD\DoStructure.XrefPlugin.dll        <span class="c">плагин вставки XREF</span>
@@ -264,7 +264,7 @@ dotnet publish src/DoPortal.Launcher -c Release -r win-x64 --self-contained `
 ├─ !Шаблоны\                                 <span class="c">запасные шаблоны ПЗ (необязательно)</span>
 ├─ AppData\                                  <span class="c">создаётся порталом: вложения, подписи</span>
 └─ appsettings.json                          <span class="c">настройки, правится конфигуратором</span></pre>
-  <div class="note bad"><b>Не копируйте на сервер</b><code>appsettings.Development.json</code> — в нём демонстрационные настройки разработчика. Папку <code>HeadlessCAD</code> из репозитория разработчика тоже не переносите: это модули AutoCAD, они распространяются только по лицензии Autodesk.</div>
+  <div class="note bad"><b>Только из комплекта</b>Не переносите на сервер файлы из рабочей папки разработчика: <code>appsettings.Development.json</code> содержит его личные настройки, а папка <code>HeadlessCAD</code> — модули AutoCAD, которые распространяются только по лицензии Autodesk. В комплекте их нет.</div>
 </section>
 
 <!-- 6 -->
@@ -299,6 +299,9 @@ Set-WebConfigurationProperty -PSPath IIS:\ -Location DoPortal `
 <pre>icacls C:\inetpub\DoPortal\AppData /grant "CORP\svc-doportal:(OI)(CI)M"
 icacls C:\inetpub\DoPortal\appsettings.json /grant "CORP\svc-doportal:R"</pre></li>
     <li>Для HTTPS добавьте привязку 443 с сертификатом организации и при желании перенаправление с HTTP.</li>
+    <li>Необязательно: если ИТ-служба следит за серверами программой наблюдения (Zabbix, PRTG и т. п.), откройте без входа <b>только</b> адрес самопроверки <code>/health</code> (раздел 16):
+<pre>%windir%\system32\inetsrv\appcmd.exe set config "DoPortal/health" `
+    -section:system.webServer/security/authentication/anonymousAuthentication /enabled:true /commit:apphost</pre></li>
   </ol>
   <div class="note"><b>Почему пул не должен засыпать</b>По умолчанию IIS останавливает пул после 20 минут без запросов. Тогда ночью не работают проверка сроков и фоновые очереди, а первый утренний вход ждёт запуска приложения.</div>
 </section>
@@ -366,12 +369,13 @@ Set-WebConfigurationProperty -PSPath IIS:\ -Location DoPortal `
     <li><b>База данных</b> — сервер, порт, база <code>doportal</code>, пользователь и пароль → «Проверить подключение».</li>
     <li><b>Хранилище и AutoCAD</b> — корень <code>\\fileserver\projects\01НГИ</code> → «Проверить доступ». Путь к AutoCAD можно оставить пустым, если AutoCAD установлен в стандартную папку.</li>
     <li><b>Active Directory</b> — корень домена <code>LDAP://DC=corp,DC=local</code>, таблица «Группа AD → роль» → «Проверить группы».</li>
+    <li><b>Резервные копии</b> — папка для копий (лучше другой диск или сетевая папка), срок хранения, время → «Сделать копию сейчас» → «Включить ежедневное копирование». Подробно — раздел 13.</li>
     <li><b>Сохранить настройки</b>, затем на вкладке «Обзор и диагностика» → «Проверить всё» → «Перезапустить портал».</li>
     <li>По желанию — <b>Импорт из AD</b>: заводит всех активных сотрудников заранее, с отделами и ролями по группам. Роль «Администратор» при импорте не выдаётся.</li>
     <li>В портале под администратором заполните справочники: отделы с руководителем и ВРИО, заказчики, месторождения, типы объектов с шаблонами папок, праздники, шаблоны документов.</li>
   </ol>
   <div class="grid-2">
-    <figure class="shot"><div class="frame"><img src="img/cfg-overview.png" alt="Конфигуратор: обзор и диагностика" width="1104" height="752"></div><figcaption>Обзор и диагностика: восемь проверок и перезапуск пула.</figcaption></figure>
+    <figure class="shot"><div class="frame"><img src="img/cfg-overview.png" alt="Конфигуратор: обзор и диагностика" width="1104" height="752"></div><figcaption>Обзор и диагностика: проверки окружения и перезапуск пула.</figcaption></figure>
     <figure class="shot"><div class="frame"><img src="img/cfg-storage.png" alt="Конфигуратор: хранилище и AutoCAD" width="1104" height="752"></div><figcaption>Хранилище и AutoCAD.</figcaption></figure>
     <figure class="shot"><div class="frame"><img src="img/cfg-ad.png" alt="Конфигуратор: сопоставление групп AD и ролей" width="1104" height="752"></div><figcaption>Active Directory: группы → роли.</figcaption></figure>
     <figure class="shot"><div class="frame"><img src="img/cfg-users.png" alt="Конфигуратор: пользователи и роли" width="1104" height="752"></div><figcaption>Пользователи и роли: ручная настройка поверх AD.</figcaption></figure>
@@ -397,9 +401,11 @@ Set-WebConfigurationProperty -PSPath IIS:\ -Location DoPortal `
   <p>Кнопки «Открыть в AutoCAD / Word / проводнике» используют протокол <code>doportal://</code>. На каждый компьютер (удобно групповой политикой или SCCM):</p>
   <ol class="steps">
     <li>Скопируйте <code>DoPortal.Launcher.exe</code> из <code>publish/Launcher</code> в <code>C:\DoPortal\</code>.</li>
+    <li>Рядом положите <code>roots.txt</code> со списком корней хранилища, по одному в строке (образец — <code>src\DoPortal.Launcher\roots.example.txt</code>). Без этого файла модуль запуска ничего не открывает.</li>
     <li>Импортируйте <code>src\DoPortal.Launcher\install_protocol.reg</code>, или распространите ключ <code>HKEY_CLASSES_ROOT\doportal</code> политикой реестра.</li>
   </ol>
-  <p>Если сотрудники обращаются к хранилищу по-разному (буква диска, старое имя сервера, IP-адрес), перечислите эти варианты в <code>C:\DoPortal\roots.txt</code>, по одному в строке. Модуль запуска будет подставлять их, если файл не открывается по основному пути. Для самого портала те же варианты задаются в <code>appsettings.json</code>: <code>"Portal": { "NgiRootAliases": [ "Z:\\01НГИ" ] }</code>.</p>
+  <p>Модуль запуска открывает файлы только внутри корней из <code>roots.txt</code> и только документы: чертежи, Word, Excel, PDF, изображения. Программы, скрипты и ярлыки он не запускает, поэтому ссылка из письма или с постороннего сайта не сможет открыть чужой файл.</p>
+  <p>В <code>roots.txt</code> укажите корень хранилища так, как он задан в портале, и другие его написания, если сотрудники обращаются к хранилищу по-разному (буква диска, старое имя сервера, IP-адрес). Модуль запуска будет подставлять их, если файл не открывается по основному пути. Для самого портала те же варианты задаются в <code>appsettings.json</code>: <code>"Portal": { "NgiRootAliases": [ "Z:\\01НГИ" ] }</code>.</p>
   <p class="muted">Без модуля запуска портал работает полностью, недоступно только открытие файлов одной кнопкой.</p>
 </section>
 
@@ -415,6 +421,9 @@ Set-WebConfigurationProperty -PSPath IIS:\ -Location DoPortal `
     <li>Загрузка вложения к письму и его скачивание.</li>
     <li>Кнопка «Обновить штампы AutoCAD» на объекте завершается без ошибки (при установленном AutoCAD).</li>
     <li>Через 25 минут простоя портал отвечает сразу, без долгой первой загрузки.</li>
+    <li>Меню администратора → «Состояние портала»: все проверки «в порядке» (кроме резервной копии, пока её не сделали).</li>
+    <li>Конфигуратор → «Резервные копии» → «Сделать копию сейчас» завершается с «Готово»; затем «Проверить копию» — «Копия цела».</li>
+    <li>На рабочем месте кнопка «Открыть в AutoCAD» открывает чертёж (модуль запуска и <code>roots.txt</code> установлены).</li>
   </ul>
 </section>
 
@@ -422,19 +431,22 @@ Set-WebConfigurationProperty -PSPath IIS:\ -Location DoPortal `
 <section class="chapter" id="backup">
   <span class="num">13</span>
   <h2>Резервное копирование</h2>
-  <p>Сохраняйте три вещи: базу данных, папку <code>AppData</code> (вложения и сканы подписей) и <code>appsettings.json</code>. Каталог 01НГИ копируется вашими обычными средствами файлового сервера.</p>
-<pre><span class="c"># C:\Scripts\doportal-backup.ps1 — ежедневно через Планировщик заданий</span>
-$d   = Get-Date -Format 'yyyy-MM-dd'
-$dst = 'D:\Backup\DoPortal'
-$env:PGPASSFILE = 'C:\Scripts\pgpass.conf'   <span class="c"># localhost:5432:doportal:doportal:пароль</span>
-&amp; 'C:\Program Files\PostgreSQL\16\bin\pg_dump.exe' -h localhost -U doportal -F c `
-    -f "$dst\doportal-$d.dump" doportal
-robocopy C:\inetpub\DoPortal\AppData "$dst\AppData" /MIR /R:1 /W:1 | Out-Null
-Copy-Item C:\inetpub\DoPortal\appsettings.json "$dst\appsettings-$d.json"
-Get-ChildItem $dst -Filter 'doportal-*.dump' |
-    Where-Object LastWriteTime -lt (Get-Date).AddDays(-14) | Remove-Item</pre>
-  <p>Восстановление базы: <code>pg_restore -h localhost -U doportal -d doportal --clean doportal-ГГГГ-ММ-ДД.dump</code>.</p>
-  <div class="note warn"><b>Перенос на другой сервер</b>Пароли в <code>appsettings.json</code> зашифрованы ключом старого сервера. После переноса откройте конфигуратор на новом сервере, введите пароли базы и сетевой папки заново и сохраните.</div>
+  <p>Резервное копирование настраивается в конфигураторе, раздел <b>«Резервные копии»</b>. В копию входят база данных, вложения писем и заданий, сканы подписей, шаблоны документов и <code>appsettings.json</code>. Каталог 01НГИ в копию не входит — он копируется вашими обычными средствами файлового сервера (теневые копии и резервное копирование тома).</p>
+  <ol class="steps">
+    <li>Укажите <b>папку для копий</b> — лучше другой диск или сетевую папку. Ежедневное копирование выполняется от имени системы, поэтому сетевой папке нужен доступ на запись для учётной записи компьютера сервера <code>CORP\ИМЯСЕРВЕРА$</code>.</li>
+    <li>Срок хранения (по умолчанию 30 дней; три последние копии не удаляются никогда) и время запуска (по умолчанию 02:00).</li>
+    <li>«Сделать копию сейчас» — убедиться, что всё работает.</li>
+    <li>«Включить ежедневное копирование» (конфигуратор запущен от имени администратора) — создаётся задание Планировщика заданий «DoPortal Backup». Конфигуратор должен оставаться на сервере по тому же пути.</li>
+  </ol>
+  <p>Каждая копия — папка <code>DoPortal-ГГГГ-ММ-ДД_ЧЧММСС</code>: <code>database.dump</code> (база), <code>files.zip</code> (файлы портала), <code>appsettings.json</code>, <code>manifest.txt</code> (состав и контрольные суммы). Ход ежедневного копирования — в <code>backup.log</code> в папке копий. Если копия не делалась больше двух суток или последняя не удалась, это видно в «Состоянии портала» и в диагностике конфигуратора.</p>
+  <h3>Восстановление</h3>
+  <ol class="steps">
+    <li>Конфигуратор → «Резервные копии» → «Восстановление из копии»: выберите папку копии → <b>«Проверить копию»</b>.</li>
+    <li>Укажите имя <b>новой</b> базы (предлагается <code>doportal_restore_ГГГГММДД</code>) → <b>«Восстановить»</b>. Существующая база не перезаписывается никогда.</li>
+    <li>Флажок «Вернуть файлы портала» кладёт вложения, сканы подписей и шаблоны обратно (одноимённые заменяются, остальные остаются).</li>
+    <li>Портал продолжает работать с прежней базой. Чтобы переключить его: раздел «База данных» → имя восстановленной базы → «Сохранить настройки» → «Перезапустить портал». Прежнюю базу удалите позже, когда убедитесь, что всё в порядке.</li>
+  </ol>
+  <div class="note warn"><b>Перенос на другой сервер</b>Установите портал и PostgreSQL на новом сервере, в конфигураторе укажите сервер базы, восстановите копию с флажком «Вернуть файлы портала» и переключите портал на восстановленную базу. Пароли из старого <code>appsettings.json</code> на новом сервере не расшифруются: введите пароли базы, сетевой папки и AD заново и сохраните.</div>
 </section>
 
 <!-- 14 -->
@@ -442,12 +454,13 @@ Get-ChildItem $dst -Filter 'doportal-*.dump' |
   <span class="num">14</span>
   <h2>Обновление версии</h2>
   <ol class="steps">
-    <li>Сделайте резервную копию базы.</li>
+    <li>Конфигуратор → «Резервные копии» → «Сделать копию сейчас». Запишите номер текущей версии из <code>version.txt</code>.</li>
     <li>Положите файл <code>app_offline.htm</code> в <code>C:\inetpub\DoPortal</code>: портал покажет страницу обслуживания и освободит файлы.</li>
     <li>Скопируйте новую публикацию поверх, <b>кроме</b> <code>appsettings.json</code> и папки <code>AppData</code>.</li>
     <li>Удалите <code>app_offline.htm</code>. Изменения структуры базы применятся при первом запуске.</li>
-    <li>Конфигуратор → «Проверить всё».</li>
+    <li>Конфигуратор → «Проверить всё»; меню администратора → «Состояние портала».</li>
   </ol>
+  <p>Если после обновления что-то пошло не так — верните прежнюю публикацию и восстановите копию, сделанную на шаге 1 (раздел 13).</p>
   <p class="muted">Обновление удобно сначала проверить в тестовом режиме на копии базы.</p>
 </section>
 
@@ -466,10 +479,14 @@ Get-ChildItem $dst -Filter 'doportal-*.dump' |
   <div class="table-wrap"><table class="t">
     <thead><tr><th>Где смотреть</th><th>Что там</th></tr></thead>
     <tbody>
-      <tr><td><code>/admin/audit</code></td><td>Журнал администрирования: изменения ролей, настроек, импорт из AD. Только для администраторов.</td></tr>
+      <tr><td>Меню → «Состояние портала» (<code>/admin/health</code>)</td><td>Самопроверка: база данных, доступ к 01НГИ, свободное место, фоновые задачи, свежесть резервной копии — с пояснениями. Только для администраторов.</td></tr>
+      <tr><td><code>http://doportal/health</code></td><td>Та же самопроверка одним словом для программы наблюдения: <code>Healthy</code> — в порядке, <code>Degraded</code> — работает, но требует внимания (код 200), <code>Unhealthy</code> — не работает (код 503). Подробностей не выдаёт. Без входа — после настройки из раздела 06.</td></tr>
+      <tr><td><code>/admin/audit</code></td><td>Журнал администрирования: изменения ролей, настроек, импорт из AD, автоматически назначенные при первом входе роли. Только для администраторов.</td></tr>
       <tr><td><code>/hangfire</code></td><td>Фоновые задачи: сборка ПЗ, операции AutoCAD, ошибки и повторы. Только для администраторов.</td></tr>
       <tr><td>Журнал Windows «Приложение»</td><td>Ошибки запуска модуля ASP.NET Core (источник «IIS AspNetCore Module V2»).</td></tr>
-      <tr><td><code>C:\inetpub\DoPortal\logs</code></td><td>Подробный вывод портала. Включается в <code>web.config</code>: <code>stdoutLogEnabled="true"</code>; после разбора проблемы выключите.</td></tr>
+      <tr><td><code>C:\inetpub\DoPortal\Logs\portal.log</code></td><td>Журнал портала: ошибки (с пользователем и страницей), первый вход сотрудников, смена ролей. При 10 МБ и каждые сутки упаковывается в <code>Logs\Archive</code>, архивы хранятся год. Пулу нужно право записи на папку <code>Logs</code>.</td></tr>
+      <tr><td>Папка копий: <code>backup.log</code>, <code>restore.log</code></td><td>Ход ежедневного копирования и восстановления.</td></tr>
+      <tr><td><code>C:\inetpub\DoPortal\logs</code> (stdout)</td><td>Вывод при сбое запуска. Включается в <code>web.config</code>: <code>stdoutLogEnabled="true"</code>; после разбора проблемы выключите.</td></tr>
     </tbody>
   </table></div>
 </section>
@@ -491,6 +508,14 @@ Get-ChildItem $dst -Filter 'doportal-*.dump' |
       <tr><td>Не обновляются штампы, не создаются модели</td><td>AutoCAD не найден или не активирована лицензия. Конфигуратор → «Проверить всё», пункт AutoCAD.</td></tr>
       <tr><td>Нет утренних напоминаний, первый вход долгий</td><td>Пул засыпает. Проверьте <code>idleTimeout = 0</code>, <code>startMode = AlwaysRunning</code>, <code>preloadEnabled = true</code> (раздел 06).</td></tr>
       <tr><td>Кнопка «Открыть в AutoCAD» ничего не делает</td><td>На рабочем месте не установлен модуль запуска или не импортирован <code>install_protocol.reg</code>.</td></tr>
+      <tr><td>Окно «Не настроен список разрешённых папок хранилища»</td><td>Рядом с <code>DoPortal.Launcher.exe</code> нет <code>roots.txt</code>. Положите его (образец — <code>roots.example.txt</code> в комплекте), раздел 11.</td></tr>
+      <tr><td>Окно «Путь не входит в разрешённые папки хранилища»</td><td>В <code>roots.txt</code> нет корня, по которому портал отдал ссылку (например, другое написание сервера или буква диска). Добавьте его строкой в <code>roots.txt</code>.</td></tr>
+      <tr><td>Окно «Файлы этого типа из портала не открываются»</td><td>Так и задумано: модуль запуска открывает только документы, а программы, скрипты и ярлыки — нет. Откройте папку и запустите файл вручную, если доверяете ему.</td></tr>
+      <tr><td>Страница «Нет доступа»</td><td>У сотрудника нет прав на этот документ, файл или раздел. Проверьте его роли и отдел; доступ к заданию есть у ГИПа объекта, автора и отделов, которым оно направлено.</td></tr>
+      <tr><td>Сообщение «Действие не выполнено… Обновите страницу»</td><td>Действие прервалось ошибкой, изменения не записаны. Попросите сотрудника обновить страницу и повторить. Если повторяется — найдите запись в <code>Logs\portal.log</code> по времени и имени сотрудника.</td></tr>
+      <tr><td>«Состояние портала»: резервная копия «требует внимания»</td><td>Копия старше двух суток или последняя не удалась — причина в описании и в <code>backup.log</code>. Частые причины: нет прав на папку копий у учётной записи компьютера, переполнен диск, задание планировщика отключено.</td></tr>
+      <tr><td>Восстановление: «База … уже существует»</td><td>Восстановление не перезаписывает базы. Укажите другое имя новой базы.</td></tr>
+      <tr><td>Программа наблюдения получает 401 на <code>/health</code></td><td>Не открыт анонимный доступ к этому адресу (раздел 06).</td></tr>
     </tbody>
   </table></div>
   <footer class="end"><span>DoПортал · руководство системного администратора</span><span>Вопросы по установке: <a href="mailto:dioniday@internet.ru">dioniday@internet.ru</a></span></footer>
