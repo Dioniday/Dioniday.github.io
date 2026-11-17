@@ -23,6 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800&family=PT+Mono&family=PT+Sans+Narrow:wght@400;700&display=swap">
 <style>
+/* Раскладка: техническое руководство — собственные токены и правила ниже, общие компоненты — из doportal.css */
 /* Раскладка: техническое руководство — оглавление и пронумерованные разделы в одну колонку ~920px, команды в моноширинных блоках */
 :root {
   --paper: #ffffff; --paper-2: #f4f6fa; --ink: #162033; --muted: #5a6478; --line: #d6dbe4;
@@ -30,6 +31,9 @@
   --ok: #17803d; --ok-bg: #e5f5ea; --warn: #8a5a00; --warn-bg: #fdf1d3; --bad: #b42318; --bad-bg: #fde8e6;
   --code-bg: #f1f3f8; --code-ink: #1d2740;
   --shadow: 0 1px 2px rgba(22,32,51,.06), 0 8px 24px rgba(22,32,51,.08);
+  --shadow-sm: 0 1px 2px rgba(22,32,51,.07);
+  --r-sm: 8px; --r-md: 12px;
+  --focus: var(--accent);
   --f-body: "Golos Text", "Segoe UI", system-ui, sans-serif;
   --f-mono: "PT Mono", "Consolas", monospace;
   --f-narrow: "PT Sans Narrow", "Arial Narrow", sans-serif;
@@ -40,7 +44,7 @@
     --paper: #0f141d; --paper-2: #161d29; --ink: #e5e9f0; --muted: #9aa4b7; --line: #2a3344;
     --accent: #7ea3ff; --accent-soft: #1a2442;
     --ok: #6fd391; --ok-bg: #12301f; --warn: #f2c66b; --warn-bg: #3a2c0c; --bad: #ff8f84; --bad-bg: #3b1714;
-    --code-bg: #171f2c; --code-ink: #dbe3f2; --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+    --code-bg: #171f2c; --code-ink: #dbe3f2; --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35); --shadow-sm: 0 1px 2px rgba(0,0,0,.5);
     color-scheme: dark;
   }
 }
@@ -48,7 +52,7 @@
   --paper: #0f141d; --paper-2: #161d29; --ink: #e5e9f0; --muted: #9aa4b7; --line: #2a3344;
   --accent: #7ea3ff; --accent-soft: #1a2442;
   --ok: #6fd391; --ok-bg: #12301f; --warn: #f2c66b; --warn-bg: #3a2c0c; --bad: #ff8f84; --bad-bg: #3b1714;
-  --code-bg: #171f2c; --code-ink: #dbe3f2; --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+  --code-bg: #171f2c; --code-ink: #dbe3f2; --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35); --shadow-sm: 0 1px 2px rgba(0,0,0,.5);
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
@@ -59,10 +63,10 @@ h2 { font-size: clamp(1.45rem, 3vw, 1.9rem); font-weight: 700; letter-spacing: -
 h3 { font-size: 1.1rem; font-weight: 700; margin-top: 8px; }
 p { margin: 0; max-width: 72ch; }
 .muted { color: var(--muted); }
-a { color: var(--accent); }
+a { color: var(--accent); text-decoration-thickness: from-font; text-underline-offset: .18em; }
 code, .mono { font-family: var(--f-mono); font-size: .9em; }
 :not(pre) > code { background: var(--code-bg); color: var(--code-ink); padding: .05em .35em; border-radius: 4px; overflow-wrap: anywhere; }
-pre { margin: 0; background: var(--code-bg); color: var(--code-ink); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; overflow-x: auto; font-family: var(--f-mono); font-size: .84rem; line-height: 1.5; white-space: pre; }
+pre { margin: 0; background: var(--code-bg); color: var(--code-ink); border: 1px solid var(--line); border-radius: var(--r-sm); padding: 12px 14px; overflow-x: auto; font-family: var(--f-mono); font-size: .84rem; line-height: 1.5; white-space: pre; }
 pre .c { color: var(--muted); }
 .eyebrow { font-family: var(--f-narrow); text-transform: uppercase; letter-spacing: .08em; font-size: .85rem; color: var(--accent); font-weight: 700; }
 
@@ -92,6 +96,7 @@ ul.list li::marker { color: var(--accent); }
 
 .table-wrap { overflow-x: auto; }
 table.t { width: 100%; border-collapse: collapse; font-size: .93rem; }
+table.t { font-variant-numeric: tabular-nums; }
 table.t th, table.t td { text-align: left; vertical-align: top; padding: 9px 12px; border-bottom: 1px solid var(--line); }
 table.t th { font-family: var(--f-narrow); text-transform: uppercase; letter-spacing: .08em; font-size: .8rem; color: var(--muted); }
 table.t td:first-child { font-weight: 600; }
@@ -100,14 +105,14 @@ table.t.plain td:first-child { font-weight: 400; }
 /* Схема компонентов */
 .arch { display: grid; grid-template-columns: 1fr 1.25fr 1fr; gap: 14px; align-items: stretch; }
 .arch .col { display: grid; gap: 10px; align-content: center; }
-.box { border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; background: var(--paper); display: grid; gap: 2px; }
+.box { border: 1px solid var(--line); border-radius: var(--r-sm); padding: 12px 14px; background: var(--paper); display: grid; gap: 2px; }
 .box b { font-size: .98rem; }
 .box span { font-size: .82rem; color: var(--muted); line-height: 1.4; }
 .box.core { border: 2px solid var(--accent); background: var(--accent-soft); }
 .box .port { font-family: var(--f-mono); font-size: .78rem; color: var(--accent); }
 
 .shot { margin: 0; display: grid; gap: 6px; min-width: 0; }
-.shot .frame { border: 1px solid var(--line); border-radius: 8px; overflow: hidden; box-shadow: var(--shadow); }
+.shot .frame { border: 1px solid var(--line); border-radius: var(--r-sm); overflow: hidden; box-shadow: var(--shadow); }
 .shot img { display: block; width: 100%; height: auto; }
 .shot figcaption { font-size: .86rem; color: var(--muted); }
 .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
@@ -133,6 +138,13 @@ footer.end { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--li
   body { font-size: 10pt; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .doc { max-width: none; padding: 0; }
   pre { white-space: pre-wrap; font-size: 8pt; break-inside: avoid; }
+  /* Ч/б-печать: выноски различимы без цвета */
+  .note, .note.warn, .note.bad { background: #fff; border: 1px solid #9aa4b7; border-left-width: 3px; color: #162033; }
+  .note { border-left-color: #162033; } .note.warn { border-left-color: #8a5a00; } .note.bad { border-left-color: #b42318; }
+  code, .mono, :not(pre) > code { background: #f1f3f8; color: #1d2740; border: 0; }
+  .chip { background: #fff; color: #162033; border: 1px solid #9aa4b7; }
+  .chip.ok, .chip.warn, .chip.bad, .chip.acc { background: #fff; color: #162033; border: 1px solid #5a6478; }
+  .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
   section.chapter { padding-top: 22px; }
   section.chapter.page { break-before: page; border-top: 0; padding-top: 0; }
   .shot, .box, .note, table.t tr, .arch { break-inside: avoid; }
@@ -141,6 +153,7 @@ footer.end { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--li
   a { color: var(--ink); text-decoration: none; }
 }
 </style>
+<link rel="stylesheet" href="doportal.css">
 </head>
 <body>
 <main class="doc">
@@ -459,7 +472,7 @@ Get-ChildItem $dst -Filter 'doportal-*.dump' |
   <span class="num">15</span>
   <h2>Тестовый режим</h2>
   <p>Конфигуратор → «Режим работы» → «Тестовый режим». Портал переключается на отдельную базу (<code>doportal_test</code>) и отдельную папку хранилища, не обращается к AD и заводит пользователей локально. На каждой странице видна полоса «Тестовый режим». Используйте его для обучения и проверки обновлений; для возврата снимите флажок, сохраните и перезапустите портал.</p>
-  <figure class="shot" style="max-width:640px"><div class="frame"><picture><source type="image/webp" srcset="img/cfg-mode.webp"><img src="img/cfg-mode.png" loading="lazy" decoding="async" alt="Конфигуратор: режим работы" width="1104" height="752"></picture></div><figcaption>Режим работы.</figcaption></figure>
+  <figure class="shot" style="max-width:640px;margin-inline:auto"><div class="frame"><picture><source type="image/webp" srcset="img/cfg-mode.webp"><img src="img/cfg-mode.png" loading="lazy" decoding="async" alt="Конфигуратор: режим работы" width="1104" height="752"></picture></div><figcaption>Режим работы.</figcaption></figure>
 </section>
 
 <!-- 16 -->
@@ -501,83 +514,17 @@ Get-ChildItem $dst -Filter 'doportal-*.dump' |
 
 </main>
 
-<button type="button" class="to-top screen-only" id="to-top" aria-label="Наверх" style="position:fixed;right:18px;bottom:18px;z-index:40;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--paper);color:var(--ink);font-size:1.2rem;cursor:pointer;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:opacity .2s">&#8593;</button>
+<div class="read-progress screen-only" id="read-progress" aria-hidden="true"></div>
+<button type="button" class="to-top screen-only" id="to-top" aria-label="Наверх">&#8593;</button>
 
-<!-- Просмотр снимков: клик по картинке — на весь экран -->
-<style>
-.shot img { cursor: zoom-in; }
-.shot img:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
-.zoom { position: fixed; inset: 0; z-index: 100; background: rgba(9, 12, 20, .9); overflow: auto; cursor: zoom-out;
-  padding: calc(env(safe-area-inset-top, 0px) + 56px) max(16px, 3vw) calc(env(safe-area-inset-bottom, 0px) + 24px);
-  display: grid; justify-items: center; align-content: start; gap: 12px; }
-.zoom[hidden] { display: none; }
-.zoom img { display: block; width: auto; max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 12px 48px rgba(0, 0, 0, .5); background: #fff; }
-.zoom p { margin: 0; color: #e5e9f0; font-size: .95rem; text-align: center; max-width: 80ch; }
-.zoom button { position: fixed; top: calc(env(safe-area-inset-top, 0px) + 12px); right: 16px; width: 40px; height: 40px; border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, .35); background: rgba(255, 255, 255, .12); color: #fff; font-size: 22px; line-height: 1; cursor: pointer; }
-.zoom button:hover, .zoom button:focus-visible { background: rgba(255, 255, 255, .25); outline: none; }
-@media (prefers-reduced-motion: no-preference) { .zoom:not([hidden]) { animation: zoom-in .15s ease-out; } }
-@keyframes zoom-in { from { opacity: 0; } to { opacity: 1; } }
-@media print { .zoom { display: none !important; } }
-</style>
 <div class="zoom" id="zoom" hidden role="dialog" aria-modal="true" aria-label="Снимок экрана">
   <button type="button" id="zoom-close" aria-label="Закрыть">×</button>
+  <button type="button" id="zoom-prev" class="zoom-nav zoom-prev" aria-label="Предыдущий снимок">&#8249;</button>
+  <button type="button" id="zoom-next" class="zoom-nav zoom-next" aria-label="Следующий снимок">&#8250;</button>
+  <span class="zoom-count" id="zoom-count" aria-hidden="true"></span>
   <img id="zoom-img" alt="">
   <p id="zoom-cap"></p>
 </div>
-<script>
-(function () {
-  var box = document.getElementById('zoom'), img = document.getElementById('zoom-img'),
-      cap = document.getElementById('zoom-cap'), last = null;
-  function open(src) {
-    last = src;
-    img.src = src.currentSrc || src.src;
-    img.alt = src.alt;
-    var fc = src.closest('figure') && src.closest('figure').querySelector('figcaption');
-    cap.textContent = fc ? fc.textContent : '';
-    box.hidden = false;
-    box.scrollTop = 0;
-    document.body.style.overflow = 'hidden';
-    document.getElementById('zoom-close').focus();
-  }
-  function close() {
-    box.hidden = true;
-    document.body.style.overflow = '';
-    if (last) last.focus();
-  }
-  var tipId = 'zoom-hint';
-  var tip = document.createElement('span'); tip.id = tipId; tip.hidden = true;
-  tip.textContent = 'Нажмите, чтобы увеличить'; document.body.appendChild(tip);
-  document.querySelectorAll('.shot img').forEach(function (el) {
-    el.tabIndex = 0;
-    el.setAttribute('role', 'button');
-    el.setAttribute('aria-describedby', tipId);
-    el.addEventListener('click', function () { open(el); });
-    el.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(el); }
-    });
-  });
-  box.addEventListener('click', function (e) { if (e.target === box) close(); });
-  var closeBtn = document.getElementById('zoom-close');
-  closeBtn.addEventListener('click', close);
-  document.addEventListener('keydown', function (e) {
-    if (box.hidden) return;
-    if (e.key === 'Escape') { close(); return; }
-    if (e.key === 'Tab') { e.preventDefault(); closeBtn.focus(); }
-  });
-})();
-</script>
-<script>
-(function () {
-  var btn = document.getElementById('to-top');
-  if (btn) {
-    btn.classList.add('screen-only');
-    var toggle = function () { btn.style.opacity = window.scrollY > 800 ? '1' : '0'; btn.style.pointerEvents = window.scrollY > 800 ? 'auto' : 'none'; };
-    window.addEventListener('scroll', toggle, { passive: true }); toggle();
-    btn.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
-  }
-})();
-</script>
-<style>@media print { #to-top { display: none !important; } }</style>
+<script src="doportal.js" defer></script>
 </body>
 </html>
