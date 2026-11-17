@@ -13,220 +13,72 @@
 <meta property="og:title" content="DoПортал — портал проектного института">
 <meta property="og:description" content="DoПортал — корпоративный портал проектного института: корреспонденция, объекты, задания ГИП, нормоконтроль, выпуск и охрана труда. Вход через Active Directory.">
 <meta property="og:url" content="https://dioniday.dev/doportal/">
-<meta property="og:image" content="https://dioniday.dev/doportal/img/home.jpg">
+<meta property="og:image" content="https://dioniday.dev/doportal/img/home.webp">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://dioniday.dev/doportal/img/home.webp">
+<meta name="theme-color" content="#2457d6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f141d" media="(prefers-color-scheme: dark)">
 <title>DoПортал — портал проектного института</title>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "DoПортал",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Windows Server, IIS",
+  "description": "Корпоративный портал проектного института: корреспонденция, объекты, задания ГИП, нормоконтроль, выпуск документации и охрана труда. Вход через Active Directory.",
+  "url": "https://dioniday.dev/doportal/",
+  "image": "https://dioniday.dev/doportal/img/home.webp",
+  "offers": { "@type": "Offer", "priceCurrency": "RUB" },
+  "publisher": { "@type": "Organization", "name": "Denis Gazutdinov", "url": "https://dioniday.dev/" }
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800&family=PT+Mono&family=PT+Sans+Narrow:wght@400;700&display=swap">
-<style>
-/* Раскладка: лист проектной документации — одна колонка ~1000px, основная надпись по ГОСТ 2.104 как мотив обложки */
-:root {
-  --paper: #ffffff;
-  --paper-2: #f4f6fa;
-  --ink: #162033;
-  --muted: #5a6478;
-  --line: #d6dbe4;
-  --accent: #2457d6;
-  --accent-soft: #eaf0fd;
-  --ok: #17803d; --ok-bg: #e5f5ea;
-  --warn: #8a5a00; --warn-bg: #fdf1d3;
-  --bad: #b42318; --bad-bg: #fde8e6;
-  --fill: #fff1b8; --fill-ink: #5c4300;
-  --shadow: 0 1px 2px rgba(22,32,51,.06), 0 8px 24px rgba(22,32,51,.08);
-  --f-body: "Golos Text", "Segoe UI", system-ui, sans-serif;
-  --f-mono: "PT Mono", "Consolas", monospace;
-  --f-narrow: "PT Sans Narrow", "Arial Narrow", sans-serif;
-  color-scheme: light;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --paper: #0f141d; --paper-2: #161d29; --ink: #e5e9f0; --muted: #9aa4b7; --line: #2a3344;
-    --accent: #7ea3ff; --accent-soft: #1a2442;
-    --ok: #6fd391; --ok-bg: #12301f; --warn: #f2c66b; --warn-bg: #3a2c0c; --bad: #ff8f84; --bad-bg: #3b1714;
-    --fill: #4b3c0c; --fill-ink: #ffe28a; --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --paper: #0f141d; --paper-2: #161d29; --ink: #e5e9f0; --muted: #9aa4b7; --line: #2a3344;
-  --accent: #7ea3ff; --accent-soft: #1a2442;
-  --ok: #6fd391; --ok-bg: #12301f; --warn: #f2c66b; --warn-bg: #3a2c0c; --bad: #ff8f84; --bad-bg: #3b1714;
-  --fill: #4b3c0c; --fill-ink: #ffe28a; --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
-  color-scheme: dark;
-}
-
-* { box-sizing: border-box; }
-body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
-.doc { max-width: 1040px; margin: 0 auto; padding-inline: max(16px, 4vw); padding-block: 40px 64px; }
-h1, h2, h3 { line-height: 1.15; text-wrap: balance; margin: 0; }
-h2 { font-size: clamp(1.6rem, 3.2vw, 2.2rem); font-weight: 700; letter-spacing: -.005em; }
-h3 { font-size: 1.15rem; font-weight: 700; }
-p { margin: 0; max-width: 68ch; }
-.muted { color: var(--muted); }
-.mono { font-variant-numeric: tabular-nums; font-weight: 500; white-space: nowrap; }  /* шифры в тексте — тем же шрифтом, моноширинный разрежал бы строку */
-.eyebrow { font-family: var(--f-narrow); text-transform: uppercase; letter-spacing: .08em; font-size: .85rem; color: var(--accent); font-weight: 700; }
-.fill { background: var(--fill); color: var(--fill-ink); padding: 0 .3em; border-radius: 3px; border-bottom: 1px dashed currentColor; white-space: nowrap; }
-a { color: var(--accent); }
-.btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 16px; border-radius: 8px; border: 1px solid var(--line); color: var(--ink); text-decoration: none; font-weight: 600; font-size: .95rem; background: var(--paper); }
-.btn:hover { border-color: var(--accent); color: var(--accent); }
-.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--paper); }
-.btn.primary:hover { color: var(--paper); filter: brightness(1.08); }
-.btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
-@media print { .btn { display: none; } }
-
-section.chapter { padding-block: 56px 8px; border-top: 1px solid var(--line); display: grid; gap: 22px; }
-section.chapter:first-of-type { border-top: 0; }
-.chapter-head { display: grid; gap: 10px; }
-section.chapter > * { min-width: 0; }
-.chapter-head .num { font-family: var(--f-mono); color: var(--muted); font-size: .9rem; }
-
-/* ===== Обложка ===== */
-.cover { display: grid; gap: 28px; padding-bottom: 40px; }
-.cover-top { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; align-items: baseline; }
-.brand { font-weight: 700; font-size: 1.15rem; color: var(--accent); letter-spacing: -.01em; }
-.cover h1 { font-size: clamp(2.4rem, 6.4vw, 4.4rem); font-weight: 700; letter-spacing: -.01em; line-height: 1.08; }
-.cover h1 span { color: var(--accent); display: block; }
-.cover .lead { font-size: clamp(1.05rem, 2vw, 1.3rem); color: var(--muted); max-width: 46ch; }
-.for-whom { display: flex; gap: 10px 28px; flex-wrap: wrap; font-size: .98rem; }
-.for-whom b { font-weight: 600; }
-
-.shot { margin: 0; display: grid; gap: 8px; min-width: 0; }
-.shot .frame { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--paper-2); box-shadow: var(--shadow); }
-.shot img { display: block; width: 100%; height: auto; }
-.shot figcaption { font-size: .88rem; color: var(--muted); }
-.shot.crop .frame { max-height: 560px; }
-.shot.crop img { object-fit: cover; object-position: top; }
-
-/* Основная надпись (мотив ГОСТ 2.104) */
-.stamp { display: grid; grid-template-columns: 1.1fr 1.6fr 2.4fr .8fr .8fr;
-  grid-template-areas: "dev exec title stage sheets" "cust cust title code code";
-  border: 2px solid var(--ink); font-family: var(--f-narrow); font-size: .95rem; }
-.stamp > div { border-right: 1px solid var(--ink); border-bottom: 1px solid var(--ink); padding: 4px 8px; min-width: 0; }
-.stamp .lbl { color: var(--muted); font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; display: block; }
-.s-dev { grid-area: dev; } .s-exec { grid-area: exec; } .s-stage { grid-area: stage; } .s-cust { grid-area: cust; }
-.stamp .s-sheets { grid-area: sheets; border-right: 0; }
-.stamp .title { grid-area: title; border-bottom: 0; display: flex; flex-direction: column; justify-content: center; font-family: var(--f-body); font-weight: 700; font-size: 1.05rem; }
-.stamp .code { grid-area: code; border-right: 0; border-bottom: 0; display: grid; place-items: center; font-family: var(--f-mono); font-size: 1.1rem; letter-spacing: .04em; white-space: nowrap; }
-.stamp .s-cust { border-bottom: 0; }
-
-/* ===== Сравнение «было/стало» ===== */
-.compare { width: 100%; border-collapse: collapse; font-size: .97rem; }
-.compare th, .compare td { text-align: left; vertical-align: top; padding: 12px 14px; border-bottom: 1px solid var(--line); }
-.compare th { font-family: var(--f-narrow); text-transform: uppercase; letter-spacing: .08em; font-size: .82rem; color: var(--muted); font-weight: 700; }
-.compare td:first-child { font-weight: 600; width: 22%; }
-.compare td:nth-child(2) { color: var(--muted); width: 33%; }
-.table-wrap { overflow-x: auto; }
-
-.facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
-.facts > div { padding: 18px 18px 16px; border-right: 1px solid var(--line); display: grid; gap: 4px; align-content: start; }
-.facts > div:last-child { border-right: 0; }
-.facts b { font-size: 1.9rem; font-weight: 700; letter-spacing: 0; color: var(--accent); line-height: 1.1; }
-.facts span { font-size: .9rem; color: var(--muted); }
-
-/* ===== Сквозной процесс ===== */
-.flow { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0; counter-reset: step; }
-.flow li { position: relative; padding: 14px 14px 14px 0; display: grid; gap: 6px; align-content: start; counter-increment: step; min-width: 0; }
-.flow li::before { content: counter(step); font-family: var(--f-mono); width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: var(--accent); color: var(--paper); font-size: .9rem; position: relative; z-index: 1; }
-.flow li::after { content: ""; position: absolute; top: 29px; left: 30px; right: 0; height: 2px; background: var(--line); }
-.flow li:last-child::after { display: none; }
-.flow b { font-size: .98rem; }
-.flow span { font-size: .85rem; color: var(--muted); line-height: 1.4; }
-
-/* ===== Модули ===== */
-.module { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 28px; align-items: start; }
-.module.wide { grid-template-columns: 1fr; }
-.module .text { display: grid; gap: 14px; }
-.module ul, .list { margin: 0; padding-left: 1.1em; display: grid; gap: 7px; }
-.module li::marker, .list li::marker { color: var(--accent); }
-.tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
-.chip { display: inline-block; font-size: .8rem; padding: 1px 9px; border-radius: 999px; background: var(--paper-2); border: 1px solid var(--line); white-space: nowrap; }
-.chip.ok { background: var(--ok-bg); color: var(--ok); border-color: transparent; }
-.chip.warn { background: var(--warn-bg); color: var(--warn); border-color: transparent; }
-.chip.bad { background: var(--bad-bg); color: var(--bad); border-color: transparent; }
-.chip.acc { background: var(--accent-soft); color: var(--accent); border-color: transparent; }
-.two-shots { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 3fr); gap: 20px; align-items: start; }
-
-.note { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: .95rem; }
-.note.warn { border-color: var(--warn); background: var(--warn-bg); }
-
-/* ===== Роли ===== */
-.roles { width: 100%; border-collapse: collapse; font-size: .94rem; }
-.roles th, .roles td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
-.roles th { font-family: var(--f-narrow); text-transform: uppercase; letter-spacing: .08em; font-size: .8rem; color: var(--muted); }
-.roles td:first-child { font-weight: 600; white-space: nowrap; }
-
-.grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
-.grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
-.card { border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: grid; gap: 8px; align-content: start; background: var(--paper); }
-.card h3 { font-size: 1.02rem; }
-.card p { font-size: .93rem; color: var(--muted); }
-
-/* ===== Этапы и стоимость ===== */
-.phases { list-style: none; margin: 0 0 0 14px; padding: 0; display: grid; gap: 0; border-left: 2px solid var(--line); counter-reset: ph; }
-.phases li { position: relative; padding: 4px 0 18px 26px; display: grid; gap: 3px; counter-increment: ph; }
-.phases li::before { content: counter(ph); position: absolute; left: -13px; top: 2px; width: 24px; height: 24px; border-radius: 50%; background: var(--paper); border: 2px solid var(--accent); color: var(--accent); font-family: var(--f-mono); font-size: .8rem; display: grid; place-items: center; }
-.phases .when { font-family: var(--f-mono); font-size: .85rem; color: var(--muted); }
-.price { width: 100%; border-collapse: collapse; font-size: .97rem; }
-.price th, .price td { padding: 12px 14px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
-.price th { font-family: var(--f-narrow); text-transform: uppercase; letter-spacing: .08em; font-size: .8rem; color: var(--muted); }
-.price td.sum, .price th.sum { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
-.price tfoot td { font-weight: 700; border-bottom: 2px solid var(--ink); }
-
-.contacts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
-.contacts div { display: grid; gap: 2px; }
-.contacts .lbl { font-family: var(--f-narrow); text-transform: uppercase; letter-spacing: .08em; font-size: .78rem; color: var(--muted); }
-
-footer.end { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--line); font-size: .85rem; color: var(--muted); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-
-@media screen and (max-width: 860px) {
-  .module, .two-shots, .grid-3, .grid-2, .contacts { grid-template-columns: 1fr; }
-  .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .facts > div:nth-child(2) { border-right: 0; }
-  .facts > div:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
-  .flow { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 8px; }
-  .flow li::after { display: none; }
-  .stamp { grid-template-columns: 1fr 1fr; grid-template-areas: "dev exec" "title title" "stage sheets" "cust cust" "code code"; }
-  .stamp .title, .stamp .s-cust { border-bottom: 1px solid var(--ink); border-right: 0; }
-  .stamp .s-exec { border-right: 0; }
-  .stamp .code { padding-block: 8px; }
-}
-@media (prefers-reduced-motion: no-preference) { a { transition: color .15s; } }
-
-/* ===== Печать в PDF (A4) ===== */
-@page { size: A4; margin: 14mm 14mm 16mm; }
-@media print {
-  :root, :root[data-theme="dark"] {
-    --paper: #fff; --paper-2: #f4f6fa; --ink: #162033; --muted: #5a6478; --line: #d6dbe4; --accent: #2457d6; --accent-soft: #eaf0fd;
-    --ok: #17803d; --ok-bg: #e5f5ea; --warn: #8a5a00; --warn-bg: #fdf1d3; --bad: #b42318; --bad-bg: #fde8e6; --fill: #fff1b8; --fill-ink: #5c4300;
-    --shadow: none; color-scheme: light;
-  }
-  body { font-size: 10.5pt; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  .doc { max-width: none; padding: 0; }
-  .cover { gap: 16px; padding-bottom: 0; }
-  .cover h1 { font-size: 34pt; }
-  .screen-only { display: none !important; }
-  .offer-grid { grid-template-columns: 1fr !important; }
-  .flow b { font-size: 9pt; } .flow span { font-size: 8pt; }
-  section.chapter { break-before: page; border-top: 0; padding-top: 0; }
-  section.chapter.keep { break-before: auto; padding-top: 28px; border-top: 1px solid var(--line); }
-  .price, .module, .shot, .card, .roles tr, .price tr, .phases li, .flow, .facts, .stamp, .compare tr { break-inside: avoid; }
-  .shot .frame { box-shadow: none; }
-  .shot.crop .frame { max-height: 125mm; }
-  .cover .shot .frame { max-height: 98mm; }
-  .cover .shot img, .two-shots .shot img { object-fit: cover; object-position: top; }
-  .two-shots .shot .frame { max-height: 150mm; }
-  .facts b { font-size: 20pt; }
-  .stamp .code { font-size: 10pt; letter-spacing: .02em; }
-  h2 { font-size: 20pt; }
-  .module { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
-  a { color: var(--ink); text-decoration: none; }
-  footer.end { margin-top: 12px; padding-top: 8px; break-inside: avoid; }
-  #contacts { gap: 14px; }
-}
-</style>
+<link rel="stylesheet" href="doportal.css">
 </head>
 <body>
+
+<style>
+.toc-nav { position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--paper) 92%, transparent); backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--line); display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; padding: 0 max(16px, calc((100vw - 1040px)/2 + 4vw)); }
+.toc-nav::-webkit-scrollbar { display: none; }
+.toc-nav a { flex: none; padding: 10px 12px; font-size: .88rem; font-weight: 600; color: var(--muted); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; }
+.toc-nav a:hover, .toc-nav a[aria-current="true"] { color: var(--accent); border-bottom-color: var(--accent); }
+.toc-nav a:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
+@media print { .toc-nav { display: none !important; } }
+section.chapter { scroll-margin-top: 56px; }
+.to-top { position: fixed; right: 18px; bottom: 18px; z-index: 40; width: 44px; height: 44px; border-radius: 50%;
+  border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 1.2rem; cursor: pointer; box-shadow: var(--shadow);
+  opacity: 0; pointer-events: none; transition: opacity .2s; }
+.to-top.show { opacity: 1; pointer-events: auto; }
+.to-top:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+@media screen and (max-width: 640px) {
+  .compare.card-table thead, .roles.card-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .compare.card-table tr, .roles.card-table tr { display: grid; gap: 3px; border-bottom: 1px solid var(--line); padding: 12px 0; break-inside: avoid; }
+  .compare.card-table td, .roles.card-table td { border: 0; padding: 2px 0; width: auto !important; }
+  .compare.card-table td:first-child { font-size: 1rem; }
+  .compare.card-table td:nth-child(2)::before { content: "Было · "; color: var(--muted); font-weight: 600; }
+  .compare.card-table td:nth-child(3)::before { content: "Стало · "; color: var(--ok); font-weight: 600; }
+}
+@media print { .to-top { display: none !important; } }
+</style>
+<nav class="toc-nav screen-only" aria-label="Разделы страницы">
+  <a href="#value">Что меняется</a>
+  <a href="#objects">Объекты</a>
+  <a href="#tasks">Задания</a>
+  <a href="#letters">Письма</a>
+  <a href="#nk">Нормоконтроль</a>
+  <a href="#expertise">Экспертиза</a>
+  <a href="#ot">Охрана труда</a>
+  <a href="#roles">Роли</a>
+  <a href="#trust">Безопасность</a>
+  <a href="#admin">Админу</a>
+  <a href="#offer">Внедрение</a>
+  <a href="#contacts">Контакты</a>
+</nav>
+
 <main class="doc">
 
 <!-- ===================== Обложка ===================== -->
@@ -249,7 +101,7 @@ footer.end { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--li
   </div>
 
   <figure class="shot">
-    <div class="frame"><img src="img/home.jpg" alt="Главная страница портала: сводка по объектам, заданиям, письмам и удостоверениям" width="1600" height="1000"></div>
+    <div class="frame"><picture><source type="image/webp" srcset="img/home.webp"><img src="img/home.jpg" alt="Главная страница портала: сводка по объектам, заданиям, письмам и удостоверениям" width="1600" height="1000" fetchpriority="high" decoding="async"></picture></div>
     <figcaption>Главная страница: что в работе и что требует внимания именно этому сотруднику.</figcaption>
   </figure>
 
@@ -258,7 +110,7 @@ footer.end { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--li
     <div class="s-exec"><span class="lbl">Исполнитель</span>dioniday.dev</div>
     <div class="title">DoПортал<span class="muted" style="font-weight:400;font-size:.9rem">Корпоративный портал проектного института</span></div>
     <div class="s-stage"><span class="lbl">Стадия</span>П</div>
-    <div class="s-sheets"><span class="lbl">Листов</span>20</div>
+    <div class="s-sheets"><span class="lbl">Листов</span>11</div>
     <div class="s-cust"><span class="lbl">Для</span>проектных институтов</div>
     <div class="code">DOPORTAL-КП-2026</div>
   </div>
@@ -280,7 +132,7 @@ footer.end { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--li
   </div>
 
   <div class="table-wrap">
-  <table class="compare">
+  <table class="compare card-table">
     <thead><tr><th>Процесс</th><th>Как обычно бывает</th><th>С DoПорталом</th></tr></thead>
     <tbody>
       <tr><td>Входящие письма</td><td>Журнал в Excel, пересылка по почте, неясно, кто исполняет</td><td>Регистрация с уникальным шифром, маршрут по отделам «к исполнению» и «к сведению», отчёт отдела и контрольная дата в карточке</td></tr>
@@ -328,7 +180,7 @@ footer.end { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--li
       </ul>
     </div>
     <figure class="shot crop">
-      <div class="frame"><img src="img/object.jpg" alt="Карточка объекта УНГ.112-26: файлы отделов, исходные данные, отделы-участники" width="1600" height="1333"></div>
+      <div class="frame"><picture><source type="image/webp" srcset="img/object.webp"><img src="img/object.jpg" loading="lazy" decoding="async" alt="Карточка объекта УНГ.112-26: файлы отделов, исходные данные, отделы-участники" width="1600" height="1333"></picture></div>
       <figcaption>Карточка объекта: сверху задания с исполнителями и статусами по отделам, ниже каталоги отделов на диске, исходные данные, участники.</figcaption>
     </figure>
   </div>
@@ -375,12 +227,12 @@ footer.end { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--li
       </ul>
     </div>
     <figure class="shot crop">
-      <div class="frame"><img src="img/task.jpg" alt="Карточка задания с замечаниями ГИП и историей" width="1600" height="1330"></div>
+      <div class="frame"><picture><source type="image/webp" srcset="img/task.webp"><img src="img/task.jpg" loading="lazy" decoding="async" alt="Карточка задания с замечаниями ГИП и историей" width="1600" height="1330"></picture></div>
       <figcaption>Задание отделу ГП: три замечания ГИП, одно устранено, история изменений.</figcaption>
     </figure>
   </div>
   <figure class="shot screen-only">
-    <div class="frame"><img src="img/tasks.jpg" alt="Список заданий с фильтрами и статусами" width="1600" height="1000"></div>
+    <div class="frame"><picture><source type="image/webp" srcset="img/tasks.webp"><img src="img/tasks.jpg" loading="lazy" decoding="async" alt="Список заданий с фильтрами и статусами" width="1600" height="1000"></picture></div>
     <figcaption>Реестр заданий: фильтры по объекту, отделу и статусу, просроченные выделены.</figcaption>
   </figure>
 </section>
@@ -404,12 +256,12 @@ footer.end { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--li
       </ul>
     </div>
     <figure class="shot crop">
-      <div class="frame"><img src="img/letter.jpg" alt="Карточка письма с маршрутизацией и историей движения" width="1600" height="1222"></div>
+      <div class="frame"><picture><source type="image/webp" srcset="img/letter.webp"><img src="img/letter.jpg" loading="lazy" decoding="async" alt="Карточка письма с маршрутизацией и историей движения" width="1600" height="1222"></picture></div>
       <figcaption>Письмо заказчика: закреплено за объектом, направлено в АК к исполнению и в ЭС к сведению.</figcaption>
     </figure>
   </div>
   <figure class="shot screen-only">
-    <div class="frame"><img src="img/letters.jpg" alt="Реестр входящей корреспонденции" width="1600" height="1000"></div>
+    <div class="frame"><picture><source type="image/webp" srcset="img/letters.webp"><img src="img/letters.jpg" loading="lazy" decoding="async" alt="Реестр входящей корреспонденции" width="1600" height="1000"></picture></div>
     <figcaption>Реестр корреспонденции: статусы цветом, контрольные даты, фильтры.</figcaption>
   </figure>
 </section>
@@ -432,12 +284,12 @@ footer.end { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--li
       </ul>
     </div>
     <figure class="shot app">
-      <div class="frame"><img src="img/object-nk.jpg" alt="Панель нормоконтроля в карточке объекта" width="636" height="1212"></div>
+      <div class="frame"><picture><source type="image/webp" srcset="img/object-nk.webp"><img src="img/object-nk.jpg" loading="lazy" decoding="async" alt="Панель нормоконтроля в карточке объекта" width="636" height="1212"></picture></div>
       <figcaption>Панель НК в карточке объекта.</figcaption>
     </figure>
   </div>
   <figure class="shot">
-    <div class="frame"><img src="img/normcontrol.jpg" alt="Очередь нормоконтроля с замечаниями по итерациям" width="1600" height="904"></div>
+    <div class="frame"><picture><source type="image/webp" srcset="img/normcontrol.webp"><img src="img/normcontrol.jpg" loading="lazy" decoding="async" alt="Очередь нормоконтроля с замечаниями по итерациям" width="1600" height="904"></picture></div>
     <figcaption>Рабочее место нормоконтролёра: очередь томов и замечания по итерациям.</figcaption>
   </figure>
   <div class="module">
@@ -454,12 +306,12 @@ footer.end { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--li
       </ul>
     </div>
     <figure class="shot crop">
-      <div class="frame"><img src="img/release-card-open.jpg" alt="Карточка выпуска: ход, состав комплекта с файлами, подготовка к печати" width="1600" height="1410"></div>
+      <div class="frame"><picture><source type="image/webp" srcset="img/release-card-open.webp"><img src="img/release-card-open.jpg" loading="lazy" decoding="async" alt="Карточка выпуска: ход, состав комплекта с файлами, подготовка к печати" width="1600" height="1410"></picture></div>
       <figcaption>Карточка выпуска: ход, состав комплекта с файлами раздела, проверка перед печатью.</figcaption>
     </figure>
   </div>
   <figure class="shot screen-only">
-    <div class="frame"><img src="img/release-done.jpg" alt="Завершённый выпуск с накладной и историей" width="1600" height="1113"></div>
+    <div class="frame"><picture><source type="image/webp" srcset="img/release-done.webp"><img src="img/release-done.jpg" loading="lazy" decoding="async" alt="Завершённый выпуск с накладной и историей" width="1600" height="1113"></picture></div>
     <figcaption>Завершённый выпуск: передача заказчику по накладной и полная история.</figcaption>
   </figure>
 </section>
@@ -482,7 +334,7 @@ footer.end { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--li
       </ul>
     </div>
     <figure class="shot app">
-      <div class="frame"><img src="img/release-xml.jpg" alt="Блок XML пояснительной записки в карточке выпуска: соответствует схеме Минстроя" width="860" height="758"></div>
+      <div class="frame"><picture><source type="image/webp" srcset="img/release-xml.webp"><img src="img/release-xml.jpg" loading="lazy" decoding="async" alt="Блок XML пояснительной записки в карточке выпуска: соответствует схеме Минстроя" width="860" height="758"></picture></div>
       <figcaption>XML ПЗ сформирован и прошёл схему Минстроя.</figcaption>
     </figure>
   </div>
@@ -497,12 +349,12 @@ footer.end { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--li
       </ul>
     </div>
     <figure class="shot crop">
-      <div class="frame"><img src="img/release-signatures.jpg" alt="Подписи УКЭП по файлам комплекта: кто подписал, кого ждём" width="980" height="904"></div>
+      <div class="frame"><picture><source type="image/webp" srcset="img/release-signatures.webp"><img src="img/release-signatures.jpg" loading="lazy" decoding="async" alt="Подписи УКЭП по файлам комплекта: кто подписал, кого ждём" width="980" height="904"></picture></div>
       <figcaption>Кто подписал и кого ждём — по каждому файлу комплекта.</figcaption>
     </figure>
   </div>
   <figure class="shot screen-only">
-    <div class="frame"><img src="img/signing.jpg" alt="Страница «На подпись»: файлы, которые ждут подписи сотрудника" width="1613" height="690"></div>
+    <div class="frame"><picture><source type="image/webp" srcset="img/signing.webp"><img src="img/signing.jpg" loading="lazy" decoding="async" alt="Страница «На подпись»: файлы, которые ждут подписи сотрудника" width="1613" height="690"></picture></div>
     <figcaption>Страница «На подпись»: сотрудник видит только свои файлы.</figcaption>
   </figure>
 </section>
@@ -524,12 +376,12 @@ footer.end { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--li
       </ul>
     </div>
     <figure class="shot crop">
-      <div class="frame"><img src="img/certificates.jpg" alt="Реестр удостоверений по охране труда" width="1600" height="1111"></div>
+      <div class="frame"><picture><source type="image/webp" srcset="img/certificates.webp"><img src="img/certificates.jpg" loading="lazy" decoding="async" alt="Реестр удостоверений по охране труда" width="1600" height="1111"></picture></div>
       <figcaption>Реестр удостоверений: просроченные и истекающие сверху.</figcaption>
     </figure>
   </div>
   <figure class="shot">
-    <div class="frame"><img src="img/calendar.jpg" alt="Календарь переаттестации на 2026 год" width="1600" height="924"></div>
+    <div class="frame"><picture><source type="image/webp" srcset="img/calendar.webp"><img src="img/calendar.jpg" loading="lazy" decoding="async" alt="Календарь переаттестации на 2026 год" width="1600" height="924"></picture></div>
     <figcaption>Календарь переаттестации на год.</figcaption>
   </figure>
 </section>
@@ -542,7 +394,7 @@ footer.end { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--li
     <p class="muted">Сотрудник открывает портал в браузере и сразу оказывается в системе под своей доменной учётной записью. Роли назначаются по группам Active Directory. Роль конкретного человека можно изменить вручную, и AD её больше не перезапишет.</p>
   </div>
   <div class="table-wrap">
-  <table class="roles">
+  <table class="roles card-table">
     <thead><tr><th>Роль</th><th>Что делает в портале</th></tr></thead>
     <tbody>
       <tr><td>Администратор</td><td>Полный доступ, справочники, матрица прав, журнал администрирования, фоновые задачи</td></tr>
@@ -558,11 +410,11 @@ footer.end { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--li
   </div>
   <div class="grid-2">
     <figure class="shot">
-      <div class="frame"><img src="img/permissions.jpg" alt="Матрица прав доступа по ролям" width="1600" height="1000"></div>
+      <div class="frame"><picture><source type="image/webp" srcset="img/permissions.webp"><img src="img/permissions.jpg" loading="lazy" decoding="async" alt="Матрица прав доступа по ролям" width="1600" height="1000"></picture></div>
       <figcaption>Матрица прав: какие разделы видит и редактирует каждая роль. Меняется без программиста.</figcaption>
     </figure>
     <figure class="shot app">
-      <div class="frame"><img src="img/cfg-ad.png" alt="Сопоставление групп Active Directory и ролей портала в конфигураторе" width="1104" height="752"></div>
+      <div class="frame"><picture><source type="image/webp" srcset="img/cfg-ad.webp"><img src="img/cfg-ad.png" loading="lazy" decoding="async" alt="Сопоставление групп Active Directory и ролей портала в конфигураторе" width="1104" height="752"></picture></div>
       <figcaption>Группы AD → роли портала в конфигураторе.</figcaption>
     </figure>
   </div>
@@ -587,7 +439,7 @@ footer.end { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--li
   </div>
   <div class="note">Подробно о защите — в приложении <a href="security.html"><b>«Безопасность DoПортала»</b></a>: где хранятся данные, кто что видит, что фиксируется, как проверить это самостоятельно. Там же предложение независимой проверки: проверяющего выбираете и оплачиваете вы, найденные замечания исправляются без доплаты.</div>
   <figure class="shot screen-only">
-    <div class="frame"><img src="img/home-dark.jpg" alt="Главная страница в тёмной теме" width="1600" height="1000"></div>
+    <div class="frame"><picture><source type="image/webp" srcset="img/home-dark.webp"><img src="img/home-dark.jpg" loading="lazy" decoding="async" alt="Главная страница в тёмной теме" width="1600" height="1000"></picture></div>
     <figcaption>Светлая и тёмная тема: интерфейс на русском, для широких мониторов и ноутбуков.</figcaption>
   </figure>
 </section>
@@ -600,8 +452,8 @@ footer.end { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--li
     <p class="muted">Настройка выполняется в конфигураторе — отдельной программе на сервере. Подробная инструкция по установке — в <a href="admin-guide.html">руководстве системного администратора</a>.</p>
   </div>
   <div class="grid-2">
-    <figure class="shot app"><div class="frame"><img src="img/cfg-overview.png" alt="Конфигуратор: обзор и диагностика" width="1104" height="752"></div><figcaption>Диагностика: база, хранилище, AD, AutoCAD, IIS и доступность портала одной кнопкой.</figcaption></figure>
-    <figure class="shot app"><div class="frame"><img src="img/cfg-users.png" alt="Конфигуратор: пользователи и роли" width="1104" height="752"></div><figcaption>Пользователи и роли: совмещение ролей, ручная настройка поверх AD.</figcaption></figure>
+    <figure class="shot app"><div class="frame"><picture><source type="image/webp" srcset="img/cfg-overview.webp"><img src="img/cfg-overview.png" loading="lazy" decoding="async" alt="Конфигуратор: обзор и диагностика" width="1104" height="752"></picture></div><figcaption>Диагностика: база, хранилище, AD, AutoCAD, IIS и доступность портала одной кнопкой.</figcaption></figure>
+    <figure class="shot app"><div class="frame"><picture><source type="image/webp" srcset="img/cfg-users.webp"><img src="img/cfg-users.png" loading="lazy" decoding="async" alt="Конфигуратор: пользователи и роли" width="1104" height="752"></picture></div><figcaption>Пользователи и роли: совмещение ролей, ручная настройка поверх AD.</figcaption></figure>
   </div>
   <div class="module">
     <div class="text">
@@ -620,12 +472,12 @@ footer.end { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--li
       <p class="muted">Кто какой справочник правит, задаётся в матрице прав: по умолчанию заказчиков и тематики ведёт делопроизводитель, типы заданий и подрядчиков — ГИП, праздники и типы удостоверений — офис-менеджер, всё — администратор. Записи не удаляются, а выводятся из употребления: старые документы продолжают на них ссылаться.</p>
     </div>
     <figure class="shot crop">
-      <div class="frame"><img src="img/directories.jpg" alt="Справочники портала: отделы с руководителем и ВРИО" width="1600" height="1000"></div>
+      <div class="frame"><picture><source type="image/webp" srcset="img/directories.webp"><img src="img/directories.jpg" loading="lazy" decoding="async" alt="Справочники портала: отделы с руководителем и ВРИО" width="1600" height="1000"></picture></div>
       <figcaption>Справочники: вкладки по видам, правка прямо в таблице.</figcaption>
     </figure>
   </div>
   <div class="table-wrap">
-  <table class="roles">
+  <table class="roles card-table">
     <thead><tr><th>Компонент</th><th>Требования</th></tr></thead>
     <tbody>
       <tr><td>Сервер портала</td><td>Windows Server 2019 или новее (подходит виртуальная машина), IIS с проверкой подлинности Windows и протоколом WebSocket, .NET 10 Hosting Bundle. Рекомендуется 4 ядра, 8 ГБ ОЗУ.</td></tr>
@@ -639,7 +491,7 @@ footer.end { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--li
   </div>
 </section>
 
-<!-- ===================== 10. Внедрение и стоимость ===================== -->
+<!-- ===================== 11. Внедрение и стоимость ===================== -->
 <section class="chapter" id="offer">
   <div class="chapter-head">
     <span class="num">11</span>
@@ -663,8 +515,8 @@ footer.end { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--li
   
 
   <div style="display:grid;gap:12px">
-    <h3>Развитие портала</h3>
-    <p class="muted">Доработки, которые можно включить в план по согласованию с заказчиком:</p>
+    <h3>Дорожная карта</h3>
+    <p class="muted">Направления доработок, которые можно включить в план по запросу заказчика:</p>
     <ul class="list">
       <li>Дублирование уведомлений на корпоративную почту.</li>
       <li>Полнотекстовый поиск по содержимому вложений.</li>
@@ -692,6 +544,8 @@ footer.end { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--li
 </section>
 
 </main>
+
+<button type="button" class="to-top screen-only" id="to-top" aria-label="Наверх">&#8593;</button>
 
 <!-- Просмотр снимков: клик по картинке — на весь экран -->
 <style>
@@ -735,17 +589,52 @@ footer.end { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--li
     document.body.style.overflow = '';
     if (last) last.focus();
   }
+  var tipId = 'zoom-hint';
+  var tip = document.createElement('span'); tip.id = tipId; tip.hidden = true;
+  tip.textContent = 'Нажмите, чтобы увеличить'; document.body.appendChild(tip);
   document.querySelectorAll('.shot img').forEach(function (el) {
     el.tabIndex = 0;
     el.setAttribute('role', 'button');
-    el.title = 'Нажмите, чтобы увеличить';
+    el.setAttribute('aria-describedby', tipId);
     el.addEventListener('click', function () { open(el); });
     el.addEventListener('keydown', function (e) {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(el); }
     });
   });
-  box.addEventListener('click', close);
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !box.hidden) close(); });
+  box.addEventListener('click', function (e) { if (e.target === box) close(); });
+  var closeBtn = document.getElementById('zoom-close');
+  closeBtn.addEventListener('click', close);
+  document.addEventListener('keydown', function (e) {
+    if (box.hidden) return;
+    if (e.key === 'Escape') { close(); return; }
+    if (e.key === 'Tab') { e.preventDefault(); closeBtn.focus(); }
+  });
+})();
+</script>
+<script>
+(function () {
+  var nav = document.querySelector('.toc-nav');
+  if (nav) {
+    var links = Array.prototype.slice.call(nav.querySelectorAll('a[href^="#"]'));
+    var map = {};
+    links.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          links.forEach(function (a) { a.removeAttribute('aria-current'); });
+          var a = map[en.target.id];
+          if (a) { a.setAttribute('aria-current', 'true'); a.scrollIntoView({ block: 'nearest', inline: 'nearest' }); }
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    document.querySelectorAll('section.chapter[id]').forEach(function (sec) { obs.observe(sec); });
+  }
+  var btn = document.getElementById('to-top');
+  if (btn) {
+    var toggle = function () { btn.classList.toggle('show', window.scrollY > 800); };
+    window.addEventListener('scroll', toggle, { passive: true }); toggle();
+    btn.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  }
 })();
 </script>
 </body>

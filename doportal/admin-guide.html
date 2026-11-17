@@ -15,6 +15,9 @@
 <meta property="og:url" content="https://dioniday.dev/doportal/admin-guide.html">
 <meta property="og:image" content="https://dioniday.dev/doportal/img/cfg-overview.png">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://dioniday.dev/doportal/img/cfg-overview.webp">
+<meta name="theme-color" content="#2457d6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f141d" media="(prefers-color-scheme: dark)">
 <title>DoПортал — руководство администратора</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -371,10 +374,10 @@ Set-WebConfigurationProperty -PSPath IIS:\ -Location DoPortal `
     <li>В портале под администратором заполните справочники: отделы с руководителем и ВРИО, заказчики, месторождения, типы объектов с шаблонами папок, праздники, шаблоны документов.</li>
   </ol>
   <div class="grid-2">
-    <figure class="shot"><div class="frame"><img src="img/cfg-overview.png" alt="Конфигуратор: обзор и диагностика" width="1104" height="752"></div><figcaption>Обзор и диагностика: восемь проверок и перезапуск пула.</figcaption></figure>
-    <figure class="shot"><div class="frame"><img src="img/cfg-storage.png" alt="Конфигуратор: хранилище и AutoCAD" width="1104" height="752"></div><figcaption>Хранилище и AutoCAD.</figcaption></figure>
-    <figure class="shot"><div class="frame"><img src="img/cfg-ad.png" alt="Конфигуратор: сопоставление групп AD и ролей" width="1104" height="752"></div><figcaption>Active Directory: группы → роли.</figcaption></figure>
-    <figure class="shot"><div class="frame"><img src="img/cfg-users.png" alt="Конфигуратор: пользователи и роли" width="1104" height="752"></div><figcaption>Пользователи и роли: ручная настройка поверх AD.</figcaption></figure>
+    <figure class="shot"><div class="frame"><picture><source type="image/webp" srcset="img/cfg-overview.webp"><img src="img/cfg-overview.png" loading="lazy" decoding="async" alt="Конфигуратор: обзор и диагностика" width="1104" height="752"></picture></div><figcaption>Обзор и диагностика: восемь проверок и перезапуск пула.</figcaption></figure>
+    <figure class="shot"><div class="frame"><picture><source type="image/webp" srcset="img/cfg-storage.webp"><img src="img/cfg-storage.png" loading="lazy" decoding="async" alt="Конфигуратор: хранилище и AutoCAD" width="1104" height="752"></picture></div><figcaption>Хранилище и AutoCAD.</figcaption></figure>
+    <figure class="shot"><div class="frame"><picture><source type="image/webp" srcset="img/cfg-ad.webp"><img src="img/cfg-ad.png" loading="lazy" decoding="async" alt="Конфигуратор: сопоставление групп AD и ролей" width="1104" height="752"></picture></div><figcaption>Active Directory: группы → роли.</figcaption></figure>
+    <figure class="shot"><div class="frame"><picture><source type="image/webp" srcset="img/cfg-users.webp"><img src="img/cfg-users.png" loading="lazy" decoding="async" alt="Конфигуратор: пользователи и роли" width="1104" height="752"></picture></div><figcaption>Пользователи и роли: ручная настройка поверх AD.</figcaption></figure>
   </div>
 </section>
 
@@ -456,7 +459,7 @@ Get-ChildItem $dst -Filter 'doportal-*.dump' |
   <span class="num">15</span>
   <h2>Тестовый режим</h2>
   <p>Конфигуратор → «Режим работы» → «Тестовый режим». Портал переключается на отдельную базу (<code>doportal_test</code>) и отдельную папку хранилища, не обращается к AD и заводит пользователей локально. На каждой странице видна полоса «Тестовый режим». Используйте его для обучения и проверки обновлений; для возврата снимите флажок, сохраните и перезапустите портал.</p>
-  <figure class="shot" style="max-width:640px"><div class="frame"><img src="img/cfg-mode.png" alt="Конфигуратор: режим работы" width="1104" height="752"></div><figcaption>Режим работы.</figcaption></figure>
+  <figure class="shot" style="max-width:640px"><div class="frame"><picture><source type="image/webp" srcset="img/cfg-mode.webp"><img src="img/cfg-mode.png" loading="lazy" decoding="async" alt="Конфигуратор: режим работы" width="1104" height="752"></picture></div><figcaption>Режим работы.</figcaption></figure>
 </section>
 
 <!-- 16 -->
@@ -497,6 +500,8 @@ Get-ChildItem $dst -Filter 'doportal-*.dump' |
 </section>
 
 </main>
+
+<button type="button" class="to-top screen-only" id="to-top" aria-label="Наверх" style="position:fixed;right:18px;bottom:18px;z-index:40;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--paper);color:var(--ink);font-size:1.2rem;cursor:pointer;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:opacity .2s">&#8593;</button>
 
 <!-- Просмотр снимков: клик по картинке — на весь экран -->
 <style>
@@ -540,18 +545,39 @@ Get-ChildItem $dst -Filter 'doportal-*.dump' |
     document.body.style.overflow = '';
     if (last) last.focus();
   }
+  var tipId = 'zoom-hint';
+  var tip = document.createElement('span'); tip.id = tipId; tip.hidden = true;
+  tip.textContent = 'Нажмите, чтобы увеличить'; document.body.appendChild(tip);
   document.querySelectorAll('.shot img').forEach(function (el) {
     el.tabIndex = 0;
     el.setAttribute('role', 'button');
-    el.title = 'Нажмите, чтобы увеличить';
+    el.setAttribute('aria-describedby', tipId);
     el.addEventListener('click', function () { open(el); });
     el.addEventListener('keydown', function (e) {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(el); }
     });
   });
-  box.addEventListener('click', close);
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !box.hidden) close(); });
+  box.addEventListener('click', function (e) { if (e.target === box) close(); });
+  var closeBtn = document.getElementById('zoom-close');
+  closeBtn.addEventListener('click', close);
+  document.addEventListener('keydown', function (e) {
+    if (box.hidden) return;
+    if (e.key === 'Escape') { close(); return; }
+    if (e.key === 'Tab') { e.preventDefault(); closeBtn.focus(); }
+  });
 })();
 </script>
+<script>
+(function () {
+  var btn = document.getElementById('to-top');
+  if (btn) {
+    btn.classList.add('screen-only');
+    var toggle = function () { btn.style.opacity = window.scrollY > 800 ? '1' : '0'; btn.style.pointerEvents = window.scrollY > 800 ? 'auto' : 'none'; };
+    window.addEventListener('scroll', toggle, { passive: true }); toggle();
+    btn.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  }
+})();
+</script>
+<style>@media print { #to-top { display: none !important; } }</style>
 </body>
 </html>
