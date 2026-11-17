@@ -198,7 +198,6 @@ footer.end { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--li
   .cover { gap: 16px; padding-bottom: 0; }
   .cover h1 { font-size: 34pt; }
   .screen-only { display: none !important; }
-  .offer-grid { grid-template-columns: 1fr !important; }
   .flow b { font-size: 9pt; } .flow span { font-size: 8pt; }
   section.chapter { break-before: page; border-top: 0; padding-top: 0; }
   section.chapter.keep { break-before: auto; padding-top: 28px; border-top: 1px solid var(--line); }
@@ -207,6 +206,8 @@ footer.end { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--li
   .shot.crop .frame { max-height: 125mm; }
   .cover .shot .frame { max-height: 98mm; }
   .cover .shot img, .two-shots .shot img { object-fit: cover; object-position: top; }
+  .shot-grid .frame { max-height: none; }
+  .shot-grid img { height: auto; object-fit: contain; }
   .two-shots .shot .frame { max-height: 150mm; }
   .facts b { font-size: 20pt; }
   .stamp .code { font-size: 10pt; letter-spacing: .02em; }
@@ -215,25 +216,6 @@ footer.end { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--li
   a { color: var(--ink); text-decoration: none; }
   footer.end { margin-top: 12px; padding-top: 8px; break-inside: avoid; }
   #contacts { gap: 14px; }
-  .doc { max-width: none; padding: 0; }
-  .cover { gap: 16px; padding-bottom: 0; }
-  .cover h1 { font-size: 34pt; }
-  .screen-only { display: none !important; }
-  .offer-grid { grid-template-columns: 1fr !important; }
-  .flow b { font-size: 9pt; } .flow span { font-size: 8pt; }
-  section.chapter { break-before: page; border-top: 0; padding-top: 0; }
-  section.chapter.keep { break-before: auto; padding-top: 28px; border-top: 1px solid var(--line); }
-  .price, .module, .shot, .card, .roles tr, .price tr, .phases li, .flow, .facts, .stamp, .compare tr { break-inside: avoid; }
-  .shot .frame { box-shadow: none; }
-  .shot.crop .frame { max-height: 125mm; }
-  .cover .shot .frame { max-height: 98mm; }
-  .cover .shot img, .two-shots .shot img { object-fit: cover; object-position: top; }
-  .two-shots .shot .frame { max-height: 150mm; }
-  .facts b { font-size: 20pt; }
-  .stamp .code { font-size: 10pt; letter-spacing: .02em; }
-  h2 { font-size: 20pt; }
-  .module { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
-  a { color: var(--ink); text-decoration: none; }
 }
 /* ===== Дополнительно для документа по безопасности ===== */
 .scheme { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1.3fr) auto minmax(0, 1fr); gap: 10px; align-items: center; }
